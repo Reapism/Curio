@@ -1,4 +1,5 @@
-﻿using Curio.Core.Entities;
+﻿using System;
+using Curio.Core.Entities;
 
 namespace Curio.UnitTests
 {
@@ -8,7 +9,7 @@ namespace Curio.UnitTests
     {
         private ToDoItem _todo = new ToDoItem();
 
-        public ToDoItemBuilder Id(int id)
+        public ToDoItemBuilder Id(Guid id)
         {
             _todo.Id = id;
             return this;
@@ -28,7 +29,8 @@ namespace Curio.UnitTests
 
         public ToDoItemBuilder WithDefaultValues()
         {
-            _todo = new ToDoItem() { Id = 1, Title = "Test Item", Description = "Test Description" };
+            _todo = new ToDoItem() { Id = Guid.NewGuid(), Title = "Test Item", Description = "Test Description" };
+
 
             return this;
         }

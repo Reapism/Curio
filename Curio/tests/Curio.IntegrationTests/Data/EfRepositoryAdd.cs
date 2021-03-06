@@ -1,5 +1,6 @@
 ﻿using Curio.Core.Entities;
 using Curio.UnitTests;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -20,7 +21,7 @@ namespace Curio.IntegrationTests.Data
                             .FirstOrDefault();
 
             Assert.Equal(item, newItem);
-            Assert.True(newItem?.Id > 0);
+            Assert.True(newItem?.Id != Guid.Empty);
         }
     }
 }
