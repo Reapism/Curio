@@ -8,9 +8,9 @@ namespace Curio.IntegrationTests.Data
 {
     public abstract class BaseEfRepoTestFixture
     {
-        protected AppDbContext _dbContext;
+        protected CurioClientDbContext _dbContext;
 
-        protected static DbContextOptions<AppDbContext> CreateNewContextOptions()
+        protected static DbContextOptions<CurioClientDbContext> CreateNewContextOptions()
         {
             // Create a fresh service provider, and therefore a fresh
             // InMemory database instance.
@@ -20,7 +20,7 @@ namespace Curio.IntegrationTests.Data
 
             // Create a new options instance telling the context to use an
             // InMemory database and the new service provider.
-            var builder = new DbContextOptionsBuilder<AppDbContext>();
+            var builder = new DbContextOptionsBuilder<CurioClientDbContext>();
             builder.UseInMemoryDatabase("curio")
                    .UseInternalServiceProvider(serviceProvider);
 
@@ -32,7 +32,7 @@ namespace Curio.IntegrationTests.Data
             var options = CreateNewContextOptions();
             var mockDispatcher = new Mock<IDomainEventDispatcher>();
 
-            _dbContext = new AppDbContext(options, mockDispatcher.Object);
+            _dbContext = new CurioClientDbContext(options, mockDispatcher.Object);
             return new EfRepository(_dbContext);
         }
     }

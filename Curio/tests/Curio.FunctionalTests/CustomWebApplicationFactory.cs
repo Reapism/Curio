@@ -24,7 +24,7 @@ namespace Curio.FunctionalTests
                 // Remove the app's ApplicationDbContext registration.
                 var descriptor = services.SingleOrDefault(
                     d => d.ServiceType ==
-                        typeof(DbContextOptions<AppDbContext>));
+                        typeof(DbContextOptions<CurioClientDbContext>));
 
                 if (descriptor != null)
                 {
@@ -32,7 +32,7 @@ namespace Curio.FunctionalTests
                 }
 
                 // Add ApplicationDbContext using an in-memory database for testing.
-                services.AddDbContext<AppDbContext>(options =>
+                services.AddDbContext<CurioClientDbContext>(options =>
                 {
                     options.UseInMemoryDatabase("InMemoryDbForTesting");
                 });
@@ -60,7 +60,7 @@ namespace Curio.FunctionalTests
                 using (var scope = sp.CreateScope())
                 {
                     var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<AppDbContext>();
+                    var db = scopedServices.GetRequiredService<CurioClientDbContext>();
 
                     var logger = scopedServices
                         .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();

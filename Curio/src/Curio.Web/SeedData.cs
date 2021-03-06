@@ -27,8 +27,8 @@ namespace Curio.Web
 
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var dbContext = new AppDbContext(
-                serviceProvider.GetRequiredService<DbContextOptions<AppDbContext>>(), null))
+            using (var dbContext = new CurioClientDbContext(
+                serviceProvider.GetRequiredService<DbContextOptions<CurioClientDbContext>>(), null))
             {
                 // Look for any TODO items.
                 if (dbContext.ToDoItems.Any())
@@ -41,7 +41,7 @@ namespace Curio.Web
 
             }
         }
-        public static void PopulateTestData(AppDbContext dbContext)
+        public static void PopulateTestData(CurioClientDbContext dbContext)
         {
             foreach (var item in dbContext.ToDoItems)
             {

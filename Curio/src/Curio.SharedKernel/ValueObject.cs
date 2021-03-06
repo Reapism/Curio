@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-
-
 namespace Curio.SharedKernel
 {
     // source: https://github.com/jhewlett/ValueObject

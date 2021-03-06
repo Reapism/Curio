@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Curio.Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class CurioClientDbContext : DbContext
     {
         private readonly IDomainEventDispatcher dispatcher;
 
-        public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher dispatcher)
+        public CurioClientDbContext(DbContextOptions<CurioClientDbContext> options, IDomainEventDispatcher dispatcher)
             : base(options)
         {
             this.dispatcher = dispatcher;

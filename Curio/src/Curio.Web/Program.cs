@@ -22,7 +22,7 @@ namespace Curio.Web
 
                 try
                 {
-                    var context = services.GetRequiredService<AppDbContext>();
+                    var context = services.GetRequiredService<CurioClientDbContext>();
                     //                    context.Database.Migrate();
                     context.Database.EnsureCreated();
                     SeedData.Initialize(services);

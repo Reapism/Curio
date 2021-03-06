@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Curio.SharedKernel
 {
-    // This can be modified to BaseEntity<TId> to support multiple key types (e.g. Guid)
+    /// <summary>
+    /// A base entity with an identifier and events.
+    /// </summary>
     public abstract class BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public List<BaseDomainEvent> Events = new List<BaseDomainEvent>();
     }

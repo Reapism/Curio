@@ -10,7 +10,7 @@ namespace Curio.Web.ApiModels
     // Note: doesn't expose events or behavior
     public class ToDoItemDTO
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }

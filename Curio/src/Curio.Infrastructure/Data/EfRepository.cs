@@ -4,24 +4,25 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace Curio.Infrastructure.Data
 {
     public class EfRepository : IRepository
     {
-        private readonly AppDbContext _dbContext;
+        private readonly CurioClientDbContext _dbContext;
 
-        public EfRepository(AppDbContext dbContext)
+        public EfRepository(CurioClientDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public T GetById<T>(int id) where T : BaseEntity
+        public T GetById<T>(Guid id) where T : BaseEntity
         {
             return _dbContext.Set<T>().SingleOrDefault(e => e.Id == id);
         }
 
-        public Task<T> GetByIdAsync<T>(int id) where T : BaseEntity
+        public Task<T> GetByIdAsync<T>(Guid id) where T : BaseEntity
         {
             return _dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
         }
