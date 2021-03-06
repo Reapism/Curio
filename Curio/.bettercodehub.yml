@@ -1,0 +1,2 @@
+exclude:
+- .*/src\Curio.Web\wwwroot\lib\**\*
