@@ -5,7 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Curio.Core.Entities;
 using Curio.SharedKernel;
-using Ardalis.EFCore.Extensions;
 using System.Reflection;
 using JetBrains.Annotations;
 
@@ -31,10 +30,7 @@ namespace Curio.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyAllConfigurationsFromCurrentAssembly();
-
-            // alternately this is built-in to EF Core 2.2
-            //modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
