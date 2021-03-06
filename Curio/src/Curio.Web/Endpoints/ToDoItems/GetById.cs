@@ -1,14 +1,17 @@
-﻿using Ardalis.ApiEndpoints;
-using Curio.Core.Entities;
+﻿using Curio.Core.Entities;
 using Curio.SharedKernel.Interfaces;
+using Curio.Web.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Curio.Web.Endpoints.ToDoItems
 {
-    public class GetById : BaseAsyncEndpoint<Guid, ToDoItemResponse>
+    public class GetById : BaseAsyncEndpoint
+        .WithRequest<Guid>
+        .WithResponse<ToDoItemResponse>
     {
         private readonly IRepository _repository;
 
@@ -24,7 +27,7 @@ namespace Curio.Web.Endpoints.ToDoItems
             OperationId = "ToDoItem.GetById",
             Tags = new[] { "ToDoItemEndpoints" })
         ]
-        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(Guid id)
+        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(Guid id, CancellationToken cancellationToken)
         {
             var item = await _repository.GetByIdAsync<ToDoItem>(id);
 
