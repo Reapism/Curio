@@ -3,11 +3,12 @@ using Curio.Core.Entities;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using System.Threading.Tasks;
 
 namespace Curio.Web.Endpoints.ToDoItems
 {
-    public class GetById : BaseAsyncEndpoint<int, ToDoItemResponse>
+    public class GetById : BaseAsyncEndpoint<Guid, ToDoItemResponse>
     {
         private readonly IRepository _repository;
 
@@ -23,7 +24,7 @@ namespace Curio.Web.Endpoints.ToDoItems
             OperationId = "ToDoItem.GetById",
             Tags = new[] { "ToDoItemEndpoints" })
         ]
-        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(int id)
+        public override async Task<ActionResult<ToDoItemResponse>> HandleAsync(Guid id)
         {
             var item = await _repository.GetByIdAsync<ToDoItem>(id);
 

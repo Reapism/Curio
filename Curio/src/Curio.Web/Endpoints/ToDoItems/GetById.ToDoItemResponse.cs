@@ -1,4 +1,6 @@
-﻿namespace Curio.Web.Endpoints.ToDoItems
+﻿using System;
+
+namespace Curio.Web.Endpoints.ToDoItems
 {
     public class ToDoItemResponse
     {
