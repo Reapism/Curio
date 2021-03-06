@@ -12,7 +12,7 @@ namespace Curio.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
-        private readonly IDomainEventDispatcher _dispatcher;
+        private readonly IDomainEventDispatcher dispatcher;
 
         //public AppDbContext(DbContextOptions options) : base(options)
         //{
@@ -21,7 +21,7 @@ namespace Curio.Infrastructure.Data
         public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher dispatcher)
             : base(options)
         {
-            _dispatcher = dispatcher;
+            this.dispatcher = dispatcher;
         }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
@@ -38,9 +38,14 @@ namespace Curio.Infrastructure.Data
             int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
             // ignore events if no dispatcher provided
-            if (_dispatcher == null) return result;
+            if (dispatcher is null) return result;
 
             // dispatch events only if save was successful
+            return await DispatchEventsIfSaveSuccessful(result).ConfigureAwait(false);
+        }
+
+        private async Task<int> DispatchEventsIfSaveSuccessful(int result)
+        {
             var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
                 .Select(e => e.Entity)
                 .Where(e => e.Events.Any())
@@ -52,7 +57,7 @@ namespace Curio.Infrastructure.Data
                 entity.Events.Clear();
                 foreach (var domainEvent in events)
                 {
-                    await _dispatcher.Dispatch(domainEvent).ConfigureAwait(false);
+                    await dispatcher.Dispatch(domainEvent).ConfigureAwait(false);
                 }
             }
 
