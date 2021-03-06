@@ -1,22 +1,17 @@
-﻿using Curio.SharedKernel.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Curio.Core.Entities;
 using Curio.SharedKernel;
-using System.Reflection;
-using JetBrains.Annotations;
+using Curio.SharedKernel.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Curio.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
         private readonly IDomainEventDispatcher dispatcher;
-
-        //public AppDbContext(DbContextOptions options) : base(options)
-        //{
-        //}
 
         public AppDbContext(DbContextOptions<AppDbContext> options, IDomainEventDispatcher dispatcher)
             : base(options)
@@ -31,6 +26,11 @@ namespace Curio.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        }
+
+        public override int SaveChanges()
+        {
+            return SaveChangesAsync().GetAwaiter().GetResult();
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
@@ -62,11 +62,6 @@ namespace Curio.Infrastructure.Data
             }
 
             return result;
-        }
-
-        public override int SaveChanges()
-        {
-            return SaveChangesAsync().GetAwaiter().GetResult();
         }
     }
 }
