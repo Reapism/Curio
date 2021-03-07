@@ -23,8 +23,8 @@ namespace Curio.Web
                 try
                 {
                     var context = services.GetRequiredService<CurioClientDbContext>();
-                    //                    context.Database.Migrate();
-                    context.Database.EnsureCreated();
+                    var doesDatabaseExist = context.Database.EnsureCreated();
+        
                     SeedData.Initialize(services);
                 }
                 catch (Exception ex)
@@ -37,20 +37,25 @@ namespace Curio.Web
             host.Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
-        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-        .ConfigureWebHostDefaults(webBuilder =>
+        public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            webBuilder
-                .UseStartup<Startup>()
-                .ConfigureLogging(logging =>
+            var hostBuilder = Host
+                .CreateDefaultBuilder(args)
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureWebHostDefaults(webBuilder =>
             {
-                logging.ClearProviders();
-                logging.AddConsole();
-                // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
+                webBuilder
+                    .UseStartup<Startup>()
+                    .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                    // logging.AddAzureWebAppDiagnostics(); add this if deploying to Azure
+                });
             });
-        });
+
+            return hostBuilder;
+        }
 
     }
 }
