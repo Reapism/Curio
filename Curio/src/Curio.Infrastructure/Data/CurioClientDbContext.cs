@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Curio.Core.Entities;
 using Curio.SharedKernel;
+using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,7 @@ namespace Curio.Infrastructure.Data
         }
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,10 +43,12 @@ namespace Curio.Infrastructure.Data
             if (dispatcher is null) return result;
 
             // dispatch events only if save was successful
-            return await DispatchEventsIfSaveSuccessful(result).ConfigureAwait(false);
+            await DispatchEventsIfSaveSuccessful().ConfigureAwait(false);
+
+            return result;
         }
 
-        private async Task<int> DispatchEventsIfSaveSuccessful(int result)
+        private async Task DispatchEventsIfSaveSuccessful()
         {
             var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
                 .Select(e => e.Entity)
@@ -60,8 +64,6 @@ namespace Curio.Infrastructure.Data
                     await dispatcher.Dispatch(domainEvent).ConfigureAwait(false);
                 }
             }
-
-            return result;
         }
     }
 }
