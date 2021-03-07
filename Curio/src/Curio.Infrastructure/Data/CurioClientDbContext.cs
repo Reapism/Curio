@@ -3,7 +3,6 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Curio.Core.Entities;
-using Curio.SharedKernel;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +13,9 @@ namespace Curio.Infrastructure.Data
     {
         private readonly IDomainEventDispatcher dispatcher;
 
-        public CurioClientDbContext(DbContextOptions<CurioClientDbContext> options, IDomainEventDispatcher dispatcher)
+        public CurioClientDbContext(
+            DbContextOptions<CurioClientDbContext> options,
+            IDomainEventDispatcher dispatcher)
             : base(options)
         {
             this.dispatcher = dispatcher;

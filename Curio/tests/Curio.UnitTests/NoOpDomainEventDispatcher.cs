@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
+using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
-using Curio.SharedKernel;
 
 namespace Curio.UnitTests
 {

@@ -1,11 +1,11 @@
-﻿using Autofac;
-using Curio.SharedKernel.Interfaces;
-using Curio.SharedKernel;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Curio.SharedKernel.Bases;
+using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Infrastructure.DomainEvents
 {

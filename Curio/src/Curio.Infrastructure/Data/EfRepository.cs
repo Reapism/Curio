@@ -1,10 +1,10 @@
-﻿using Curio.SharedKernel.Interfaces;
-using Curio.SharedKernel;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System;
+using Curio.SharedKernel.Bases;
+using Curio.SharedKernel.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Curio.Infrastructure.Data
 {
