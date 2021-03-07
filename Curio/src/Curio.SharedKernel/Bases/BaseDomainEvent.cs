@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Curio.SharedKernel
+namespace Curio.SharedKernel.Bases
 {
     public abstract class BaseDomainEvent
     {

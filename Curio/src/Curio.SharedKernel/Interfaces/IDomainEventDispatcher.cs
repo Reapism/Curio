@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Curio.SharedKernel;
+using Curio.SharedKernel.Bases;
 
 namespace Curio.SharedKernel.Interfaces
 {

@@ -1,6 +1,5 @@
 ﻿using Curio.Core.Events;
-using Curio.Core.Interfaces;
-using Curio.SharedKernel;
+using Curio.SharedKernel.Bases;
 
 namespace Curio.Core.Entities
 {
