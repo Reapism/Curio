@@ -12,4 +12,14 @@ namespace Curio.Infrastructure.Data.Config
                 .IsRequired();
         }
     }
+
+    public class UserConfiguration : IEntityTypeConfiguration<User>
+    {
+        public void Configure(EntityTypeBuilder<User> builder)
+        {
+            builder
+                .Property(e => e.LoginType)
+                .HasConversion<string>();
+        }
+    }
 }
