@@ -36,7 +36,7 @@ namespace Curio.Infrastructure.Data
             return SaveChangesAsync().GetAwaiter().GetResult();
         }
 
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
