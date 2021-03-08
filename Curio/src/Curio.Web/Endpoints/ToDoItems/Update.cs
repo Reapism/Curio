@@ -1,10 +1,10 @@
-﻿using Curio.Core.Entities;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Curio.Core.Entities;
 using Curio.SharedKernel.Interfaces;
-using Curio.Web.Controllers.Base;
+using Curio.Web.Endpoints.Base;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Curio.Web.Endpoints.ToDoItems
 {
