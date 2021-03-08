@@ -16,6 +16,13 @@ namespace Curio.Web
         {
             var host = CreateHostBuilder(args).Build();
 
+            InitializeDatabaseState(host);
+
+            host.Run();
+        }
+
+        private static void InitializeDatabaseState(IHost host)
+        {
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -24,7 +31,7 @@ namespace Curio.Web
                 {
                     var context = services.GetRequiredService<CurioClientDbContext>();
                     var doesDatabaseExist = context.Database.EnsureCreated();
-        
+
                     SeedData.Initialize(services);
                 }
                 catch (Exception ex)
@@ -33,8 +40,6 @@ namespace Curio.Web
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
             }
-
-            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args)
