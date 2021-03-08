@@ -28,20 +28,22 @@ namespace Curio.Web
             Description = "Make sure all the tests run and review what they are doing."
         };
 
+        /// <summary>
+        /// Seeds the database with default values if any values exist.
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         public static void Initialize(IServiceProvider serviceProvider)
         {
+            // Do not need dispatcher parameter this early on - marked null intentionally.
             using (var dbContext = new CurioClientDbContext(
                 serviceProvider.GetRequiredService<DbContextOptions<CurioClientDbContext>>(), null))
             {
-                // Look for any TODO items.
                 if (dbContext.ToDoItems.Any())
                 {
-                    return;   // DB has been seeded
+                    return;
                 }
 
                 PopulateTestData(dbContext);
-
-
             }
         }
         public static void PopulateTestData(CurioClientDbContext dbContext)
