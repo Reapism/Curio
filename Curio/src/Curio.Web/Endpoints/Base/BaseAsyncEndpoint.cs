@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Curio.Web.Controllers.Base
+namespace Curio.Web.Endpoints.Base
 {
     /// <summary>
     /// A base class for an endpoint that accepts parameters.
