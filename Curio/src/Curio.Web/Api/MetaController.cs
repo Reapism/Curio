@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Curio.Web.Api
 {
-    public class MetaController : BaseApiController
+    public class MetaController : ApiControllerBase
     {
         [HttpGet("/info")]
         public ActionResult<string> Info()

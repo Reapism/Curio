@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Curio.Web.Api
 {
-    public class ToDoItemsController : BaseApiController
+    public class ToDoItemsController : ApiControllerBase
     {
         private readonly IRepository _repository;
 
