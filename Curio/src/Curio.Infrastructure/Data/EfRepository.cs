@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
@@ -30,6 +31,11 @@ namespace Curio.Infrastructure.Data
         public Task<List<T>> ListAsync<T>() where T : BaseEntity
         {
             return _dbContext.Set<T>().ToListAsync();
+        }
+
+        public Task<List<T>> ListAsync<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity
+        {
+            return _dbContext.Set<T>().Where(predicate).ToListAsync();
         }
 
         public async Task<T> AddAsync<T>(T entity) where T : BaseEntity
