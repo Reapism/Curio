@@ -13,7 +13,7 @@ namespace Curio.Web.Pages.ToDoRazorPage
     {
         private readonly IRepository repository;
 
-        private IEnumerable<ToDoItem> Items { get; set; }
+        public IEnumerable<ToDoItem> Items { get; set; }
 
         public ZongModel(IRepository repository)
         {

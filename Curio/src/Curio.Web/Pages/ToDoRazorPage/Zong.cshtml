@@ -1,4 +1,30 @@
 ﻿@page
 @model Curio.Web.Pages.ToDoRazorPage.ZongModel
+
 @{
+    var imgSrc = "https://picsum.photos/3840/2160";
 }
+
+<div>
+    <div class="uk-inline" style="height:100%; background-position:center; background-repeat:no-repeat; background-size:cover;">
+        <img src="@imgSrc" alt="Image src">
+        <div class="uk-overlay uk-overlay-primary uk-position-bottom">
+            <p class="uk-text-center" style="font-size:x-large">Curio</p>
+            <p class="uk-text-italic">Spark your curiosity with meeting people</p>
+        </div>
+    </div>
+</div>
+
+@foreach (var c in Model.Items)
+{
+    <div class="uk-form-stacked">
+        <ul class="uk-list-divider">
+            <li class="uk-label-success">@c.Title</li>
+            <li class="uk-alert-primary">@c.Description</li>
+        </ul>
+    </div>
+}
+    }
+<p class="uk-text-small uk-alert">
+    Hi
+</p>
