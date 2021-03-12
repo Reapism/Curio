@@ -21,7 +21,7 @@ namespace Curio.FunctionalTests
             response.EnsureSuccessStatusCode();
             string stringResponse = await response.Content.ReadAsStringAsync();
 
-            Assert.Contains("Curio.Web", stringResponse);
+            Assert.Contains("Curio", stringResponse);
         }
     }
 }
