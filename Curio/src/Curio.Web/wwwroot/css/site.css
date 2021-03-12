@@ -29,6 +29,17 @@ textarea {
     width: 100%;
 }
 
+.cio-random-image {
+    /* The image used (random 4K 3840x2160 image)*/
+    background-image: url("https://picsum.photos/3840/2160");
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
   /* Hide captions */
