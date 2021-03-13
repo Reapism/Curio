@@ -21,6 +21,10 @@
     {
       "library": "uikit@3.6.17",
       "destination": "wwwroot/lib/uikit/"
+    },
+    {
+      "library": "foundation@6.6.3",
+      "destination": "wwwroot/lib/foundation/"
     }
   ]
 }
