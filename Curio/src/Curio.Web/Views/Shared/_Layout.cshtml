@@ -8,9 +8,7 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/lib/uikit/css/uikit.css" />
-        <link rel="stylesheet" href="~/lib/uikit/css/uikit-rtl.css" />
         <link rel="stylesheet" href="~/lib/uikit/css/uikit-core.css" />
-        <link rel="stylesheet" href="~/lib/uikit/css/uikit-core-rtl.css" />
         <link rel="stylesheet" href="~/lib/foundation/css/foundation.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
@@ -19,10 +17,8 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <!--TODO add direct link to the stylesheet-->
-        <link rel="stylesheet" href="~/lib/uikit/css/uikit-core-rtl.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/uikit/css/uikit-core.min.css" asp-append-version="true" />
-        <link rel="stylesheet" href="~/lib/uikit/css/uikit-rtl.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/uikit/css/uikit.min.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/lib/uikit/css/uikit-core.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/lib/foundation/css/foundation.min.css" asp-append-version="true" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
@@ -58,6 +54,11 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <!--Add JS libraries here-->
+        <script src="~/lib/uikit/js/uikit.js"></script>
+        <script src="~/lib/uikit/js/uikit-core.js"></script>
+        <script src="~/lib/uikit/js/uikit-icons.js"></script>
+        <script src="~/lib/foundation/js/foundation.js"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.2.1.min.js"
@@ -69,6 +70,11 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+        <script src="~/lib/uikit/js/uikit.min.js"></script>
+        <script src="~/lib/uikit/js/uikit-core.min.js"></script>
+        <script src="~/lib/uikit/js/uikit-icons.min.js"></script>
+        <script src="~/lib/foundation/js/foundation.min.js"></script>
     </environment>
 
 @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
