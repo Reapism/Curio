@@ -18,13 +18,47 @@
 @foreach (var c in Model.Items)
 {
     <div class="uk-form-stacked">
-        <ul class="uk-list-divider">
-            <li class="uk-label-success">@c.Title</li>
-            <li class="uk-alert-primary">@c.Description</li>
+        <ul class="uk-list uk-alert uk-list-emphasis">
+            <li>Title: @c.Title</li>
+            <li>Desc: @c.Description</li>
         </ul>
     </div>
 }
-    }
-<p class="uk-text-small uk-alert">
-    Hi
-</p>
+
+<div class="row">
+    <ul class="columns small-6">
+        <li>Content1</li>
+        <li>Content2</li>
+        <li>Content3</li>
+        <li>Content4</li>
+        <li>Content5</li>
+        <li>Content6</li>
+    </ul>
+</div>
+
+<div class="uk-text-small uk-alert">
+    <p>
+        Hi
+    </p>
+    <ul>
+        <li>
+            yo
+        </li>
+    </ul>
+</div>
+
+<div>
+    <h2>
+        Foundation testing
+    </h2>
+</div>
+
+<div class="grid-x text-success">
+    <div class="cell large-auto">One</div>
+    <div class="cell large-auto">Two</div>
+    <div class="cell large-auto">Three</div>
+    <div class="cell large-auto">Four</div>
+    <div class="cell large-auto">Five</div>
+    <div class="cell large-auto">Six</div>
+</div>
+<hr class="r"/>
