@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Curio.SharedKernel\Curio.SharedKernel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
 </Project>
