@@ -16,20 +16,22 @@ namespace Curio.Core.Entities
         public DateTime PasswordLastChangedDate { get; set; }
         public DateTime SuspensionDate { get; set; }
         public LoginType LoginType { get; set; }
+        public string AdvertisingId { get; set; }
+        public byte[] ProfilePictureData { get; set; }
 
         public UserAddress UserAddress { get; set; }
     }
 
     public class UserAddress : BaseAuditableEntity
     {
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
         public string PostalCode { get; set; }
-        public string AdvertisingId { get; set; }
 
         public Guid UserId { get; set; }
         public User User { get; set; }
