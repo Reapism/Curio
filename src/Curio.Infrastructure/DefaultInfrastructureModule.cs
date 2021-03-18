@@ -12,25 +12,25 @@ namespace Curio.Infrastructure
 {
     public class DefaultInfrastructureModule : Module
     {
-        private bool _isDevelopment = false;
-        private List<Assembly> _assemblies = new List<Assembly>();
+        private bool isDevelopment = false;
+        private List<Assembly> assemblies = new List<Assembly>();
 
         public DefaultInfrastructureModule(bool isDevelopment, Assembly callingAssembly = null)
         {
-            _isDevelopment = isDevelopment;
+            this.isDevelopment = isDevelopment;
             var coreAssembly = Assembly.GetAssembly(typeof(DatabasePopulator));
             var infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository));
-            _assemblies.Add(coreAssembly);
-            _assemblies.Add(infrastructureAssembly);
+            assemblies.Add(coreAssembly);
+            assemblies.Add(infrastructureAssembly);
             if (callingAssembly != null)
             {
-                _assemblies.Add(callingAssembly);
+                assemblies.Add(callingAssembly);
             }
         }
 
         protected override void Load(ContainerBuilder builder)
         {
-            if (_isDevelopment)
+            if (isDevelopment)
             {
                 RegisterDevelopmentOnlyDependencies(builder);
             }
@@ -48,7 +48,7 @@ namespace Curio.Infrastructure
             builder.RegisterType<EfRepository>().As<IRepository>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterAssemblyTypes(_assemblies.ToArray())
+            builder.RegisterAssemblyTypes(assemblies.ToArray())
                 .AsClosedTypesOf(typeof(IHandle<>));
 
             builder.RegisterType<EmailSender>().As<IEmailSender>()

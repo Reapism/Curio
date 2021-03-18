@@ -12,11 +12,11 @@ namespace Curio.Infrastructure
     // Determine if email client is smpt, pop3, or imap
     public class EmailSender : IEmailSender
     {
-        private readonly ILogger<EmailSender> _logger;
+        private readonly ILogger<EmailSender> logger;
 
         public EmailSender(ILogger<EmailSender> logger)
         {
-            _logger = logger;
+            this.logger = logger;
         }
 
         public async Task SendEmailAsync(string to, string from, string subject, string body)
@@ -40,7 +40,7 @@ namespace Curio.Infrastructure
                 await client.SendAsync(message);
                 client.Disconnect(true);
             }
-            _logger.LogWarning($"Sending email to {to} from {from} with subject {subject}.");
+            logger.LogWarning($"Sending email to {to} from {from} with subject {subject}.");
         }
     }
 }
