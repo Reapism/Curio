@@ -39,7 +39,7 @@ namespace Curio.Web
 
             StartupSetup.AddDbContext(services, connectionString);
 
-            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddControllersWithViews();
             services.AddRazorPages();
 
             services.AddSwaggerGen(c =>
@@ -54,7 +54,7 @@ namespace Curio.Web
                 config.Services = new List<ServiceDescriptor>(services);
 
                 // optional - default path to view services is /listallservices - recommended to choose your own path
-                config.Path = "/listservices";
+                config.Path = "/listallservices";
             });
         }
 

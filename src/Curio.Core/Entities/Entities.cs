@@ -48,11 +48,15 @@ namespace Curio.Core.Entities
         public ICollection<UserPost_ImageAttachment> UserPost_ImageAttachments { get; set; }
     }
 
+    // Look into CDN's for retreiving images instead of storing the raw data
+    // can be really expensive
+    // Best to store where the file is contained and how to retrieve it
+    // file path, server name, db name etc.
     public class UserPost_ImageAttachment : BaseAuditableEntity
     {
         public string FileName { get; set; }
         public string FileType { get; set; }
-        public byte[] Data { get; set; }
+        public byte[] Image { get; set; }
 
         public Guid UserPostId { get; set; }
         public UserPost UserPost { get; set; }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Curio.Core.Entities;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,15 +10,16 @@ namespace Curio.Web.Controllers
 {
     public class RegistrationController : Controller
     {
-        private readonly IRepository repository;
+        private readonly IRepository<ToDoItem> repository;
 
-        public RegistrationController(IRepository repository)
+        public RegistrationController(IRepository<ToDoItem> repository)
         {
             this.repository = repository;
         }
 
         public IActionResult Index()
         {
+            repository.AddAsync(new ToDoItem());
             return View();
         }
 
