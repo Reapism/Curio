@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Curio.SharedKernel.Interfaces;
+﻿using Curio.SharedKernel.Interfaces;
 using Curio.Web.Controllers.Base;
 using Curio.Web.Parameters;
 using Microsoft.AspNetCore.Mvc;
