@@ -1,4 +1,5 @@
-﻿using Curio.SharedKernel.Interfaces;
+﻿using Curio.Core.Entities;
+using Curio.SharedKernel.Interfaces;
 using Curio.Web.Controllers.Base;
 using Curio.Web.Parameters;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace Curio.Web.Controllers
 {
     public class LoginController : WebControllerBase
     {
-        public LoginController(IRepository repository) : base(repository)
+        public LoginController(IRepository repository, IRepository<User> userRepository ) : base(repository)
         {
         }
 

@@ -29,5 +29,9 @@
       <DependentUpon>Update.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Views\Login\" />
+  </ItemGroup>
 
 </Project>
