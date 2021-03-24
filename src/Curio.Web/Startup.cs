@@ -1,17 +1,14 @@
-﻿using Ardalis.ListStartupServices;
+﻿using System;
+using System.Collections.Generic;
+using Ardalis.ListStartupServices;
 using Autofac;
 using Curio.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Curio.Web
 {
@@ -29,6 +26,14 @@ namespace Curio.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(options =>
+            {
+                options.Cookie.IsEssential = true;
+                options.Cookie.HttpOnly = true;
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+            });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -38,7 +43,7 @@ namespace Curio.Web
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             StartupSetup.AddDbContext(services, connectionString);
-
+            
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -75,6 +80,7 @@ namespace Curio.Web
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
             app.UseRouting();
 
             app.UseHttpsRedirection();
@@ -83,6 +89,7 @@ namespace Curio.Web
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
+            app.UseSession();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
