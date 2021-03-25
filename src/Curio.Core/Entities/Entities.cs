@@ -17,9 +17,29 @@ namespace Curio.Core.Entities
         public DateTime SuspensionDate { get; set; }
         public LoginType LoginType { get; set; }
         public string AdvertisingId { get; set; }
-        public byte[] ProfilePictureData { get; set; }
 
+        public UserProfile UserProfile { get; set; }
+    }
+
+    public class UserProfile : BaseAuditableEntity
+    {
+        public string DisplayName { get; set; }
+        public string Handle { get; set; }
+        public string DisplayName { get; set; }
+        public string DisplayName { get; set; }
+
+        // UserProfile -> User 1:1 (Parent)
+        public Guid UserId { get; set; }
+        public User User { get; set; }
+
+        // UserProfile -> UserAddress 1:1 (FK)
         public UserAddress UserAddress { get; set; }
+
+        // UserProfile -> UserPost 0:1 -> M ()
+        public ICollection<UserPost> UserPosts { get; set; }
+        public ICollection<UserFollowing> UserFollowings { get; set; }
+        public ICollection<UserFollower> UserFollowers { get; set; }
+        public ICollection<UserPost> UserLikes { get; set; }
     }
 
     public class UserAddress : BaseAuditableEntity
@@ -37,17 +57,65 @@ namespace Curio.Core.Entities
         public User User { get; set; }
     }
 
-    public class UserPost : BaseAuditableEntity
+    public class UserFollowing : BaseAuditableEntity
     {
+        public Guid UserProfileId { get; set; }
+        public UserProfile UserProfile { get; set; }
+    }
+
+    public class UserFollower : BaseAuditableEntity
+    {
+        public Guid UserProfileId { get; set; }
+        public UserProfile UserProfile { get; set; }
+    }
+
+    public class UserSetting : BaseAuditableEntity
+    {
+        public string DisplayName { get; set; }
+        public string Handle { get; set; }
+        public string Bio { get; set; }
+
         public Guid UserId { get; set; }
         public User User { get; set; }
+
+        public ICollection<UserLink> UserLinks { get; set; }
+    }
+
+    public class UserLink : BaseAuditableEntity
+    {
+        public string DisplayName { get; set; }
+        public string HyperLink { get; set; }
+
+        public Guid UserSettingId { get; set; }
+        public UserSetting UserSetting { get; set; }
+    }
+
+    public class UserPost : BaseAuditableEntity
+    {
         public string Title { get; set; }
         public string Content { get; set; }
         public bool HasAttachments { get; set; }
 
+        // User -> UserPost 1:1 (Parent)
+        public Guid UserId { get; set; }
+        public User User { get; set; }
+
+        // UserPost -> UserPost_ImageAttachment 0:1 to M 
         public ICollection<UserPost_ImageAttachment> UserPost_ImageAttachments { get; set; }
+        // UserPost -> UserPostReply 0:1 to M 
+        public ICollection<UserPostReply> UserPostReplies { get; set; }
     }
 
+    public class UserPostReply : BaseAuditableEntity
+    {
+        public Guid UserPostId { get; set; }
+        public UserPost UserPost { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public bool HasAttachments { get; set; }
+
+        public ICollection<UserPost_ImageAttachment> UserPostReply_ImageAttachments { get; set; }
+    }
     // Look into CDN's for retreiving images instead of storing the raw data
     // can be really expensive
     // Best to store where the file is contained and how to retrieve it
