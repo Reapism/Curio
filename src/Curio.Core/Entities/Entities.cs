@@ -96,8 +96,7 @@ namespace Curio.Core.Entities
 
     public class UserPost : BaseAuditableEntity
     {
-        public string Title { get; set; }
-        public string Content { get; set; }
+        public string Contents { get; set; }
         public bool HasAttachments { get; set; }
         // User -> UserPost 1:1 (Parent)
         public Guid UserId { get; set; }

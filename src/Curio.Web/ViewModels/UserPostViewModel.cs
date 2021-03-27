@@ -31,7 +31,7 @@ namespace Curio.Web.ViewModels
         {
             return new UserPostViewModel()
             {
-                Title = userPost.Title
+                Contents = userPost.Contents
             };
         }
     }
