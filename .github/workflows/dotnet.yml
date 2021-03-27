@@ -20,7 +20,7 @@ jobs:
         
     - name: Restore dependencies
       run: dotnet restore
-    - name: Build with dotnet
+    - name: Build with dotnet (Release)
       run: dotnet build --configuration Release
-    - name: Test with dotnet
+    - name: Test with dotnet (Release)
       run: dotnet test ./Curio.sln --configuration Release
