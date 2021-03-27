@@ -24,22 +24,26 @@ namespace Curio.Core.Entities
     public class UserProfile : BaseAuditableEntity
     {
         public string DisplayName { get; set; }
-        public string Handle { get; set; }
-        public string DisplayName { get; set; }
-        public string DisplayName { get; set; }
-
+        public string UniqueHandle { get; set; }
+        
         // UserProfile -> User 1:1 (Parent)
         public Guid UserId { get; set; }
         public User User { get; set; }
 
         // UserProfile -> UserAddress 1:1 (FK)
         public UserAddress UserAddress { get; set; }
+        public UserProfileBiography UserProfileBiography { get; set; }
 
         // UserProfile -> UserPost 0:1 -> M ()
         public ICollection<UserPost> UserPosts { get; set; }
         public ICollection<UserFollowing> UserFollowings { get; set; }
         public ICollection<UserFollower> UserFollowers { get; set; }
-        public ICollection<UserPost> UserLikes { get; set; }
+    }
+
+    public class UserProfileBiography : BaseAuditableEntity
+    {
+        public string Description { get; set; }
+        public ICollection<UserLink> Links { get; set; }
     }
 
     public class UserAddress : BaseAuditableEntity
@@ -95,7 +99,6 @@ namespace Curio.Core.Entities
         public string Title { get; set; }
         public string Content { get; set; }
         public bool HasAttachments { get; set; }
-
         // User -> UserPost 1:1 (Parent)
         public Guid UserId { get; set; }
         public User User { get; set; }
@@ -104,6 +107,19 @@ namespace Curio.Core.Entities
         public ICollection<UserPost_ImageAttachment> UserPost_ImageAttachments { get; set; }
         // UserPost -> UserPostReply 0:1 to M 
         public ICollection<UserPostReply> UserPostReplies { get; set; }
+        public ICollection<UserLike> UserLikes { get; set; }
+    }
+
+    public class UserLike : BaseAuditableEntity
+    {
+        public Guid UserProfileId { get; set; }
+        public UserProfile UserProfile { get; set; }
+
+        public Guid UserPostId { get; set; }
+        public UserPost UserPost { get; set; }
+
+        public Guid UserPostReplyId { get; set; }
+        public UserPostReply UserPostReply { get; set; }
     }
 
     public class UserPostReply : BaseAuditableEntity
