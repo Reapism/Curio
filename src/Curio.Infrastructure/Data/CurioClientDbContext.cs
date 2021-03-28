@@ -6,6 +6,7 @@ using Curio.Core.Entities;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Curio.Infrastructure.Data
 {
@@ -23,6 +24,15 @@ namespace Curio.Infrastructure.Data
 
         public DbSet<ToDoItem> ToDoItems { get; set; }
         public DbSet<User> Users { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+#if DEBUG
+            optionsBuilder.EnableSensitiveDataLogging();
+#elif RELEASE
+
+#endif
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
