@@ -3,7 +3,7 @@ using Curio.SharedKernel.Interfaces;
 
 namespace Curio.SharedKernel.Bases
 {
-    public class BaseAuditableEntity : BaseEntity, IAuditableEntity
+    public abstract class BaseAuditableEntity : BaseEntity, IAuditableEntity
     {
         public DateTime LastModifiedDate { get; set; }
         public string LastModifiedByUser { get; set; }
