@@ -57,8 +57,8 @@ namespace Curio.Core.Entities
         public string ZipCode { get; set; }
         public string PostalCode { get; set; }
 
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        public Guid UserProfileId { get; set; }
+        public UserProfile UserProfile { get; set; }
     }
 
     public class UserFollowing : BaseAuditableEntity
@@ -98,9 +98,9 @@ namespace Curio.Core.Entities
     {
         public string Contents { get; set; }
         public bool HasAttachments { get; set; }
-        // User -> UserPost 1:1 (Parent)
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        // UserPost -> UserProfile 1:1 (Parent)
+        public Guid UserProfileId { get; set; }
+        public UserProfile UserProfile { get; set; }
 
         // UserPost -> UserPost_ImageAttachment 0:1 to M 
         public ICollection<UserPost_ImageAttachment> UserPost_ImageAttachments { get; set; }
@@ -114,11 +114,8 @@ namespace Curio.Core.Entities
         public Guid UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
 
-        public Guid UserPostId { get; set; }
-        public UserPost UserPost { get; set; }
-
-        public Guid UserPostReplyId { get; set; }
-        public UserPostReply UserPostReply { get; set; }
+        public Guid ReferenceId { get; set; }
+        public string ReferenceName { get; set; }
     }
 
     public class UserPostReply : BaseAuditableEntity
