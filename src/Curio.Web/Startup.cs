@@ -73,7 +73,7 @@ namespace Curio.Web
             if (env.EnvironmentName == "Development")
             {
                 app.UseDeveloperExceptionPage();
-                app.UseShowAllServicesMiddleware();
+                app.UseShowAllServicesMiddleware(); // /listallservices
             }
             else
             {
