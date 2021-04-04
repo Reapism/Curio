@@ -13,6 +13,7 @@ namespace Curio.SharedKernel.Interfaces
     /// </summary>
     public interface IRepository
     {
+        T Get<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity;
         T GetById<T>(Guid id) where T : BaseEntity;
         List<T> List<T>() where T : BaseEntity;
         List<T> List<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity;
@@ -21,6 +22,7 @@ namespace Curio.SharedKernel.Interfaces
         void Update<T>(T entity) where T : BaseEntity;
         void Delete<T>(T entity) where T : BaseEntity;
 
+        T GetAsync<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity;
         Task<T> GetByIdAsync<T>(Guid id) where T : BaseEntity;
         Task<List<T>> ListAsync<T>() where T : BaseEntity;
         Task<List<T>> ListAsync<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity;
