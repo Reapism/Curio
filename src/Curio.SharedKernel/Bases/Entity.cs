@@ -11,7 +11,6 @@ namespace Curio.SharedKernel.Bases
     {
         public virtual Guid Id { get; protected set; }
 
-        public List<BaseDomainEvent> Events = new List<BaseDomainEvent>();
-
+        public List<BaseDomainEvent> Events { get; protected set; } = new List<BaseDomainEvent>();
     }
 }
