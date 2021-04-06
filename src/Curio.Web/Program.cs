@@ -29,8 +29,6 @@ namespace Curio.Web
                 {
                     var context = services.GetRequiredService<CurioClientDbContext>();
                     var doesDatabaseExist = context.Database.EnsureCreated();
-
-                    SeedData.Initialize(services);
                 }
                 catch (Exception ex)
                 {

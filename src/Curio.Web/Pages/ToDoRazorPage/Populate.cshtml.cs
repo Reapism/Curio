@@ -16,7 +16,8 @@ namespace Curio.Web.Pages.ToDoRazorPage
 
         public void OnGet()
         {
-            RecordsAdded = DatabasePopulator.PopulateDatabase(_repository);
+            // Used to be DatabasePopulator call
+            RecordsAdded = 0;
         }
     }
 }

@@ -22,11 +22,5 @@ namespace Curio.Web.Controllers
                             .Select(ToDoItemDTO.FromToDoItem);
             return View(items);
         }
-
-        public IActionResult Populate()
-        {
-            int recordsAdded = DatabasePopulator.PopulateDatabase(_repository);
-            return Ok(recordsAdded);
-        }
     }
 }
