@@ -26,7 +26,7 @@ namespace Curio.FunctionalTests.Api
             var stringResponse = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<IEnumerable<ToDoItem>>(stringResponse).ToList();
 
-            Assert.Equal(3, result.Count());
+            Assert.Equal(0, result.Count());
         }
     }
 }
