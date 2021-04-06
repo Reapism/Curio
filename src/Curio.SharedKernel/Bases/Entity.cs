@@ -10,6 +10,11 @@ namespace Curio.SharedKernel.Bases
     {
         public Guid Id { get; protected set; }
 
-        public List<BaseDomainEvent> Events { get; protected set; } = new List<BaseDomainEvent>();
+        // Not a property because EFC (current db provider) thinks its a DbSet
+        // More info
+        // The entity type 'BaseDomainEvent' requires a primary key to be defined.
+        // If you intended to use a keyless entity type, call 'HasNoKey' in 'OnModelCreating'.
+        // For more information on keyless entity types, see https://go.microsoft.com/fwlink/?linkid=2141943.
+        public List<BaseDomainEvent> Events = new List<BaseDomainEvent>();
     }
 }
