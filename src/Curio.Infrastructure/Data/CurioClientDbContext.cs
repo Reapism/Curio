@@ -6,7 +6,6 @@ using Curio.Core.Entities;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace Curio.Infrastructure.Data
 {

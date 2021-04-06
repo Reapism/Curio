@@ -1,6 +1,5 @@
-﻿using Curio.Core.Entities;
+﻿using System.Linq;
 using Curio.Core.Events;
-using System.Linq;
 using Xunit;
 
 namespace Curio.UnitTests.Core.Entities

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Curio.Core.Entities;
+﻿using Curio.Core.Entities;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

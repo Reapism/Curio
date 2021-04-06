@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Curio.SharedKernel.Authorization
+﻿namespace Curio.SharedKernel.Authorization
 {
     public class ClaimValue
     {

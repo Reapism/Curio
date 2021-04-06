@@ -25,7 +25,7 @@ namespace Curio.Core.Entities
     {
         public string DisplayName { get; set; }
         public string UniqueHandle { get; set; }
-        
+
         // UserProfile -> User 1:1 (Parent)
         public Guid UserId { get; set; }
         public User User { get; set; }

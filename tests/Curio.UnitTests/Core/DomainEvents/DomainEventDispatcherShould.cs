@@ -5,7 +5,6 @@ using Curio.Infrastructure;
 using Curio.Infrastructure.DomainEvents;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using System;
 using Xunit;
 
 namespace Curio.UnitTests.Core.DomainEvents

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Curio.Core.Entities;
 using Curio.Core.Enums;
 
@@ -16,7 +15,7 @@ namespace Curio.Web.ViewModels
         {
 
         }
-        
+
         public string Contents { get; set; }
         public byte[] AuthorAvatar { get; set; }
         public DateTime DateCreated { get; set; }

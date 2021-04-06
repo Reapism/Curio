@@ -1,6 +1,6 @@
-﻿using Curio.Web;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Curio.Web;
 using Xunit;
 
 namespace Curio.FunctionalTests

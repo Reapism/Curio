@@ -1,5 +1,5 @@
-﻿using Curio.SharedKernel.Interfaces;
-using Curio.Infrastructure.Data;
+﻿using Curio.Infrastructure.Data;
+using Curio.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;

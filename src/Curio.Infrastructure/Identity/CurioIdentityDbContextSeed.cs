@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Curio.SharedKernel.Authorization;
 using Microsoft.AspNetCore.Identity;
 
@@ -23,7 +19,7 @@ namespace Curio.Infrastructure.Identity
             // Create End user
             var endUser = new ApplicationUser { UserName = AuthorizationSeededUsers.EndUser.Item1, Email = AuthorizationSeededUsers.EndUser.Item1 };
             await userManager.CreateAsync(endUser, AuthorizationSeededUsers.EndUser.Item2);
-            
+
             // Create Admin user
             var adminUser = new ApplicationUser { UserName = AuthorizationSeededUsers.Admin.Item1, Email = AuthorizationSeededUsers.Admin.Item1 };
             await userManager.CreateAsync(adminUser, AuthorizationSeededUsers.Admin.Item2);
@@ -31,7 +27,7 @@ namespace Curio.Infrastructure.Identity
             // Create Advertiser user
             var advertiserUser = new ApplicationUser { UserName = AuthorizationSeededUsers.Advertiser.Item1, Email = AuthorizationSeededUsers.Advertiser.Item1 };
             await userManager.CreateAsync(advertiserUser, AuthorizationSeededUsers.Advertiser.Item2);
-            
+
             // Create Internal user
             var internalUser = new ApplicationUser { UserName = AuthorizationSeededUsers.Internal.Item1, Email = AuthorizationSeededUsers.Internal.Item1 };
             await userManager.CreateAsync(internalUser, AuthorizationSeededUsers.Internal.Item2);

@@ -1,11 +1,10 @@
-﻿using Curio.Core.Entities;
-using Curio.SharedKernel.Interfaces;
-using Curio.Web.ApiModels;
-using Curio.Web.Filters;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Curio.Core.Entities;
+using Curio.SharedKernel.Interfaces;
+using Curio.Web.ApiModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Curio.Web.Api
 {

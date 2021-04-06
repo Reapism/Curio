@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Curio.SharedKernel.Interfaces;
+﻿using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Services
 {
     public interface IUserPostService
     {
-        
+
     }
 
     public class UserPostService : IUserPostService

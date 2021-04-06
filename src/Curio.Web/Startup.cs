@@ -43,7 +43,7 @@ namespace Curio.Web
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             StartupSetup.AddDbContext(services, connectionString);
-            
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 

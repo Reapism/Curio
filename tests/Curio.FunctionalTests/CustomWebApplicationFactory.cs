@@ -1,15 +1,15 @@
-﻿using Curio.SharedKernel.Interfaces;
+﻿using System;
+using System.Linq;
 using Curio.Infrastructure.Data;
+using Curio.SharedKernel.Interfaces;
 using Curio.UnitTests;
 using Curio.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using Microsoft.AspNetCore.TestHost;
-using System.Linq;
 
 namespace Curio.FunctionalTests
 {

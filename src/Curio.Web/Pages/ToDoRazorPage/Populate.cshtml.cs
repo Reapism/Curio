@@ -1,5 +1,4 @@
-﻿using Curio.Core;
-using Curio.SharedKernel.Interfaces;
+﻿using Curio.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Curio.Web.Pages.ToDoRazorPage

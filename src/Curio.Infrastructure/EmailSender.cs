@@ -1,8 +1,8 @@
-﻿using Curio.Core.Interfaces;
+﻿using System.Threading.Tasks;
+using Curio.Core.Interfaces;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
 using MimeKit;
-using System.Threading.Tasks;
 
 namespace Curio.Infrastructure
 {

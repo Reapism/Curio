@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Curio.Core.Exceptions
 {
@@ -12,10 +11,10 @@ namespace Curio.Core.Exceptions
     public class CurioException : Exception
     {
         public CurioException(string message)
-            : base (message)
+            : base(message)
         {
         }
-        
+
         public CurioException Flatten()
         {
             var exceptions = new Queue<Exception>();

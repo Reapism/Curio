@@ -1,8 +1,8 @@
-﻿using Curio.Core.Entities;
-using Curio.UnitTests;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Curio.Core.Entities;
+using Curio.UnitTests;
 using Xunit;
 
 namespace Curio.IntegrationTests.Data

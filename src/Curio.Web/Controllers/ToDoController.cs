@@ -1,10 +1,9 @@
-﻿using Curio.Core;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Curio.Core.Entities;
 using Curio.SharedKernel.Interfaces;
 using Curio.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Curio.Web.Controllers
 {
