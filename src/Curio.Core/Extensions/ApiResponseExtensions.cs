@@ -28,7 +28,6 @@ namespace Curio.Core.Extensions
         {
             bool hasResponse = response.Equals(default(T));
             bool hasMessage = string.IsNullOrEmpty(message);
-            bool hasException = ex is not null;
 
             var apiResponse = new ApiResponse<T>
             {
