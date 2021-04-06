@@ -9,12 +9,6 @@ namespace Curio.UnitTests
     {
         private ToDoItem _todo = new ToDoItem();
 
-        public ToDoItemBuilder Id(Guid id)
-        {
-            _todo.Id = id;
-            return this;
-        }
-
         public ToDoItemBuilder Title(string title)
         {
             _todo.Title = title;
@@ -29,7 +23,7 @@ namespace Curio.UnitTests
 
         public ToDoItemBuilder WithDefaultValues()
         {
-            _todo = new ToDoItem() { Id = Guid.NewGuid(), Title = "Test Item", Description = "Test Description" };
+            _todo = new ToDoItem() { Title = "Test Item", Description = "Test Description" };
 
 
             return this;
