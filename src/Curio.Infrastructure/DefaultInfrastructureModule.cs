@@ -1,11 +1,11 @@
-﻿using Autofac;
-using Curio.Core;
+﻿using System.Collections.Generic;
+using System.Reflection;
+using Autofac;
+using Curio.Core.Exceptions;
 using Curio.Core.Interfaces;
 using Curio.Infrastructure.Data;
 using Curio.Infrastructure.DomainEvents;
 using Curio.SharedKernel.Interfaces;
-using System.Collections.Generic;
-using System.Reflection;
 using Module = Autofac.Module;
 
 namespace Curio.Infrastructure
@@ -13,12 +13,12 @@ namespace Curio.Infrastructure
     public class DefaultInfrastructureModule : Module
     {
         private bool isDevelopment = false;
-        private List<Assembly> assemblies = new List<Assembly>();
+        private List<Assembly> assemblies = new();
 
         public DefaultInfrastructureModule(bool isDevelopment, Assembly callingAssembly = null)
         {
             this.isDevelopment = isDevelopment;
-            var coreAssembly = Assembly.GetAssembly(typeof(DatabasePopulator));
+            var coreAssembly = Assembly.GetAssembly(typeof(CurioException));
             var infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository));
             assemblies.Add(coreAssembly);
             assemblies.Add(infrastructureAssembly);
