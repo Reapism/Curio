@@ -7,10 +7,11 @@ namespace Curio.SharedKernel.Bases
     /// <summary>
     /// A base entity with an identifier and events.
     /// </summary>
-    public abstract class BaseEntity : IEntity
+    public abstract class Entity
     {
-        public Guid Id { get; set; }
+        public virtual Guid Id { get; protected set; }
 
         public List<BaseDomainEvent> Events = new List<BaseDomainEvent>();
+
     }
 }
