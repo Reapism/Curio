@@ -11,7 +11,7 @@ namespace Curio.SharedKernel.Interfaces
     }
 
     public class ApiResponse<T>
-        where T : IModel
+        where T : class
     {
         public T Response { get; set; }
         public bool IsSuccessful { get; set; }
