@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Curio.Core.Entities;
 using Curio.Core.Models;
 using Curio.SharedKernel.Interfaces;
 
@@ -9,21 +11,25 @@ namespace Curio.Core.Services
 {
     public class RegisterUserService
     {
-        private readonly IRepository repository;
+        private readonly IRepository<User> userRepository;
 
-        public RegisterUserService(IRepository repository)
+        public RegisterUserService(IRepository<User> repository)
         {
-            this.repository = repository;
+            this.userRepository = repository;
         }
 
         public async Task<ApiResponse<RegistrationResponse>> RegisterUser(RegistrationModel registrationModel)
         {
-            
+            throw new Exception();
         }
 
         private bool HasRegistered(string email)
         {
-            var user = repository.
+            var user = userRepository
+                .List(e => e.Email == email)
+                .FirstOrDefault();
+
+            return user is not null;
         }
     }
 }
