@@ -17,10 +17,10 @@ namespace Curio.Web.Filters
         {
             if (environment.EnvironmentName == "Production")
             {
-                var isApiResponse = context.Result is IApiResponse apiResponse;
+                var isApiResponse = context.Result is ApiResponse apiResponse;
                 if (isApiResponse)
                 {
-                    apiResponse = (IApiResponse)context.Result;
+                    apiResponse = (ApiResponse)context.Result;
                     apiResponse.Exception = null;
                 }
             }
