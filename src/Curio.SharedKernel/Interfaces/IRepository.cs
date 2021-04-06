@@ -13,27 +13,25 @@ namespace Curio.SharedKernel.Interfaces
     /// </summary>
     public interface IRepository
     {
-        T Get<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity;
-        T GetById<T>(Guid id) where T : BaseEntity;
-        List<T> List<T>() where T : BaseEntity;
-        List<T> List<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity;
-        T Add<T>(T entity) where T : BaseEntity;
-        IEnumerable<T> Add<T>(IEnumerable<T> entities) where T : BaseEntity;
-        void Update<T>(T entity) where T : BaseEntity;
-        void Delete<T>(T entity) where T : BaseEntity;
+        T GetById<T>(Guid id) where T : Entity;
+        List<T> List<T>() where T : Entity;
+        List<T> List<T>(Expression<Func<T, bool>> predicate) where T : Entity;
+        T Add<T>(T entity) where T : Entity;
+        IEnumerable<T> Add<T>(IEnumerable<T> entities) where T : Entity;
+        void Update<T>(T entity) where T : Entity;
+        void Delete<T>(T entity) where T : Entity;
 
-        T GetAsync<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity;
-        Task<T> GetByIdAsync<T>(Guid id) where T : BaseEntity;
-        Task<List<T>> ListAsync<T>() where T : BaseEntity;
-        Task<List<T>> ListAsync<T>(Expression<Func<T, bool>> predicate) where T : BaseEntity;
-        Task<T> AddAsync<T>(T entity) where T : BaseEntity;
-        Task<IEnumerable<T>> AddAsync<T>(IEnumerable<T> entities) where T : BaseEntity;
-        Task UpdateAsync<T>(T entity) where T : BaseEntity;
-        Task DeleteAsync<T>(T entity) where T : BaseEntity;
+        Task<T> GetByIdAsync<T>(Guid id) where T : Entity;
+        Task<List<T>> ListAsync<T>() where T : Entity;
+        Task<List<T>> ListAsync<T>(Expression<Func<T, bool>> predicate) where T : Entity;
+        Task<T> AddAsync<T>(T entity) where T : Entity;
+        Task<IEnumerable<T>> AddAsync<T>(IEnumerable<T> entities) where T : Entity;
+        Task UpdateAsync<T>(T entity) where T : Entity;
+        Task DeleteAsync<T>(T entity) where T : Entity;
     }
 
     public interface IRepository<T>
-        where T : BaseEntity
+        where T : Entity
     {
         T GetById(Guid id);
         List<T> List();
@@ -51,7 +49,7 @@ namespace Curio.SharedKernel.Interfaces
     }
 
     public interface ISecuredRepository<T>
-        where T : BaseEntity
+        where T : Entity
     {
         Task<T> GetByIdAsync(Guid id);
         Task<List<T>> ListAsync();

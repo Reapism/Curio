@@ -4,7 +4,7 @@ using Curio.SharedKernel.Bases;
 
 namespace Curio.Core.Entities
 {
-    public class User : BaseAuditableEntity
+    public class User : AuditableEntity
     {
         public string Email { get; set; }
         public string PasswordHash { get; set; }
@@ -21,7 +21,7 @@ namespace Curio.Core.Entities
         public UserProfile UserProfile { get; set; }
     }
 
-    public class UserProfile : BaseAuditableEntity
+    public class UserProfile : AuditableEntity
     {
         public string DisplayName { get; set; }
         public string UniqueHandle { get; set; }
@@ -40,13 +40,13 @@ namespace Curio.Core.Entities
         public ICollection<UserFollower> UserFollowers { get; set; }
     }
 
-    public class UserProfileBiography : BaseAuditableEntity
+    public class UserProfileBiography : AuditableEntity
     {
         public string Description { get; set; }
         public ICollection<UserLink> Links { get; set; }
     }
 
-    public class UserAddress : BaseAuditableEntity
+    public class UserAddress : AuditableEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -61,19 +61,19 @@ namespace Curio.Core.Entities
         public UserProfile UserProfile { get; set; }
     }
 
-    public class UserFollowing : BaseAuditableEntity
+    public class UserFollowing : AuditableEntity
     {
         public Guid UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
     }
 
-    public class UserFollower : BaseAuditableEntity
+    public class UserFollower : AuditableEntity
     {
         public Guid UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
     }
 
-    public class UserSetting : BaseAuditableEntity
+    public class UserSetting : AuditableEntity
     {
         public string DisplayName { get; set; }
         public string Handle { get; set; }
@@ -85,7 +85,7 @@ namespace Curio.Core.Entities
         public ICollection<UserLink> UserLinks { get; set; }
     }
 
-    public class UserLink : BaseAuditableEntity
+    public class UserLink : AuditableEntity
     {
         public string DisplayName { get; set; }
         public string HyperLink { get; set; }
@@ -94,7 +94,7 @@ namespace Curio.Core.Entities
         public UserSetting UserSetting { get; set; }
     }
 
-    public class UserPost : BaseAuditableEntity
+    public class UserPost : AuditableEntity
     {
         public string Contents { get; set; }
         public bool HasAttachments { get; set; }
@@ -109,7 +109,7 @@ namespace Curio.Core.Entities
         public ICollection<UserLike> UserLikes { get; set; }
     }
 
-    public class UserLike : BaseAuditableEntity
+    public class UserLike : AuditableEntity
     {
         public Guid UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
@@ -118,7 +118,7 @@ namespace Curio.Core.Entities
         public string ReferenceName { get; set; }
     }
 
-    public class UserPostReply : BaseAuditableEntity
+    public class UserPostReply : AuditableEntity
     {
         public Guid UserPostId { get; set; }
         public UserPost UserPost { get; set; }
@@ -132,7 +132,7 @@ namespace Curio.Core.Entities
     // can be really expensive
     // Best to store where the file is contained and how to retrieve it
     // file path, server name, db name etc.
-    public class UserPost_ImageAttachment : BaseAuditableEntity
+    public class UserPost_ImageAttachment : AuditableEntity
     {
         public string FileName { get; set; }
         public string FileType { get; set; }
@@ -142,7 +142,7 @@ namespace Curio.Core.Entities
         public UserPost UserPost { get; set; }
     }
 
-    public class Lk_PostalCode : BaseEntity
+    public class Lk_PostalCode : Entity
     {
 
     }

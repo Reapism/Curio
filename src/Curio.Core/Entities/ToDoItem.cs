@@ -3,7 +3,7 @@ using Curio.SharedKernel.Bases;
 
 namespace Curio.Core.Entities
 {
-    public class ToDoItem : BaseEntity
+    public class ToDoItem : Entity
     {
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; }

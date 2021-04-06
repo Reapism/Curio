@@ -61,7 +61,7 @@ namespace Curio.Infrastructure.Data
 
         private async Task DispatchEventsIfSaveSuccessful()
         {
-            var entitiesWithEvents = ChangeTracker.Entries<BaseEntity>()
+            var entitiesWithEvents = ChangeTracker.Entries<Entity>()
                 .Select(e => e.Entity)
                 .Where(e => e.Events.Any())
                 .ToArray();
