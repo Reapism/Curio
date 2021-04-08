@@ -1,4 +1,4 @@
-﻿namespace Curio.Api.Exchanges.Home.Login
+﻿namespace Curio.Api.Exchanges.Home
 {
     public class LoginRequest
     {
