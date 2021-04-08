@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Curio.Api.Exchanges.Bases
+namespace Curio.SharedKernel.Interfaces
 {
     public interface IValidationResponse
     {
