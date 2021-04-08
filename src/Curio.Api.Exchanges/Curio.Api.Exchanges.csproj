@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Home\ForgotPassword\" />
+    <Folder Include="Home\Zong\" />
+    <Folder Include="Home\TwoFactor\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Curio.SharedKernel\Curio.SharedKernel.csproj" />
+  </ItemGroup>
+
+</Project>
