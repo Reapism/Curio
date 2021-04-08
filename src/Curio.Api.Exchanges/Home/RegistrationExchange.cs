@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Curio.Api.Exchanges.Bases;
-using Curio.SharedKernel.Bases;
+﻿using Curio.SharedKernel.Bases;
 
 namespace Curio.Api.Exchanges.Home
 {

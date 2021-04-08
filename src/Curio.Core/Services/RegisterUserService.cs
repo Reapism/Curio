@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Curio.Api.Exchanges.Home;
 using Curio.Core.Entities;
-using Curio.Core.Models;
 using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Services
@@ -16,7 +16,7 @@ namespace Curio.Core.Services
             this.userRepository = repository;
         }
 
-        public async Task<ApiResponse<RegistrationResponse>> RegisterUser(RegistrationModel registrationModel)
+        public async Task<ApiResponse<RegistrationResponse>> RegisterUser(RegistrationRequest registrationRequest)
         {
             throw new Exception();
         }
