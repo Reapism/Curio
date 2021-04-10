@@ -13,6 +13,7 @@ namespace Curio.SharedKernel.Interfaces
     /// </summary>
     public interface IRepository
     {
+        T Get<T>(Expression<Func<T, bool>> predicate) where T : Entity;
         T GetById<T>(Guid id) where T : Entity;
         List<T> List<T>() where T : Entity;
         List<T> List<T>(Expression<Func<T, bool>> predicate) where T : Entity;
@@ -21,6 +22,7 @@ namespace Curio.SharedKernel.Interfaces
         void Update<T>(T entity) where T : Entity;
         void Delete<T>(T entity) where T : Entity;
 
+        Task<T> GetAsync<T>(Expression<Func<T, bool>> predicate) where T : Entity;
         Task<T> GetByIdAsync<T>(Guid id) where T : Entity;
         Task<List<T>> ListAsync<T>() where T : Entity;
         Task<List<T>> ListAsync<T>(Expression<Func<T, bool>> predicate) where T : Entity;
@@ -33,6 +35,7 @@ namespace Curio.SharedKernel.Interfaces
     public interface IRepository<T>
         where T : Entity
     {
+        T Get(Expression<Func<T, bool>> predicate);
         T GetById(Guid id);
         List<T> List();
         List<T> List(Expression<Func<T, bool>> predicate);
@@ -40,6 +43,7 @@ namespace Curio.SharedKernel.Interfaces
         void Update(T entity);
         void Delete(T entity);
 
+        Task<T> GetAsync(Expression<Func<T, bool>> predicate);
         Task<T> GetByIdAsync(Guid id);
         Task<List<T>> ListAsync();
         Task<List<T>> ListAsync(Expression<Func<T, bool>> predicate);
