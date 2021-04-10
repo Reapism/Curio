@@ -18,16 +18,25 @@ namespace Curio.Core.Services
 
         public async Task<ApiResponse<RegistrationResponse>> RegisterUser(RegistrationRequest registrationRequest)
         {
-            throw new Exception();
+            throw new NotImplementedException();
         }
 
-        private bool HasRegistered(string email)
+        private User GetUser(string email)
         {
             var user = userRepository
-                .List(e => e.Email == email)
-                .FirstOrDefault();
+                .Get(e => e.Email == email);
 
+            return user;
+        }
+
+        private bool DoesUserExist(User user)
+        {
             return user is not null;
+        }
+
+        private bool HasCompletedRegistration(User user)
+        {
+            return user.IsRegistered;
         }
     }
 }
