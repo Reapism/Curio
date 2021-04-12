@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
-using Curio.WebApi.Exchanges.Home;
+﻿using System;
+using System.Threading.Tasks;
 using Curio.Core.Entities;
 using Curio.Core.Extensions;
+using Curio.Core.Interfaces;
 using Curio.SharedKernel;
 using Curio.SharedKernel.Interfaces;
+using Curio.WebApi.Exchanges.Home;
 using Curio.WebApi.Exchanges.Services.Home;
 
 namespace Curio.Core.Services
@@ -11,10 +13,12 @@ namespace Curio.Core.Services
     public class RegisterUserService : IUserRegistrationService
     {
         private readonly IRepository<User> userRepository;
+        private readonly IHashingService hashingService;
 
-        public RegisterUserService(IRepository<User> repository)
+        public RegisterUserService(IRepository<User> repository, IHashingService hashingService, IMobileCodeSubmitter)
         {
             this.userRepository = repository;
+            this.hashingService = hashingService;
         }
 
         public async Task<ApiResponse<RegistrationResponse>> RegisterUser(RegistrationRequest registrationRequest)
@@ -34,10 +38,8 @@ namespace Curio.Core.Services
 
         private async Task RegisterUserInternal(RegistrationRequest registrationRequest)
         {
-            var user = new User()
-            {
-                
-            };
+            var user = NewUser(registrationRequest);
+
             await userRepository.AddAsync(user);
         }
 
@@ -55,7 +57,7 @@ namespace Curio.Core.Services
                 return registrationResponse.AsFailedApiResponse(message: "A user already exists with this email but has not completed registration. Please check your email to complete registration");
             }
 
-            return registrationResponse.AsSuccessfulApiResponse();  
+            return registrationResponse.AsSuccessfulApiResponse();
         }
 
         private User GetUser(string email)
@@ -74,6 +76,30 @@ namespace Curio.Core.Services
         private bool HasCompletedRegistration(User user)
         {
             return user.IsRegistered;
+        }
+
+        public void Sanitize(RegistrationRequest registrationRequest)
+        {
+
+        }
+
+        public  (RegistrationRequest registrationRequest)
+        {
+            if (registrationRequest.HasMobilePhone)
+                LoginType.
+        }
+
+        public User NewUser(RegistrationRequest registrationRequest)
+        {
+            Sanitize(registrationRequest);
+
+            return new User()
+            {
+                Email = registrationRequest.Email,
+                PasswordHash = hashingService.Hash(registrationRequest.Password),
+                PasswordLastChangedDate = DateTime.Now,
+                LoginType =
+            }.NewAuditableEntity();
         }
     }
 }

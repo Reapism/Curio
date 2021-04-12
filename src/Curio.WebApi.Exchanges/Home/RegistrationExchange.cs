@@ -19,6 +19,8 @@ namespace Curio.WebApi.Exchanges.Home
 
         // Computed values from client side
         public bool HasMobilePhone { get; set; }
+        public bool VerifyWithMobilePhone { get; set; }
+        public bool VerifyWithEmail { get; set; }
     }
 
     public class RegistrationResponse : ValidationResponse

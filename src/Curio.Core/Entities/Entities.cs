@@ -128,6 +128,7 @@ namespace Curio.Core.Entities
 
         public ICollection<UserPost_ImageAttachment> UserPostReply_ImageAttachments { get; set; }
     }
+
     // Look into CDN's for retreiving images instead of storing the raw data
     // can be really expensive
     // Best to store where the file is contained and how to retrieve it
