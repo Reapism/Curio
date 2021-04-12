@@ -1,14 +1,21 @@
-﻿namespace Curio.WebApi.Exchanges.Home
+﻿using Curio.SharedKernel.Bases;
+
+namespace Curio.WebApi.Exchanges.Home
 {
     public class LoginRequest
     {
-        public string Email { get; set; }
+        public string LoginName { get; set; }
         public string Password { get; set; }
+
+        // Compute on client side whether input is mobile or email
+        public bool IsEmailLogin { get; set; }
+        public bool IsMobileLogin { get; set; }
+
+
     }
 
-    public class LoginResponse
+    public class LoginResponse : ValidationResponse
     {
-        public bool IsFailure { get; set; }
-        public string FailureMessage { get; set; }
+
     }
 }
