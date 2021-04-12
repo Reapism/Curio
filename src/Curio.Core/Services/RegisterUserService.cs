@@ -1,13 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Curio.Api.Exchanges.Home;
+﻿using System.Threading.Tasks;
+using Curio.WebApi.Exchanges.Home;
 using Curio.Core.Entities;
+using Curio.Core.Extensions;
+using Curio.SharedKernel;
 using Curio.SharedKernel.Interfaces;
+using Curio.WebApi.Exchanges.Services.Home;
 
 namespace Curio.Core.Services
 {
-    public class RegisterUserService
+    public class RegisterUserService : IUserRegistrationService
     {
         private readonly IRepository<User> userRepository;
 
@@ -18,7 +19,43 @@ namespace Curio.Core.Services
 
         public async Task<ApiResponse<RegistrationResponse>> RegisterUser(RegistrationRequest registrationRequest)
         {
-            throw new NotImplementedException();
+            var user = GetUser(registrationRequest.Email);
+            var userExists = DoesUserExist(user);
+            var hasCompletedRegistration = HasCompletedRegistration(user);
+            var canRegisterThisUser = !userExists && !hasCompletedRegistration;
+
+            if (canRegisterThisUser)
+                await RegisterUserInternal(registrationRequest);
+
+            var response = GetRegistrationResponse(userExists, hasCompletedRegistration, registrationRequest.Email);
+
+            return response;
+        }
+
+        private async Task RegisterUserInternal(RegistrationRequest registrationRequest)
+        {
+            var user = new User()
+            {
+                
+            };
+            await userRepository.AddAsync(user);
+        }
+
+        private ApiResponse<RegistrationResponse> GetRegistrationResponse(bool userExists, bool hasCompletedRegistration, string email)
+        {
+            var registrationResponse = new RegistrationResponse();
+
+            if (userExists || userExists && hasCompletedRegistration)
+            {
+                return registrationResponse.AsFailedApiResponse(message: "A user already exists with this email. Maybe try resetting your password.");
+            }
+
+            if (userExists && !hasCompletedRegistration)
+            {
+                return registrationResponse.AsFailedApiResponse(message: "A user already exists with this email but has not completed registration. Please check your email to complete registration");
+            }
+
+            return registrationResponse.AsSuccessfulApiResponse();  
         }
 
         private User GetUser(string email)
