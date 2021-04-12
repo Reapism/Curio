@@ -1,4 +1,4 @@
-﻿namespace Curio.Api.Exchanges.Services.Home
+﻿namespace Curio.WebApi.Exchanges.Services.Home
 {
     public interface ILoginService
     {

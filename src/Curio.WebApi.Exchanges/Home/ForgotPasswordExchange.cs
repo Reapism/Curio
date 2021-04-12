@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Curio.Api.Exchanges.Home
+namespace Curio.WebApi.Exchanges.Home
 {
     class ForgotPasswordExchange
     {

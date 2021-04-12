@@ -10,8 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Curio.Api.Exchanges\Curio.Api.Exchanges.csproj" />
     <ProjectReference Include="..\Curio.SharedKernel\Curio.SharedKernel.csproj" />
+    <ProjectReference Include="..\Curio.WebApi.Exchanges\Curio.WebApi.Exchanges.csproj" />
   </ItemGroup>
 
   <ItemGroup>
