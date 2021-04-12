@@ -16,6 +16,9 @@ namespace Curio.WebApi.Exchanges.Home
         // Profile 
         public string DisplayName { get; set; }
         public byte[] ImageBase64 { get; set; }
+
+        // Computed values from client side
+        public bool HasMobilePhone { get; set; }
     }
 
     public class RegistrationResponse : ValidationResponse
