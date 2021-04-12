@@ -1,5 +1,5 @@
 ﻿using System;
-using Curio.SharedKernel.Interfaces;
+using Curio.SharedKernel;
 
 namespace Curio.Core.Extensions
 {
@@ -9,12 +9,9 @@ namespace Curio.Core.Extensions
             where T : class
         {
             bool hasResponse = response.Equals(default(T));
-            bool hasMessage = string.IsNullOrEmpty(message);
 
             var apiResponse = new ApiResponse<T>
             {
-                Exception = null,
-                HasMessage = hasMessage,
                 Message = message,
                 Response = hasResponse ? response : null,
                 IsSuccessful = true
@@ -27,12 +24,9 @@ namespace Curio.Core.Extensions
             where T : class
         {
             bool hasResponse = response.Equals(default(T));
-            bool hasMessage = string.IsNullOrEmpty(message);
 
-            var apiResponse = new ApiResponse<T>
+            var apiResponse = new ApiResponse<T>(ex)
             {
-                Exception = ex,
-                HasMessage = hasMessage,
                 Message = message,
                 Response = hasResponse ? response : null,
                 IsSuccessful = true
