@@ -32,6 +32,11 @@ namespace Curio.SharedKernel.Interfaces
         Task DeleteAsync<T>(T entity) where T : Entity;
     }
 
+    /// <summary>
+    /// Contract for CRUDing at generic interface level.
+    /// <para>Using this as a dependency allows you to limit
+    /// consumers to querying a <typeparamref name="T"/>.</para>
+    /// </summary>
     public interface IRepository<T>
         where T : Entity
     {
