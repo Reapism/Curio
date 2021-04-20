@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Curio.SharedKernel.Bases;
-using Curio.SharedKernel.Interfaces;
+﻿using System.Collections.Generic;
 
-namespace Curio.SharedKernel.Extensions
+namespace Curio.Core.Extensions
 {
     public static class IValidationResponseExtensions
     {
