@@ -1,4 +1,4 @@
-﻿using Curio.SharedKernel.Interfaces;
+﻿using Curio.SharedKernel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
 

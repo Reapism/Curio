@@ -1,12 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Curio.SharedKernel.Bases;
 
 namespace Curio.WebApi.Exchanges.Home
 {
-    class ForgotPasswordExchange
+    public class ForgotPasswordRequest
+    {
+        public string LoginName { get; set; }
+        public DateTime RequestDate { get; set; }
+        public string OperatingSystem { get; set; }
+
+        // Computed properties on the client side.
+        public bool IsEmailLogin { get; set; }
+        public bool IsMobileLogin { get; set; }
+    }
+
+    public class ForgotPasswordResponse : ValidationResponse
     {
     }
 }
