@@ -1,5 +1,6 @@
 ﻿using System;
 using Curio.SharedKernel;
+using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Extensions
 {
@@ -34,5 +35,21 @@ namespace Curio.Core.Extensions
 
             return apiResponse;
         }
+
+        public static ApiResponse<T> AsFailedApiValidationResponse<T>(this T validationResponse, Exception ex = null, string message = "")
+            where T : class, IValidationResponse
+        {
+            bool hasResponse = (bool)(validationResponse?.Equals(default(T)));
+
+            var apiResponse = new ApiResponse<T>(ex)
+            {
+                Message = message,
+                Response = hasResponse ? validationResponse : null,
+                IsSuccessful = true
+            };
+
+            return apiResponse;
+        }
     }
 }
+ 
