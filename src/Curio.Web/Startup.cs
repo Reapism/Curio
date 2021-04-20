@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Ardalis.ListStartupServices;
 using Autofac;
 using Curio.Infrastructure;
+using Curio.Infrastructure.Data;
+using Curio.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -40,9 +42,11 @@ namespace Curio.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            string connectionString = Configuration.GetConnectionString("DefaultConnection");
+            string curioClientConnectionString = Configuration.GetConnectionString("CurioClient");
+            string curioIdentityConnectionString = Configuration.GetConnectionString("CurioIdentity");
 
-            StartupSetup.AddDbContext(services, connectionString);
+            StartupSetup.AddDbContext<CurioClientDbContext>(services, curioClientConnectionString);
+            StartupSetup.AddDbContext<CurioIdentityDbContext>(services, curioIdentityConnectionString);
 
             services.AddControllersWithViews();
             services.AddRazorPages();
