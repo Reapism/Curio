@@ -15,13 +15,13 @@ namespace Curio.Core.Services
         private readonly IRepository<User> userRepository;
         private readonly IHashingService hashingService;
 
-        public RegisterUserService(IRepository<User> repository, IHashingService hashingService, IMobileCodeSubmitter)
+        public RegisterUserService(IRepository<User> repository, IHashingService hashingService)
         {
             this.userRepository = repository;
             this.hashingService = hashingService;
         }
 
-        public async Task<ApiResponse<RegistrationResponse>> RegisterUser(RegistrationRequest registrationRequest)
+        public async Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(RegistrationRequest registrationRequest)
         {
             var user = GetUser(registrationRequest.Email);
             var userExists = DoesUserExist(user);
@@ -83,12 +83,6 @@ namespace Curio.Core.Services
 
         }
 
-        public  (RegistrationRequest registrationRequest)
-        {
-            if (registrationRequest.HasMobilePhone)
-                LoginType.
-        }
-
         public User NewUser(RegistrationRequest registrationRequest)
         {
             Sanitize(registrationRequest);
@@ -98,7 +92,7 @@ namespace Curio.Core.Services
                 Email = registrationRequest.Email,
                 PasswordHash = hashingService.Hash(registrationRequest.Password),
                 PasswordLastChangedDate = DateTime.Now,
-                LoginType =
+
             }.NewAuditableEntity();
         }
     }
