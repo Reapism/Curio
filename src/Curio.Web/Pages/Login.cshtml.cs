@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Curio.WebApi.Exchanges.Services.Home;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,6 +9,13 @@ namespace Curio.Web.Pages.Login
 {
     public class LoginParametersModel : PageModel
     {
+        private readonly ILoginService loginService;
+
+        public LoginParametersModel(ILoginService loginService)
+        {
+            this.loginService = loginService;
+        }
+
         [Required]
         [BindProperty]
         public string Username { get; set; }

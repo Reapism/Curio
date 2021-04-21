@@ -1,5 +1,4 @@
-﻿using System;
-using Curio.Core.Entities;
+﻿using Curio.Core.Entities;
 
 namespace Curio.UnitTests
 {

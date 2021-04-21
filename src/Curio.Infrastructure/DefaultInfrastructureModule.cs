@@ -15,6 +15,11 @@ namespace Curio.Infrastructure
         private bool isDevelopment = false;
         private List<Assembly> assemblies = new();
 
+        /// <summary>
+        /// Registers all 
+        /// </summary>
+        /// <param name="isDevelopment"></param>
+        /// <param name="callingAssembly"></param>
         public DefaultInfrastructureModule(bool isDevelopment, Assembly callingAssembly = null)
         {
             this.isDevelopment = isDevelopment;

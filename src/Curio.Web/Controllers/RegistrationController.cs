@@ -6,16 +6,15 @@ namespace Curio.Web.Controllers
 {
     public class RegistrationController : Controller
     {
-        private readonly IRepository<ToDoItem> repository;
+        private readonly IRepository<User> repository;
 
-        public RegistrationController(IRepository<ToDoItem> repository)
+        public RegistrationController(IRepository<User> repository)
         {
             this.repository = repository;
         }
 
         public IActionResult Index()
         {
-            repository.AddAsync(new ToDoItem());
             return View();
         }
 
