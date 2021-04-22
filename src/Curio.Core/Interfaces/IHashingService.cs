@@ -1,5 +1,5 @@
 ﻿using System.Security.Cryptography;
-using System.Text;
+using Curio.Core.Extensions;
 
 namespace Curio.Core.Interfaces
 {
@@ -9,38 +9,48 @@ namespace Curio.Core.Interfaces
     }
 
     /// <summary>
-    /// Hashes in UTF-8
+    /// Provides a service for hasing a string value in
+    /// SHA512 in UTF-8.
     /// </summary>
-    public class HashingService : IHashingService
+    public class Sha512HashingService : IHashingService
     {
         private readonly HashAlgorithm hashAlgorithm;
 
-        public HashingService()
+        public Sha512HashingService()
         {
             hashAlgorithm = SHA512.Create();
         }
 
         public string Hash(string value)
         {
-            var bytes = ToBytes(value);
+            var bytes = value.ToUtf8Bytes();
             var hashedBytes = hashAlgorithm.ComputeHash(bytes);
-            var hashedString = ToString(hashedBytes);
+            var hashedString = hashedBytes.ToUtf8String();
 
             return hashedString;
         }
+    }
 
-        private byte[] ToBytes(string value)
+    /// <summary>
+    /// Provides a service for hasing a string value in
+    /// SHA256 in UTF-8.
+    /// </summary>
+    public class Sha256HashingService : IHashingService
+    {
+        private readonly HashAlgorithm hashAlgorithm;
+
+        public Sha256HashingService()
         {
-            var bytes = Encoding.UTF8.GetBytes(value);
-
-            return bytes;
+            hashAlgorithm = SHA256.Create();
         }
 
-        private string ToString(byte[] bytes)
+        public string Hash(string value)
         {
-            var value = Encoding.UTF8.GetString(bytes);
+            var bytes = value.ToUtf8Bytes();
+            var hashedBytes = hashAlgorithm.ComputeHash(bytes);
+            var hashedString = hashedBytes.ToUtf8String();
 
-            return value;
+            return hashedString;
         }
     }
 }
