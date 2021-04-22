@@ -16,7 +16,7 @@ namespace Curio.Infrastructure
         private List<Assembly> assemblies = new();
 
         /// <summary>
-        /// Registers all 
+        /// Registers all core and infrastructure components.
         /// </summary>
         /// <param name="isDevelopment"></param>
         /// <param name="callingAssembly"></param>
@@ -57,6 +57,9 @@ namespace Curio.Infrastructure
                 .AsClosedTypesOf(typeof(IHandle<>));
 
             builder.RegisterType<EmailSender>().As<IEmailSender>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>))
                 .InstancePerLifetimeScope();
         }
 
