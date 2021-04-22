@@ -15,9 +15,9 @@ namespace Curio.Core.Services
         private readonly IRepository<User> userRepository;
         private readonly IHashingService hashingService;
 
-        public RegisterUserService(IRepository<User> repository, IHashingService hashingService)
+        public RegisterUserService(IRepository<User> userRepository, IHashingService hashingService)
         {
-            this.userRepository = repository;
+            this.userRepository = userRepository;
             this.hashingService = hashingService;
         }
 
