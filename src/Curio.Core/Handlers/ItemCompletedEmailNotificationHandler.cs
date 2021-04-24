@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Ardalis.GuardClauses;
 using Curio.Core.Events;
 using Curio.Core.Interfaces;
+using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Services

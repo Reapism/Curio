@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 
-namespace Curio.SharedKernel.Extensions
+// Same namespace as Guard to prevent double using statements.
+namespace Curio.SharedKernel.Bases
 {
     public static class GuardClauseExtensions
     {
