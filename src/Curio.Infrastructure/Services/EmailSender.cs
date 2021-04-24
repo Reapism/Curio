@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Curio.Core.Interfaces;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MimeKit;
 
@@ -13,34 +16,68 @@ namespace Curio.Infrastructure
     public class EmailSender : IEmailSender
     {
         private readonly ILogger<EmailSender> logger;
+        private readonly IConfiguration configuration;
 
-        public EmailSender(ILogger<EmailSender> logger)
+        public EmailSender(ILogger<EmailSender> logger, IConfiguration configuration)
         {
             this.logger = logger;
+            this.configuration = configuration;
         }
 
-        public async Task SendEmailAsync(string to, string from, string subject, string body)
+        public async Task SendEmailAsync(IEmailBuilder emailBuilder, CancellationToken cancellationToken = default)
         {
-            await SendEmailAsyncInternal(to, from, subject, body);
+            var message = emailBuilder.Build();
+
+            await SendEmailViaSmtpClientAsync(message, cancellationToken);
         }
 
-        private async Task SendEmailAsyncInternal(string to, string from, string subject, string body)
+        private async Task SendEmailViaSmtpClientAsync(MimeMessage message, CancellationToken cancellationToken = default)
         {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Default", from));
-            message.To.Add(new MailboxAddress("Hello", to));
-            message.Subject = subject;
-            message.Body = new TextPart(MimeKit.Text.TextFormat.Html) { Text = body };
-
-
             using (var client = new SmtpClient())
             {
-                client.Connect("smpt.example.com", 587, false);
-                await client.AuthenticateAsync("username", "password");
-                await client.SendAsync(message);
+                var clientCreds = GetClientCredentials();
+                var authCreds = GetAuthenticationCredentials();
+
+                client.Connect(clientCreds.Item1, clientCreds.Item2, clientCreds.Item3);
+
+                await client.AuthenticateAsync(authCreds.Item1, authCreds.Item2, cancellationToken);
+                await client.SendAsync(message, cancellationToken);
+                
                 client.Disconnect(true);
             }
-            logger.LogWarning($"Sending email to {to} from {from} with subject {subject}.");
+        }
+
+        private void  SendEmailViaSmtpClient(MimeMessage message)
+        {
+            using (var client = new SmtpClient())
+            {
+                var clientCreds = GetClientCredentials();
+                var authCreds = GetAuthenticationCredentials();
+
+                client.Connect(clientCreds.Item1, clientCreds.Item2, clientCreds.Item3);
+                
+                client.Authenticate(authCreds.Item1, authCreds.Item2);
+                client.Send(message);
+                
+                client.Disconnect(true);
+            }
+        }
+
+        private (string, string) GetAuthenticationCredentials()
+        {
+            var userName = configuration.GetSection("emailUserName").Value;
+            var password = configuration.GetSection("emailPassword").Value;
+
+            return (userName, password);
+        }
+
+        private (string, int, bool) GetClientCredentials()
+        {
+            var host = configuration.GetSection("emailHost").Value;
+            var port = int.Parse(configuration.GetSection("emailPort").Value);
+            var useSsl = bool.Parse(configuration.GetSection("emailUseSsl").Value);
+
+            return (host, port, useSsl);
         }
     }
 }
