@@ -8,6 +8,7 @@
         IEmailBuilder AddCcAddress(params string[] ccAddresses);
         IEmailBuilder AddAttachment();
 
+        IEmailBuilder SetPriorityUrgent();
         IEmailBuilder SetSubject(string subject);
         IEmailBuilder SetBody(string content);
 
