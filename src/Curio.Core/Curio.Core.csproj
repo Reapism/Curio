@@ -16,4 +16,8 @@
     <Folder Include="Utilities\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MimeKit" Version="2.11.0" />
+  </ItemGroup>
+
 </Project>

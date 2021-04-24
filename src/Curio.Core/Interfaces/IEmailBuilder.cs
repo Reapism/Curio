@@ -1,4 +1,6 @@
-﻿namespace Curio.Core.Interfaces
+﻿using MimeKit;
+
+namespace Curio.Core.Interfaces
 {
     public interface IEmailBuilder
     {
@@ -10,8 +12,9 @@
 
         IEmailBuilder SetPriorityUrgent();
         IEmailBuilder SetSubject(string subject);
-        IEmailBuilder SetBody(string content);
+        IEmailBuilder SetTextBody(string content);
+        IEmailBuilder SetHtmlBody(string content);
 
-        IEmailBuilder Build();
+        MimeMessage Build();
     }
 }

@@ -12,12 +12,11 @@ namespace Curio.Infrastructure.Services
     public class EmailBuilder : IEmailBuilder
     {
         private MimeMessage mimeMessage;
-        private Multipart bodyMultiPartCollection;
         private BodyBuilder bodyBuilder;
+
         public EmailBuilder()
         {
             mimeMessage = new MimeMessage();
-            bodyMultiPartCollection = new Multipart("mixed");
             bodyBuilder = new BodyBuilder();
         }
 
@@ -80,8 +79,17 @@ namespace Curio.Infrastructure.Services
             return this;
         }
 
-        public IEmailBuilder Build()
+        /// <summary>
+        /// Validates the required data in order to utilize this <see cref="MimeMessage"/> and
+        /// then builds a <see cref="MimeMessage"/>.
+        /// <para>
+        /// Validates that there is a From, To, Body and Subject.
+        /// </para>
+        /// </summary>
+        /// <returns></returns>
+        public MimeMessage Build()
         {
+            // Guards before building.
             Guard.Against.NullOrWhiteSpace(mimeMessage.Subject, nameof(mimeMessage.Subject));
             Guard.Against.Null(mimeMessage.From, nameof(mimeMessage.From));
             Guard.Against.Null(mimeMessage.To, nameof(mimeMessage.To));
@@ -90,22 +98,31 @@ namespace Curio.Infrastructure.Services
 
             mimeMessage.Date = DateTimeOffset.UtcNow;
             mimeMessage.Priority = MessagePriority.Normal;
+            mimeMessage.Body = bodyBuilder.ToMessageBody();
+
+            // TODO Look into below. Maybe necessary for images embedded in SetHtmlBody.
+            // bodyBuilder.LinkedResources
+            return mimeMessage;
+        }
+
+        public IEmailBuilder SetTextBody(string textContent)
+        {
+            Guard.Against.NullOrWhiteSpace(textContent, nameof(textContent));
+
+            // Sanitize the text body.
+            var sanitizedTextBody = Sanitize(textContent);
+            bodyBuilder.TextBody = sanitizedTextBody;
 
             return this;
         }
 
-        public IEmailBuilder SetBody(string content)
+        public IEmailBuilder SetHtmlBody(string htmlContent)
         {
-            Guard.Against.NullOrWhiteSpace(content, nameof(content));
+            Guard.Against.NullOrWhiteSpace(htmlContent, nameof(htmlContent));
 
-            var contentBytes = content.ToUtf8Bytes();
-            var memoryStream = new MemoryStream(contentBytes);
-            mimeMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
-            {
-                Content = new MimeContent(memoryStream),
-                ContentTransferEncoding = ContentEncoding.Base64,
-            };
-
+            // Sanitize the html body.
+            //var sanitizedHtmlBody = Sanitize(htmlContent);
+            bodyBuilder.HtmlBody = htmlContent;
             return this;
         }
 
