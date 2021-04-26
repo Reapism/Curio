@@ -104,7 +104,6 @@ namespace Curio.SharedKernel.Bases
         /// <exception cref="ArgumentException"></exception>
         public static string NullOrWhiteSpace(this IGuardClause guardClause, [NotNull] string? input, string parameterName)
         {
-            Guard.Against.NullOrEmpty(input, parameterName);
             if (String.IsNullOrWhiteSpace(input))
             {
                 throw new ArgumentException($"Required input {parameterName} was empty.", parameterName);
