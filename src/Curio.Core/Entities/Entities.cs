@@ -109,7 +109,7 @@ namespace Curio.Core.Entities
         public ICollection<UserLike> UserLikes { get; set; }
     }
 
-    public class UserLike : AuditableEntity
+    public class UserLike : AuditableEntity, IReferenceable
     {
         public Guid UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
