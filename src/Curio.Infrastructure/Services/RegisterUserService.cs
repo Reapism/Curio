@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Curio.Core.Entities;
 using Curio.Core.Extensions;
 using Curio.Core.Interfaces;
-using Curio.Infrastructure.Identity;
 using Curio.SharedKernel;
 using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Home;

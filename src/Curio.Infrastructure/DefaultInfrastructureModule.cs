@@ -8,7 +8,6 @@ using Curio.Infrastructure.DomainEvents;
 using Curio.Infrastructure.Logging;
 using Curio.Infrastructure.Services;
 using Curio.SharedKernel.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Module = Autofac.Module;
 
 namespace Curio.Infrastructure

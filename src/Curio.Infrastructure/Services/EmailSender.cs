@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Curio.Core.Interfaces;
 using MailKit.Net.Smtp;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MimeKit;
 
@@ -40,12 +38,12 @@ namespace Curio.Infrastructure
 
                 //await client.AuthenticateAsync(authCreds.Item1, authCreds.Item2, cancellationToken);
                 //await client.SendAsync(message, cancellationToken);
-                
+
                 //client.Disconnect(true);
             }
         }
 
-        private void  SendEmailViaSmtpClient(MimeMessage message)
+        private void SendEmailViaSmtpClient(MimeMessage message)
         {
             using (var client = new SmtpClient())
             {
@@ -53,10 +51,10 @@ namespace Curio.Infrastructure
                 //var authCreds = GetAuthenticationCredentials();
 
                 //client.Connect(clientCreds.Item1, clientCreds.Item2, clientCreds.Item3);
-                
+
                 //client.Authenticate(authCreds.Item1, authCreds.Item2);
                 //client.Send(message);
-                
+
                 //client.Disconnect(true);
             }
         }
