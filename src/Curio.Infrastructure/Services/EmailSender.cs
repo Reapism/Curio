@@ -16,12 +16,10 @@ namespace Curio.Infrastructure
     public class EmailSender : IEmailSender
     {
         private readonly ILogger<EmailSender> logger;
-        private readonly IConfiguration configuration;
 
-        public EmailSender(ILogger<EmailSender> logger, IConfiguration configuration)
+        public EmailSender(ILogger<EmailSender> logger)
         {
             this.logger = logger;
-            this.configuration = configuration;
         }
 
         public async Task SendEmailAsync(IEmailBuilder emailBuilder, CancellationToken cancellationToken = default)
@@ -35,15 +33,15 @@ namespace Curio.Infrastructure
         {
             using (var client = new SmtpClient())
             {
-                var clientCreds = GetClientCredentials();
-                var authCreds = GetAuthenticationCredentials();
+                //var clientCreds = GetClientCredentials();
+                //var authCreds = GetAuthenticationCredentials();
 
-                client.Connect(clientCreds.Item1, clientCreds.Item2, clientCreds.Item3);
+                //client.Connect(clientCreds.Item1, clientCreds.Item2, clientCreds.Item3);
 
-                await client.AuthenticateAsync(authCreds.Item1, authCreds.Item2, cancellationToken);
-                await client.SendAsync(message, cancellationToken);
+                //await client.AuthenticateAsync(authCreds.Item1, authCreds.Item2, cancellationToken);
+                //await client.SendAsync(message, cancellationToken);
                 
-                client.Disconnect(true);
+                //client.Disconnect(true);
             }
         }
 
@@ -51,33 +49,33 @@ namespace Curio.Infrastructure
         {
             using (var client = new SmtpClient())
             {
-                var clientCreds = GetClientCredentials();
-                var authCreds = GetAuthenticationCredentials();
+                //var clientCreds = GetClientCredentials();
+                //var authCreds = GetAuthenticationCredentials();
 
-                client.Connect(clientCreds.Item1, clientCreds.Item2, clientCreds.Item3);
+                //client.Connect(clientCreds.Item1, clientCreds.Item2, clientCreds.Item3);
                 
-                client.Authenticate(authCreds.Item1, authCreds.Item2);
-                client.Send(message);
+                //client.Authenticate(authCreds.Item1, authCreds.Item2);
+                //client.Send(message);
                 
-                client.Disconnect(true);
+                //client.Disconnect(true);
             }
         }
 
-        private (string, string) GetAuthenticationCredentials()
-        {
-            var userName = configuration.GetSection("emailUserName").Value;
-            var password = configuration.GetSection("emailPassword").Value;
+        //private (string, string) GetAuthenticationCredentials()
+        //{
+        //    var userName = configuration.GetSection("emailUserName").Value;
+        //    var password = configuration.GetSection("emailPassword").Value;
 
-            return (userName, password);
-        }
+        //    return (userName, password);
+        //}
 
-        private (string, int, bool) GetClientCredentials()
-        {
-            var host = configuration.GetSection("emailHost").Value;
-            var port = int.Parse(configuration.GetSection("emailPort").Value);
-            var useSsl = bool.Parse(configuration.GetSection("emailUseSsl").Value);
+        //private (string, int, bool) GetClientCredentials()
+        //{
+        //    var host = configuration.GetSection("emailHost").Value;
+        //    var port = int.Parse(configuration.GetSection("emailPort").Value);
+        //    var useSsl = bool.Parse(configuration.GetSection("emailUseSsl").Value);
 
-            return (host, port, useSsl);
-        }
+        //    return (host, port, useSsl);
+        //}
     }
 }

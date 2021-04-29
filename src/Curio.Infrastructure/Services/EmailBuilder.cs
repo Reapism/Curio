@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
-using Curio.Core.Extensions;
 using Curio.Core.Interfaces;
 using Curio.SharedKernel.Bases;
 using MimeKit;
