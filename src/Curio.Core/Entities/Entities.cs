@@ -5,19 +5,22 @@ using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Entities
 {
+    /// <summary>
+    /// This will not be the official Users Table.
+    /// This will be trimmed down to only have very basic information
+    /// No password, or special information.
+    /// 
+    /// Will need to build a mapper via extensions or new dependency
+    /// </summary>
     public class User : AuditableEntity
     {
-        public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public string MaskedEmail { get; set; }
+        public string MaskedPhone { get; set; }
         public bool IsLocked { get; set; }
-        public bool IsSuspended { get; set; }
-        public bool IsRegistered { get; set; }
-        public bool HasAgreedToEula { get; set; }
-        public bool HasAgreedToPrivacyPolicy { get; set; }
+
         public DateTime PasswordLastChangedDate { get; set; }
         public DateTime SuspensionDate { get; set; }
         public LoginType LoginType { get; set; }
-        public string AdvertisingId { get; set; }
 
         public UserProfile UserProfile { get; set; }
     }
