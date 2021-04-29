@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Curio.Infrastructure.Identity
 {
-    public class CurioIdentityDbContext : IdentityDbContext<ApplicationUser>
+    public class CurioIdentityDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public CurioIdentityDbContext(DbContextOptions<CurioIdentityDbContext> options)
             : base(options)
         {
+            this.RoleClaims.Where(e => e.)
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
