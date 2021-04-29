@@ -5,9 +5,12 @@ using Autofac;
 using Curio.Infrastructure;
 using Curio.Infrastructure.Data;
 using Curio.Infrastructure.Identity;
+using Curio.SharedKernel.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -28,6 +31,7 @@ namespace Curio.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Used only for single server, once expanding app, change this.
             services.AddDistributedMemoryCache();
             services.AddSession(options =>
             {
@@ -46,7 +50,10 @@ namespace Curio.Web
             string curioIdentityConnectionString = Configuration.GetConnectionString("CurioIdentity");
 
             StartupSetup.AddDbContext<CurioClientDbContext>(services, curioClientConnectionString);
-            StartupSetup.AddDbContext<CurioIdentityDbContext>(services, curioIdentityConnectionString);
+
+            AddIdentity(services);
+            // not sure if this is needed.
+            //StartupSetup.AddDbContext<CurioIdentityDbContext>(services, curioIdentityConnectionString);
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -67,14 +74,25 @@ namespace Curio.Web
             });
         }
 
+        private void AddIdentity(IServiceCollection services)
+        {
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+                .AddEntityFrameworkStores<CurioIdentityDbContext>()
+                .AddUserStore<UserStore<ApplicationUser, ApplicationRole, CurioIdentityDbContext, Guid>>()
+                .AddRoleStore<RoleStore<ApplicationRole, CurioIdentityDbContext, Guid>>()
+                .AddDefaultTokenProviders();
+        }
+
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new DefaultInfrastructureModule(_env.EnvironmentName == "Development"));
+            builder.RegisterModule(new DefaultInfrastructureModule(_env.EnvironmentName == EnvironmentConstants.Development));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.EnvironmentName == "Development")
+            var isDevelopment = env.EnvironmentName == EnvironmentConstants.Development;
+
+            if (isDevelopment)
             {
                 app.UseDeveloperExceptionPage();
                 app.UseShowAllServicesMiddleware(); // /listallservices
@@ -95,7 +113,7 @@ namespace Curio.Web
             app.UseSwagger();
             app.UseSession();
 
-            app.UseAuthentication();
+            app.UseAuthentication(Configuration =);
             app.UseAuthorization();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
