@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Curio.Infrastructure.Data;
+using Curio.Infrastructure.Identity;
 using Curio.SharedKernel.Interfaces;
 using Curio.UnitTests;
 using Curio.Web;
@@ -20,65 +21,89 @@ namespace Curio.FunctionalTests
             builder
                 .UseSolutionRelativeContentRoot("src/Curio.Web")
                 .ConfigureServices(services =>
-            {
-                // Remove the app's ApplicationDbContext registration.
-                var descriptor = services.SingleOrDefault(
-                    d => d.ServiceType ==
-                        typeof(DbContextOptions<CurioClientDbContext>));
-
-                if (descriptor != null)
                 {
-                    services.Remove(descriptor);
-                }
+                    // Replace registered db contexts with in-memory ones.
+                    ReplaceCurioClientDbContext(services);
+                    ReplaceCurioIdentityDbContext(services);
 
-                // Add ApplicationDbContext using an in-memory database for testing.
-                services.AddDbContext<CurioClientDbContext>(options =>
-                {
-                    options.UseInMemoryDatabase("InMemoryDbForTesting");
+                    // Register a domain event dispatcher that never fails.
+                    services.AddScoped<IDomainEventDispatcher, NoOpDomainEventDispatcher>();
+
+                    // Build the service provider.
+                    var serviceProvider = services.BuildServiceProvider();
+
+                    EnsureDatabasesAreCreated(serviceProvider);
                 });
+        }
 
-                //// Create a new service provider.
-                //var serviceProvider = new ServiceCollection()
-                //    .AddEntityFrameworkInMemoryDatabase()
-                //    .BuildServiceProvider();
+        private void EnsureDatabasesAreCreated(ServiceProvider serviceProvider)
+        {
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var scopedServices = scope.ServiceProvider;
+                var curioClientDb = scopedServices.GetRequiredService<CurioClientDbContext>();
+                var curioIdentityDb = scopedServices.GetRequiredService<CurioIdentityDbContext>();
 
-                //// Add a database context (AppDbContext) using an in-memory
-                //// database for testing.
-                //services.AddDbContext<AppDbContext>(options =>
-                //{
-                //    options.UseInMemoryDatabase("InMemoryDbForTesting");
-                //    options.UseInternalServiceProvider(serviceProvider);
-                //});
+                var logger = scopedServices
+                    .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
-                services.AddScoped<IDomainEventDispatcher, NoOpDomainEventDispatcher>();
+                // Ensure the database is created.
+                var clientDbExists = curioClientDb.Database.EnsureCreated();
+                var identityDbExists = curioIdentityDb.Database.EnsureCreated();
 
-                // Build the service provider.
-                var sp = services.BuildServiceProvider();
+                logger.LogInformation($"Curio Client database exists: {clientDbExists}");
+                logger.LogInformation($"Curio Identity database exists: {clientDbExists}");
 
-                // Create a scope to obtain a reference to the database
-                // context (AppDbContext).
-                using (var scope = sp.CreateScope())
+                logger.LogInformation("If databases dont exist, they have been created.");
+
+                try
                 {
-                    var scopedServices = scope.ServiceProvider;
-                    var db = scopedServices.GetRequiredService<CurioClientDbContext>();
-
-                    var logger = scopedServices
-                        .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
-
-                    // Ensure the database is created.
-                    db.Database.EnsureCreated();
-
-                    try
-                    {
-                        // Seed the database with test data.
-                        //SeedData.PopulateTestData(db);
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.LogError(ex, "An error occurred seeding the " +
-                            $"database with test messages. Error: {ex.Message}");
-                    }
+                    // Seed the database with test data.
+                    //SeedData.PopulateTestData(db);
                 }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "An error occurred seeding the " +
+                        $"database with test messages. Error: {ex.Message}");
+                }
+            }
+        }
+
+        private void ReplaceCurioIdentityDbContext(IServiceCollection services)
+        {
+            // Remove the app's CurioIdentityDbContext registration.
+            var curioIdentityDescriptor = services.SingleOrDefault(
+                d => d.ServiceType ==
+                    typeof(DbContextOptions<CurioIdentityDbContext>));
+
+            if (curioIdentityDescriptor is not null)
+            {
+                services.Remove(curioIdentityDescriptor);
+            }
+
+            // Add CurioIdentityDbContext using an in-memory database for testing.
+            services.AddDbContext<CurioIdentityDbContext>(options =>
+            {
+                options.UseInMemoryDatabase("curio-identity-in-memory");
+            });
+        }
+
+        private void ReplaceCurioClientDbContext(IServiceCollection services)
+        {
+            // Remove the app's CurioClientDbContext registration.
+            var curioClientDescriptor = services.SingleOrDefault(
+                d => d.ServiceType ==
+                    typeof(DbContextOptions<CurioClientDbContext>));
+
+            if (curioClientDescriptor is not null)
+            {
+                services.Remove(curioClientDescriptor);
+            }
+
+            // Add CurioClientDbContext using an in-memory database for testing.
+            services.AddDbContext<CurioClientDbContext>(options =>
+            {
+                options.UseInMemoryDatabase("curio-client-in-memory");
             });
         }
     }
