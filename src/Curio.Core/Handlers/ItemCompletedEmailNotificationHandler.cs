@@ -9,10 +9,12 @@ namespace Curio.Core.Services
     public class ItemCompletedEmailNotificationHandler : IHandle<ToDoItemCompletedEvent>
     {
         private readonly IEmailSender _emailSender;
+        private readonly IEmailBuilder emailBuilder;
 
-        public ItemCompletedEmailNotificationHandler(IEmailSender emailSender)
+        public ItemCompletedEmailNotificationHandler(IEmailSender emailSender, IEmailBuilder emailBuilder)
         {
             _emailSender = emailSender;
+            this.emailBuilder = emailBuilder;
         }
 
         // configure a test email server to demo this works
@@ -20,8 +22,11 @@ namespace Curio.Core.Services
         public async Task Handle(ToDoItemCompletedEvent domainEvent)
         {
             Guard.Against.Null(domainEvent, nameof(domainEvent));
-
-            await _emailSender.SendEmailAsync("test@test.com", "test@test.com", $"{domainEvent.CompletedItem.Title} was completed.", domainEvent.CompletedItem.ToString());
+            emailBuilder.AddFromAddress("test@mailinator.com");
+            emailBuilder.AddToAddress("test@mailinator.com");
+            emailBuilder.SetSubject($"{domainEvent.CompletedItem.Title} was completed.");
+            emailBuilder.SetTextBody(domainEvent.CompletedItem.ToString());
+            await _emailSender.SendEmailAsync(emailBuilder);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Curio.SharedKernel.Bases;
+using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Entities
 {
