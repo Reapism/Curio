@@ -5,7 +5,9 @@ using Curio.Core.Exceptions;
 using Curio.Core.Interfaces;
 using Curio.Infrastructure.Data;
 using Curio.Infrastructure.DomainEvents;
+using Curio.Infrastructure.Services;
 using Curio.SharedKernel.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Module = Autofac.Module;
 
 namespace Curio.Infrastructure
@@ -57,6 +59,9 @@ namespace Curio.Infrastructure
                 .AsClosedTypesOf(typeof(IHandle<>));
 
             builder.RegisterType<EmailSender>().As<IEmailSender>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<EmailBuilder>().As<IEmailBuilder>()
                 .InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>))
