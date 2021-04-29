@@ -7,7 +7,7 @@ namespace Curio.UnitTests.Infrastructure.Services
     [TestFixture]
     public class EmailValidatorTests
     {
-        [TestCase(null, null)]
+        [TestCase("", null)]
         [TestCase("", "@")]
         [TestCase("", "")]
         [TestCase("hi", "hi")]
@@ -16,10 +16,10 @@ namespace Curio.UnitTests.Infrastructure.Services
         [TestCase("hi", "hi@")]
         [TestCase("", "@@")]
         [TestCase("", "@.@")]
-        public void GetEmailNameFromEmail_ShouldReturnEmailName(string expected, string actual)
+        public void GetEmailNameShouldReturnEmailName(string expected, string actual)
         {
             var validator = new EmailValidator();
-            validator.GetEmailName(actual).Should().BeSameAs(expected);
+            validator.GetEmailName(actual).Should().Be(expected);
         }
     }
 }

@@ -15,6 +15,14 @@ namespace Curio.Infrastructure.Services
                 {
                     return email.Substring(0, atPosition);
                 }
+                else if (atPosition == 0)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return email;
+                }
             }
 
             return string.Empty;
