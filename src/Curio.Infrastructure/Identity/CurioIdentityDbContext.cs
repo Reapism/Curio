@@ -10,7 +10,6 @@ namespace Curio.Infrastructure.Identity
         public CurioIdentityDbContext(DbContextOptions<CurioIdentityDbContext> options)
             : base(options)
         {
-            this.RoleClaims.Where(e => e.)
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
