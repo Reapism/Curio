@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Curio.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -70,6 +71,12 @@ namespace Curio.WebApi
 
         private void AddAuthentication(IServiceCollection services)
         {
+            //TODO: Figure out where to store this token
+            // It belongs in environment variables but what file will
+            // read it? appSettings.json? 
+            var jwtToken = Configuration.GetSection("JwtToken").Value;
+            var jwtTokenBytes = Encoding.ASCII.GetBytes(jwtToken);
+ 
             services.AddAuthentication(config =>
             {
                 config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -81,7 +88,7 @@ namespace Curio.WebApi
                 config.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Configuration.GetSection()),
+                    IssuerSigningKey = new SymmetricSecurityKey(jwtTokenBytes),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
