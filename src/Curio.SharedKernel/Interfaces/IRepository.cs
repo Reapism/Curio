@@ -56,15 +56,4 @@ namespace Curio.SharedKernel.Interfaces
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
     }
-
-    public interface ISecuredRepository<T>
-        where T : Entity
-    {
-        Task<T> GetByIdAsync(Guid id);
-        Task<List<T>> ListAsync();
-        Task<List<T>> ListAsync(Expression<Func<T, bool>> predicate);
-        Task<T> AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(T entity);
-    }
 }
