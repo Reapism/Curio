@@ -3,20 +3,24 @@ using System.Threading.Tasks;
 using Curio.Core.Entities;
 using Curio.Core.Extensions;
 using Curio.Core.Interfaces;
+using Curio.Infrastructure.Identity;
 using Curio.SharedKernel;
 using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Home;
 using Curio.WebApi.Exchanges.Services.Home;
 
-namespace Curio.Core.Services
+namespace Curio.Infrastructure.Services
 {
     public class RegisterUserService : IUserRegistrationService
     {
+        private readonly IAppLogger<RegisterUserService> logger;
+        //TODO: Replace with new Identity entities/services like SignInManager or whatever is needed.
         private readonly IRepository<User> userRepository;
         private readonly IHashingService hashingService;
 
-        public RegisterUserService(IRepository<User> userRepository, IHashingService hashingService)
+        public RegisterUserService(IAppLogger<RegisterUserService> logger, IRepository<User> userRepository, IHashingService hashingService)
         {
+            this.logger = logger;
             this.userRepository = userRepository;
             this.hashingService = hashingService;
         }
@@ -31,7 +35,7 @@ namespace Curio.Core.Services
             if (canRegisterThisUser)
                 await RegisterUserInternal(registrationRequest);
 
-            var response = GetRegistrationResponse(userExists, hasCompletedRegistration, registrationRequest.Email);
+            var response = GetRegistrationResponse(userExists, hasCompletedRegistration);
 
             return response;
         }
@@ -43,7 +47,7 @@ namespace Curio.Core.Services
             await userRepository.AddAsync(user);
         }
 
-        private ApiResponse<RegistrationResponse> GetRegistrationResponse(bool userExists, bool hasCompletedRegistration, string email)
+        private ApiResponse<RegistrationResponse> GetRegistrationResponse(bool userExists, bool hasCompletedRegistration)
         {
             var registrationResponse = new RegistrationResponse();
 
