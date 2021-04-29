@@ -5,6 +5,7 @@ using Curio.Core.Exceptions;
 using Curio.Core.Interfaces;
 using Curio.Infrastructure.Data;
 using Curio.Infrastructure.DomainEvents;
+using Curio.Infrastructure.Logging;
 using Curio.Infrastructure.Services;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -50,8 +51,12 @@ namespace Curio.Infrastructure
 
         private void RegisterCommonDependencies(ContainerBuilder builder)
         {
+            builder.RegisterGeneric(typeof(LoggerAdapter<>)).As(typeof(IAppLogger<>))
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<DomainEventDispatcher>().As<IDomainEventDispatcher>()
                 .InstancePerLifetimeScope();
+
             builder.RegisterType<EfRepository>().As<IRepository>()
                 .InstancePerLifetimeScope();
 
