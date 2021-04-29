@@ -78,7 +78,10 @@ namespace Curio.Infrastructure.Services
 
         private bool HasCompletedRegistration(User user)
         {
-            return user.IsRegistered;
+            return false;
+            // TODO: when this is using the identity model or at least a service in conjuction with it, check whether
+            // ApplicationUser.EmailConfirmed
+            //return user.IsRegistered;
         }
 
         public void Sanitize(RegistrationRequest registrationRequest)
@@ -93,7 +96,7 @@ namespace Curio.Infrastructure.Services
             return new User()
             {
                 MaskedEmail = registrationRequest.Email,
-                PasswordHash = hashingService.Hash(registrationRequest.Password),
+                // PasswordHash = hashingService.Hash(registrationRequest.Password),
                 PasswordLastChangedDate = DateTime.Now,
 
             }.NewAuditableEntity();
