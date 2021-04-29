@@ -63,7 +63,7 @@ namespace Curio.Core.Services
         private User GetUser(string email)
         {
             var user = userRepository
-                .Get(e => e.Email == email);
+                .Get(e => e.MaskedEmail == email);
 
             return user;
         }
@@ -89,7 +89,7 @@ namespace Curio.Core.Services
 
             return new User()
             {
-                Email = registrationRequest.Email,
+                MaskedEmail = registrationRequest.Email,
                 PasswordHash = hashingService.Hash(registrationRequest.Password),
                 PasswordLastChangedDate = DateTime.Now,
 
