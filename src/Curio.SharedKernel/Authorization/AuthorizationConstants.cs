@@ -2,7 +2,7 @@
 
 namespace Curio.SharedKernel.Authorization
 {
-    public class AuthorizationRoleConstants
+    public class UserTypeConstants
     {
         public const string Administrator = "Admin";
         public const string EndUser = "End User";

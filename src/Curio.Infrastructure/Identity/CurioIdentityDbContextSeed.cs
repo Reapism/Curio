@@ -14,7 +14,7 @@ namespace Curio.Infrastructure.Identity
         /// <returns></returns>
         public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            await roleManager.CreateAsync(new IdentityRole(AuthorizationRoleConstants.Administrator));
+            await roleManager.CreateAsync(new IdentityRole(UserTypeConstants.Administrator));
 
             // Create End user
             var endUser = new ApplicationUser { UserName = AuthorizationSeededUsers.EndUser.Item1, Email = AuthorizationSeededUsers.EndUser.Item1 };
@@ -34,16 +34,16 @@ namespace Curio.Infrastructure.Identity
 
             // User
             adminUser = await userManager.FindByNameAsync(AuthorizationSeededUsers.Admin.Item1);
-            await userManager.AddToRoleAsync(adminUser, AuthorizationRoleConstants.Administrator);
+            await userManager.AddToRoleAsync(adminUser, UserTypeConstants.Administrator);
 
             endUser = await userManager.FindByNameAsync(AuthorizationSeededUsers.EndUser.Item1);
-            await userManager.AddToRoleAsync(endUser, AuthorizationRoleConstants.EndUser);
+            await userManager.AddToRoleAsync(endUser, UserTypeConstants.EndUser);
 
             advertiserUser = await userManager.FindByNameAsync(AuthorizationSeededUsers.Advertiser.Item1);
-            await userManager.AddToRoleAsync(advertiserUser, AuthorizationRoleConstants.Advertiser);
+            await userManager.AddToRoleAsync(advertiserUser, UserTypeConstants.Advertiser);
 
             internalUser = await userManager.FindByNameAsync(AuthorizationSeededUsers.Internal.Item1);
-            await userManager.AddToRoleAsync(internalUser, AuthorizationRoleConstants.Internal);
+            await userManager.AddToRoleAsync(internalUser, UserTypeConstants.Internal);
         }
     }
 }
