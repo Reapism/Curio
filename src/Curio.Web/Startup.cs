@@ -113,7 +113,7 @@ namespace Curio.Web
             app.UseSwagger();
             app.UseSession();
 
-            app.UseAuthentication(Configuration =);
+            app.UseAuthentication();
             app.UseAuthorization();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.

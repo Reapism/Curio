@@ -52,7 +52,7 @@ namespace Curio.Infrastructure.Services.Identity
             var identityResult = await userManager.CreateAsync(user, registrationRequest.Password);
             var registrationResponse = GetRegistrationResponse(identityResult);
 
-            userManager.
+            return registrationResponse;
         }
 
         private ApiResponse<RegistrationResponse> GetRegistrationResponse(IdentityResult identityResult)
