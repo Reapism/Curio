@@ -1,8 +1,29 @@
-﻿using Curio.SharedKernel.Bases;
+﻿using Curio.SharedKernel.Authorization;
+using Curio.SharedKernel.Bases;
 
 namespace Curio.WebApi.Exchanges.Home
 {
-    public class RegistrationRequest
+    public sealed class AdministratorRegistrationRequest : RegistrationRequest
+    {
+        public override string UserType { get; protected set; } = UserTypeConstants.Administrator;
+    }
+
+    public sealed class AdvertiserRegistrationRequest : RegistrationRequest
+    {
+        public override string UserType { get; protected set; } = UserTypeConstants.Advertiser;
+    }
+
+    public sealed class EndUserRegistrationRequest : RegistrationRequest
+    {
+        public override string UserType { get; protected set; } = UserTypeConstants.EndUser;
+    }
+
+    public sealed class InternalRegistrationRequest : RegistrationRequest
+    {
+        public override string UserType { get; protected set; } = UserTypeConstants.Internal;
+    }
+
+    public abstract class RegistrationRequest
     {
         // Login details
         public string Email { get; set; }
@@ -17,11 +38,19 @@ namespace Curio.WebApi.Exchanges.Home
         public string DisplayName { get; set; }
         public byte[] ImageBase64 { get; set; }
 
+        public bool TwoFactorEnabled { get; set; }
+
+        // Agreements
+        public bool HasAgreedToEula { get; set; }
+        public bool HasAgreedToPrivacyPolicy { get; set; }
+
         // Computed values from client side
         public bool HasMobilePhone { get; set; }
         public bool VerifyWithMobilePhone { get; set; }
         public bool VerifyWithEmail { get; set; }
+        public virtual string UserType { get; protected set; } = UserTypeConstants.EndUser;
     }
+
 
     public class RegistrationResponse : ValidationResponse
     {

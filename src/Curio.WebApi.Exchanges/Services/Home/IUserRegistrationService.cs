@@ -6,7 +6,7 @@ namespace Curio.WebApi.Exchanges.Services.Home
 {
     public interface IUserRegistrationService
     {
-        Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(RegistrationRequest registrationRequest);
+        Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(EndUserRegistrationRequest registrationRequest);
     }
 
 }
