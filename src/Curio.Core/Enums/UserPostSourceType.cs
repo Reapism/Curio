@@ -2,6 +2,9 @@
 
 namespace Curio.Core.Enums
 {
+    /// <summary>
+    /// The source originating in the creation of a specific post.
+    /// </summary>
     public enum UserPostSourceType
     {
         [Description("Curio Web")]
