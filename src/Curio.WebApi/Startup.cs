@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Text;
 using Curio.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -124,11 +125,63 @@ namespace Curio.WebApi
 
         private void AddIdentity(IServiceCollection services)
         {
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Password = GetPasswordOptions();
+                options.User = GetUserOptions();
+                options.Lockout = GetLockoutOptions();
+                options.ClaimsIdentity = GetClaimsIdentityOptions();
+            })
                 .AddEntityFrameworkStores<CurioIdentityDbContext>()
                 .AddUserStore<UserStore<ApplicationUser, ApplicationRole, CurioIdentityDbContext, Guid>>()
                 .AddRoleStore<RoleStore<ApplicationRole, CurioIdentityDbContext, Guid>>()
                 .AddDefaultTokenProviders();
+        }
+
+        private ClaimsIdentityOptions GetClaimsIdentityOptions()
+        {
+            // TODO Created an Issue here https://github.com/microsoft/referencesource/issues/150
+            var claimsIdentityOptions = new ClaimsIdentityOptions
+            {
+                EmailClaimType = ClaimTypes.Email
+            };
+
+            return claimsIdentityOptions;
+        }
+
+        private LockoutOptions GetLockoutOptions()
+        {
+            var lockoutOptions = new LockoutOptions
+            {
+                AllowedForNewUsers = true,
+                MaxFailedAccessAttempts = 5,
+                DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5)
+            };
+
+            return lockoutOptions;
+        }
+
+        private PasswordOptions GetPasswordOptions()
+        {
+            var passwordOptions = new PasswordOptions()
+            {
+                RequireNonAlphanumeric = true,
+                RequireDigit = true,
+                RequiredLength = 8,
+                RequireLowercase = true,
+                RequireUppercase = true,
+                RequiredUniqueChars = 1,
+            };
+            return passwordOptions;
+        }
+
+        private UserOptions GetUserOptions()
+        {
+            var userOptions = new UserOptions()
+            {
+                RequireUniqueEmail = true,
+            };
+            return userOptions;
         }
     }
 }
