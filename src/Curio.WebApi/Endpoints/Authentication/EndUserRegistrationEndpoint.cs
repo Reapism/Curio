@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Curio.Api.Endpoints.Base;
 using Curio.WebApi.Exchanges.Home;
-using Curio.WebApi.Exchanges.Services.Home;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Curio.WebApi.Endpoints.Authentication
@@ -24,7 +20,7 @@ namespace Curio.WebApi.Endpoints.Authentication
         [HttpPost]
         public override Task<ActionResult<RegistrationResponse>> HandleAsync(EndUserRegistrationRequest request, CancellationToken cancellationToken = default)
         {
-            
+
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Curio.Api.Filters
         private readonly IAppLogger<HandleApiResponse> logger;
         private readonly IWebHostEnvironment environment;
 
-        public HandleApiResponse(IAppLogger<HandleApiResponse> logger,IWebHostEnvironment environment)
+        public HandleApiResponse(IAppLogger<HandleApiResponse> logger, IWebHostEnvironment environment)
         {
             this.logger = logger;
             this.environment = environment;

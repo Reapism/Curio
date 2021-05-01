@@ -80,7 +80,7 @@ namespace Curio.WebApi
             // read it? appSettings.json? 
             var jwtToken = Configuration.GetSection("JwtToken").Value;
             var jwtTokenBytes = Encoding.ASCII.GetBytes(jwtToken);
- 
+
             services.AddAuthentication(config =>
             {
                 config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;

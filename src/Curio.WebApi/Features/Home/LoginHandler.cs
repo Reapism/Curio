@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Curio.WebApi.Exchanges.Home;
-using Curio.WebApi.Services.Home;
 using MediatR;
 
 namespace Curio.WebApi.Features.Home

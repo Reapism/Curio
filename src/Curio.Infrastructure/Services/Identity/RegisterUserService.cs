@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Curio.Core.Entities;
 using Curio.Core.Extensions;
 using Curio.Core.Interfaces;
 using Curio.Infrastructure.Identity;
 using Curio.SharedKernel;
-using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Home;
-using Curio.WebApi.Exchanges.Services.Home;
 using Microsoft.AspNetCore.Identity;
 
 namespace Curio.Infrastructure.Services.Identity
