@@ -1,9 +1,10 @@
 ﻿using System;
 using Curio.SharedKernel.Bases;
+using MediatR;
 
 namespace Curio.WebApi.Exchanges.Home
 {
-    public class ForgotPasswordRequest
+    public class ForgotPasswordRequest : IRequest<ForgotPasswordResponse>
     {
         public string LoginName { get; set; }
         public DateTime RequestDate { get; set; }

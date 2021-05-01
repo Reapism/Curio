@@ -1,8 +1,9 @@
 ﻿using Curio.SharedKernel.Bases;
+using MediatR;
 
 namespace Curio.WebApi.Exchanges.Home
 {
-    public class LoginRequest
+    public class LoginRequest : IRequest<LoginResponse>
     {
         public string LoginName { get; set; }
         public string Password { get; set; }
