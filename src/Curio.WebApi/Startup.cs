@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 using Curio.Infrastructure.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,6 +36,8 @@ namespace Curio.WebApi
             AddAuthentication(services);
 
             services.AddControllers();
+            services.AddMediatR(typeof(Startup));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Curio.WebApi", Version = "v1" });
