@@ -15,8 +15,7 @@ namespace Curio.SharedKernel
         public Exception Exception { get; set; }
     }
 
-    public class ApiResponse<T>
-        where T : class
+    public class ApiResponse<T> : ApiResponse
     {
         public ApiResponse(Exception exception = null)
         {
@@ -24,9 +23,5 @@ namespace Curio.SharedKernel
         }
 
         public T Response { get; set; }
-        public bool IsSuccessful { get; set; }
-        public bool HasMessage { get => !string.IsNullOrEmpty(Message); }
-        public string Message { get; set; }
-        public Exception Exception { get; }
     }
 }
