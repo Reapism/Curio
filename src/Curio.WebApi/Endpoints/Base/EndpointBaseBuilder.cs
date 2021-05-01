@@ -2,24 +2,24 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Curio.Web.Endpoints.Base
+namespace Curio.Api.Endpoints.Base
 {
     /// <summary>
     /// A class exposing actionable endpoints that can be used
-    /// for RESTful API services.
+    /// for building RESTful API services without the use of MediatR.
     /// </summary>
     /// <typeparam name="TRequest">The request type.</typeparam>
     /// <typeparam name="TResponse">The response type</typeparam>
-    public static class EndpointBase
+    public static class EndpointBaseBuilder
     {
         public static class WithRequest<TRequest>
         {
-            public abstract class WithResponse<TResponse> : BaseEndpointSync
+            public abstract class WithResponse<TResponse> : EndpointBase
             {
                 public abstract ActionResult<TResponse> Handle(TRequest request);
             }
 
-            public abstract class WithoutResponse : BaseEndpointSync
+            public abstract class WithoutResponse : EndpointBase
             {
                 public abstract ActionResult Handle(TRequest request);
             }
@@ -27,12 +27,12 @@ namespace Curio.Web.Endpoints.Base
 
         public static class WithoutRequest
         {
-            public abstract class WithResponse<TResponse> : BaseEndpointSync
+            public abstract class WithResponse<TResponse> : EndpointBase
             {
                 public abstract ActionResult<TResponse> Handle();
             }
 
-            public abstract class WithoutResponse : BaseEndpointSync
+            public abstract class WithoutResponse : EndpointBase
             {
                 public abstract ActionResult Handle();
             }
@@ -43,20 +43,21 @@ namespace Curio.Web.Endpoints.Base
     /// A base class for all synchronous endpoints.
     /// </summary>
 	[ApiController]
-    public abstract class BaseEndpointSync : ControllerBase
+    public abstract class EndpointBase : ControllerBase
     {
     }
 
     /// <summary>
-    /// A base class for an endpoint that accepts parameters.
+    /// A class exposing actionable endpoints that can be used
+    /// for building RESTful API services without the use of MediatR.
     /// </summary>
     /// <typeparam name="TRequest">The request type.</typeparam>
     /// <typeparam name="TResponse">The response type</typeparam>
-    public static class EndpointAsyncBase
+    public static class EndpointBaseAsyncBuilder
     {
         public static class WithRequest<TRequest>
         {
-            public abstract class WithResponse<TResponse> : BaseEndpointAsync
+            public abstract class WithResponse<TResponse> : EndpointBaseAsync
             {
                 public abstract Task<ActionResult<TResponse>> HandleAsync(
                     TRequest request,
@@ -64,7 +65,7 @@ namespace Curio.Web.Endpoints.Base
                 );
             }
 
-            public abstract class WithoutResponse : BaseEndpointAsync
+            public abstract class WithoutResponse : EndpointBaseAsync
             {
                 public abstract Task<ActionResult> HandleAsync(
                     TRequest request,
@@ -75,14 +76,14 @@ namespace Curio.Web.Endpoints.Base
 
         public static class WithoutRequest
         {
-            public abstract class WithResponse<TResponse> : BaseEndpointAsync
+            public abstract class WithResponse<TResponse> : EndpointBaseAsync
             {
                 public abstract Task<ActionResult<TResponse>> HandleAsync(
                     CancellationToken cancellationToken = default
                 );
             }
 
-            public abstract class WithoutResponse : BaseEndpointAsync
+            public abstract class WithoutResponse : EndpointBaseAsync
             {
                 public abstract Task<ActionResult> HandleAsync(
                     CancellationToken cancellationToken = default
@@ -95,7 +96,7 @@ namespace Curio.Web.Endpoints.Base
     /// A base class for all asynchronous endpoints.
     /// </summary>
     [ApiController]
-    public abstract class BaseEndpointAsync : ControllerBase
+    public abstract class EndpointBaseAsync : ControllerBase
     {
     }
 }
