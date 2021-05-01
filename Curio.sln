@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.WebApi", "src\Curio.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.WebApi.Exchanges", "src\Curio.WebApi.Exchanges\Curio.WebApi.Exchanges.csproj", "{DAE74E39-9F79-40BF-B578-5E8D72B648AD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{749FAAA9-DC02-4001-966B-D5F119408D35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
