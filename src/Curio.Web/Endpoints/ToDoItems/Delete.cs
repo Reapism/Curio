@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Curio.Web.Endpoints.ToDoItems
 {
-    public class Delete : EndpointAsyncBase
+    public class Delete : EndpointBaseAsyncBuilder
         .WithRequest<Guid>
         .WithResponse<ToDoItemResponse>
     {

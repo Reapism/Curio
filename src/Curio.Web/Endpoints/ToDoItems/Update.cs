@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Curio.Web.Endpoints.ToDoItems
 {
-    public class Update : EndpointAsyncBase
+    public class Update : EndpointBaseAsyncBuilder
         .WithRequest<UpdateToDoItemRequest>
         .WithResponse<ToDoItemResponse>
     {
