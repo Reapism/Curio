@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Curio.SharedKernel;
-using Curio.WebApi.Exchanges.Home;
 
-namespace Curio.WebApi.Exchanges.Services.Home
+namespace Curio.WebApi.Exchanges.Home
 {
     public interface ILoginService
     {

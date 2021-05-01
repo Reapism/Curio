@@ -1,4 +1,4 @@
-﻿namespace Curio.WebApi.Exchanges.Services.Home
+﻿namespace Curio.WebApi.Services.Home
 {
     public interface IForgotPasswordService
     {
