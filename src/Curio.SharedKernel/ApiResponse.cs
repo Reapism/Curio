@@ -10,6 +10,7 @@ namespace Curio.SharedKernel
         }
 
         public bool IsSuccessful { get; set; }
+        public int HttpStatusCode { get; set; }
         public bool HasMessage { get => !string.IsNullOrEmpty(Message); }
         public string Message { get; set; }
         public Exception Exception { get; set; }

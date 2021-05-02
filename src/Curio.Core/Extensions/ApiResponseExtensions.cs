@@ -7,6 +7,8 @@ namespace Curio.Core.Extensions
 {
     public static class ApiResponseExtensions
     {
+        // TODO These need to be updated, and many more added to facilate the creation of the
+        // HttpStatusCodes internally.
         public static ApiResponse<T> AsSuccessfulApiResponse<T>(this T response, string message = "")
             where T : class
         {
@@ -16,7 +18,8 @@ namespace Curio.Core.Extensions
             {
                 Message = message,
                 Response = hasResponse ? response : null,
-                IsSuccessful = true
+                IsSuccessful = true,
+                HttpStatusCode = 200
             };
 
             return apiResponse;
@@ -31,7 +34,8 @@ namespace Curio.Core.Extensions
             {
                 Message = message,
                 Response = hasResponse ? response : null,
-                IsSuccessful = true
+                IsSuccessful = true,
+                HttpStatusCode = 400
             };
 
             return apiResponse;
@@ -46,7 +50,8 @@ namespace Curio.Core.Extensions
             {
                 Message = message,
                 Response = hasResponse ? validationResponse : null,
-                IsSuccessful = true
+                IsSuccessful = true,
+                HttpStatusCode = 400
             };
 
             return apiResponse;
