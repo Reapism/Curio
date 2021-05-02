@@ -8,6 +8,7 @@ namespace Curio.WebApi.Exchanges.Home
     {
         public string LoginName { get; set; }
         public DateTime RequestDate { get; set; }
+        // Device used when choosing to forget the password.
         public string OperatingSystem { get; set; }
 
         // Computed properties on the client side.
