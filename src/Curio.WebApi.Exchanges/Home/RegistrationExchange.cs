@@ -1,25 +1,26 @@
-﻿using Curio.SharedKernel.Authorization;
+﻿using Curio.SharedKernel;
+using Curio.SharedKernel.Authorization;
 using Curio.SharedKernel.Bases;
 using MediatR;
 
 namespace Curio.WebApi.Exchanges.Home
 {
-    public sealed class AdministratorRegistrationRequest : RegistrationRequest, IRequest<RegistrationResponse>
+    public sealed class AdministratorRegistrationRequest : RegistrationRequest, IRequest<ApiResponse<RegistrationResponse>>
     {
         public override string UserType { get; protected set; } = UserTypeConstants.Administrator;
     }
 
-    public sealed class AdvertiserRegistrationRequest : RegistrationRequest, IRequest<RegistrationResponse>
+    public sealed class AdvertiserRegistrationRequest : RegistrationRequest, IRequest<ApiResponse<RegistrationResponse>>
     {
         public override string UserType { get; protected set; } = UserTypeConstants.Advertiser;
     }
 
-    public sealed class EndUserRegistrationRequest : RegistrationRequest, IRequest<RegistrationResponse>
+    public sealed class EndUserRegistrationRequest : RegistrationRequest, IRequest<ApiResponse<RegistrationResponse>>
     {
         public override string UserType { get; protected set; } = UserTypeConstants.EndUser;
     }
 
-    public sealed class InternalRegistrationRequest : RegistrationRequest, IRequest<RegistrationResponse>
+    public sealed class InternalRegistrationRequest : RegistrationRequest, IRequest<ApiResponse<RegistrationResponse>>
     {
         public override string UserType { get; protected set; } = UserTypeConstants.Internal;
     }
