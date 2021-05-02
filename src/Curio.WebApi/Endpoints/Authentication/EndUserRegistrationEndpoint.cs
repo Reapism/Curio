@@ -2,25 +2,20 @@
 using System.Threading.Tasks;
 using Curio.Api.Endpoints.Base;
 using Curio.WebApi.Exchanges.Home;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Curio.WebApi.Endpoints.Authentication
 {
-    public class EndUserRegistrationEndpoint : EndpointBaseAsyncBuilder
-        .WithRequest<EndUserRegistrationRequest>
-        .WithResponse<RegistrationResponse>
+    public class EndUserRegistrationEndpoint : ControllerBase
     {
+        private readonly IMediator mediator;
         private readonly IUserRegistrationService userRegistrationService;
 
-        public EndUserRegistrationEndpoint(IUserRegistrationService userRegistrationService, Mediator)
+        public EndUserRegistrationEndpoint(IMediator mediator, IUserRegistrationService userRegistrationService)
         {
             this.userRegistrationService = userRegistrationService;
-        }
-
-        [HttpPost]
-        public override Task<ActionResult<RegistrationResponse>> HandleAsync(EndUserRegistrationRequest request, CancellationToken cancellationToken = default)
-        {
-
+            this.mediator = mediator;
         }
     }
 }
