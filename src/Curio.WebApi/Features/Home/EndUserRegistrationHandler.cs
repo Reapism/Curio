@@ -10,6 +10,11 @@ namespace Curio.WebApi.Features.Home
     {
         private readonly IUserRegistrationService userRegistrationService;
 
+        public EndUserRegistrationHandler(IUserRegistrationService userRegistrationService)
+        {
+            this.userRegistrationService = userRegistrationService;
+        }
+
         public async Task<ApiResponse<RegistrationResponse>> Handle(EndUserRegistrationRequest request, CancellationToken cancellationToken)
         {
             return await userRegistrationService.RegisterUserAsync(request);
