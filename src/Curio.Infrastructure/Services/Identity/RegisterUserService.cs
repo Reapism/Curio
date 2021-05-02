@@ -33,7 +33,7 @@ namespace Curio.Infrastructure.Services.Identity
             if (canRegisterThisUser)
                 return await RegisterUserInternal(registrationRequest);
 
-            // Can't register the user, and get the registration response for why
+            // The user cannot be registered for reasons corresponding to the registration process.
             var response = GetRegistrationResponse(userExists, hasCompletedRegistration);
 
             return response;
@@ -57,7 +57,7 @@ namespace Curio.Infrastructure.Services.Identity
             var registrationResponse = new RegistrationResponse();
 
             if (identityResult.Succeeded)
-                return registrationResponse.AsSuccessfulApiResponse();
+                return registrationResponse.AsSuccessfulApiResponse("The user has been successfully created.");
 
             var validationToTipsMapping = identityResult.Errors.ToDictionary(k => k.Description, v => v.Description);
             var failedRegistrationResponse = ApiResponseExtensions.AsFailedApiValidationResponse<RegistrationResponse>(validationToTipsMapping, "An error has occured when registering the user");
@@ -96,8 +96,10 @@ namespace Curio.Infrastructure.Services.Identity
 
         private bool HasCompletedRegistration(ApplicationUser user)
         {
-            var userConfirmed = user.EmailConfirmed || user.PhoneNumberConfirmed;
-            return userConfirmed;
+            var emailConfirmed = user?.EmailConfirmed ?? false;
+            var mobileConfirmed = user?.PhoneNumberConfirmed ?? false;
+
+            return emailConfirmed || mobileConfirmed;
         }
 
         public void TrySanitize(EndUserRegistrationRequest registrationRequest)
