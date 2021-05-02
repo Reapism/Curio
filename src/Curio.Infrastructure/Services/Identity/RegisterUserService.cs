@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Curio.Core.Extensions;
 using Curio.Core.Interfaces;
@@ -23,7 +24,7 @@ namespace Curio.Infrastructure.Services.Identity
             this.passwordHasher = passwordHasher;
         }
 
-        public async Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(EndUserRegistrationRequest registrationRequest)
+        public async Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(EndUserRegistrationRequest registrationRequest, CancellationToken cancellationToken = default)
         {
             var user = await GetUser(registrationRequest.Email);
             var userExists = DoesUserExist(user);
@@ -31,7 +32,7 @@ namespace Curio.Infrastructure.Services.Identity
             var canRegisterThisUser = !userExists && !hasCompletedRegistration;
 
             if (canRegisterThisUser)
-                return await RegisterUserInternal(registrationRequest);
+                return await RegisterUserInternal(registrationRequest, cancellationToken);
 
             // The user cannot be registered for reasons corresponding to the registration process.
             var response = GetRegistrationResponse(userExists, hasCompletedRegistration);
@@ -39,11 +40,10 @@ namespace Curio.Infrastructure.Services.Identity
             return response;
         }
 
-        private async Task<ApiResponse<RegistrationResponse>> RegisterUserInternal(EndUserRegistrationRequest registrationRequest)
+        private async Task<ApiResponse<RegistrationResponse>> RegisterUserInternal(EndUserRegistrationRequest registrationRequest, CancellationToken cancellationToken = default)
         {
             // Sanitize request parameters
             TrySanitize(registrationRequest);
-
             var user = ToApplicationUser(registrationRequest);
 
             var identityResult = await userManager.CreateAsync(user, registrationRequest.Password);
