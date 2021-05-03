@@ -102,13 +102,13 @@ namespace Curio.Infrastructure.Services.Identity
             return emailConfirmed || mobileConfirmed;
         }
 
-        public void TrySanitize(EndUserRegistrationRequest registrationRequest)
+        private void TrySanitize(EndUserRegistrationRequest registrationRequest)
         {
             // TODO: Remember this is an API and anything can be sent for these variables,
             // Make sure to completely sanitize each parameter.
         }
 
-        public ApplicationUser ToApplicationUser(EndUserRegistrationRequest registrationRequest)
+        private ApplicationUser ToApplicationUser(EndUserRegistrationRequest registrationRequest)
         {
             TrySanitize(registrationRequest);
 
