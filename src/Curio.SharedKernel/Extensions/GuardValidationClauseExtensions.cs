@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 
@@ -7,11 +9,14 @@ namespace Curio.SharedKernel.Extensions
     public static class GuardValidationClauseExtensions
     {
 
-        public static IValidationResponse Ssn(this IGuardValidationClause guard, string value, [CallerMemberName] string parameterName = "")
+        public static void Ssn(this IGuardValidationClause guard, string value, [CallerMemberName] string parameterName = "")
         {
             Guard.Against.NullOrWhiteSpace(value, parameterName);
 
-            return null;
+            string regex = @"^(\d{3}-?\d{2}-?\d{4}|XXX-XX-XXXX)$";
+            var match = Regex.Match(value, regex);
+            if (match.Success)
+                throw new ArgumentException("The following input is not a valid SSN.", parameterName);
         }
 
         public static IValidationResponse Email(this IGuardValidationClause guard, string value, string parameterName)
