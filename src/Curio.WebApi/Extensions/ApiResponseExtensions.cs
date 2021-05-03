@@ -1,4 +1,5 @@
 ﻿using Curio.SharedKernel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Curio.WebApi.Extensions
@@ -14,9 +15,12 @@ namespace Curio.WebApi.Extensions
         {
             switch (apiResponse.HttpStatusCode)
             {
-
+                case StatusCodes.Status200OK:
+                    return new OkObjectResult(apiResponse);
+                case StatusCodes.Status201Created:
+                    return new CreatedResult("", apiResponse);
+                case StatusCodes.
             }
-            return new OkObjectResult(apiResponse);
         }
     }
 }

@@ -14,12 +14,11 @@ namespace Curio.Core.Extensions
         {
             bool hasResponse = response.Equals(default(T));
 
-            var apiResponse = new ApiResponse<T>
+            var apiResponse = new ApiResponse<T>(httpStatusCode: 200)
             {
                 Message = message,
                 Response = hasResponse ? response : null,
                 IsSuccessful = true,
-                HttpStatusCode = 200
             };
 
             return apiResponse;
@@ -30,12 +29,11 @@ namespace Curio.Core.Extensions
         {
             bool hasResponse = response.Equals(default(T));
 
-            var apiResponse = new ApiResponse<T>(ex)
+            var apiResponse = new ApiResponse<T>(ex, 400)
             {
                 Message = message,
                 Response = hasResponse ? response : null,
                 IsSuccessful = true,
-                HttpStatusCode = 400
             };
 
             return apiResponse;
@@ -46,12 +44,11 @@ namespace Curio.Core.Extensions
         {
             bool hasResponse = (bool)(validationResponse?.Equals(default(T)));
 
-            var apiResponse = new ApiResponse<T>(ex)
+            var apiResponse = new ApiResponse<T>(ex, 400)
             {
                 Message = message,
                 Response = hasResponse ? validationResponse : null,
                 IsSuccessful = true,
-                HttpStatusCode = 400
             };
 
             return apiResponse;
@@ -74,7 +71,7 @@ namespace Curio.Core.Extensions
             validationResponse.IsFailure = true;
             validationResponse.ValidationToTipMapping = validationToTipsMapping;
 
-            var apiResponse = new ApiResponse<T>()
+            var apiResponse = new ApiResponse<T>(httpStatusCode: 400)
             {
                 Response = validationResponse,
                 IsSuccessful = true,
