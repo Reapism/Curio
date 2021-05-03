@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Curio.Api.Filters
 {
+    //TODO Ensure ActionResult<TApiResponse<T>> returns properly via httpcode.
     public class HandleApiResponse : IAsyncPageFilter
     {
         private readonly IAppLogger<HandleApiResponse> logger;
