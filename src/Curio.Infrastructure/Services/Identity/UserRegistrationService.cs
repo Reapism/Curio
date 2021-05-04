@@ -11,20 +11,21 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Curio.Infrastructure.Services.Identity
 {
-    public class RegisterUserService : IUserRegistrationService
+    public class UserRegistrationService<T> : IUserRegistrationService<T>
+        where T : RegistrationRequest
     {
-        private readonly IAppLogger<RegisterUserService> logger;
+        private readonly IAppLogger<UserRegistrationService<T>> logger;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly PasswordHasher<ApplicationUser> passwordHasher;
 
-        public RegisterUserService(IAppLogger<RegisterUserService> logger, UserManager<ApplicationUser> userManager, PasswordHasher<ApplicationUser> passwordHasher)
+        public UserRegistrationService(IAppLogger<UserRegistrationService<T>> logger, UserManager<ApplicationUser> userManager, PasswordHasher<ApplicationUser> passwordHasher)
         {
             this.logger = logger;
             this.userManager = userManager;
             this.passwordHasher = passwordHasher;
         }
 
-        public async Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(EndUserRegistrationRequest registrationRequest, CancellationToken cancellationToken = default)
+        public async Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(T registrationRequest, CancellationToken cancellationToken = default)
         {
             var user = await GetUser(registrationRequest.Email);
             var userExists = DoesUserExist(user);
@@ -40,7 +41,7 @@ namespace Curio.Infrastructure.Services.Identity
             return response;
         }
 
-        private async Task<ApiResponse<RegistrationResponse>> RegisterUserInternal(EndUserRegistrationRequest registrationRequest, CancellationToken cancellationToken = default)
+        private async Task<ApiResponse<RegistrationResponse>> RegisterUserInternal(T registrationRequest, CancellationToken cancellationToken = default)
         {
             // Sanitize request parameters
             TrySanitize(registrationRequest);
@@ -102,13 +103,13 @@ namespace Curio.Infrastructure.Services.Identity
             return emailConfirmed || mobileConfirmed;
         }
 
-        private void TrySanitize(EndUserRegistrationRequest registrationRequest)
+        private void TrySanitize(T registrationRequest)
         {
             // TODO: Remember this is an API and anything can be sent for these variables,
             // Make sure to completely sanitize each parameter.
         }
 
-        private ApplicationUser ToApplicationUser(EndUserRegistrationRequest registrationRequest)
+        private ApplicationUser ToApplicationUser(T registrationRequest)
         {
             TrySanitize(registrationRequest);
 

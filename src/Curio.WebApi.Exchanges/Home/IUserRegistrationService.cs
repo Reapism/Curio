@@ -4,9 +4,10 @@ using Curio.SharedKernel;
 
 namespace Curio.WebApi.Exchanges.Home
 {
-    public interface IUserRegistrationService
+    public interface IUserRegistrationService<in T>
+        where T : RegistrationRequest
     {
-        Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(EndUserRegistrationRequest registrationRequest, CancellationToken cancellationToken = default);
+        Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(T registrationRequest, CancellationToken cancellationToken = default);
     }
 
 }
