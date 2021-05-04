@@ -90,8 +90,8 @@ namespace Curio.FunctionalTests
             // Add CurioIdentityDbContext using an in-memory database for testing.
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                     .AddEntityFrameworkStores<CurioIdentityDbContext>()
-                    .AddUserStore<UserStore<ApplicationUser, ApplicationRole, CurioIdentityDbContext, Guid>>()
-                    .AddRoleStore<RoleStore<ApplicationRole, CurioIdentityDbContext, Guid>>()
+                    .AddUserStore<ApplicationUserStore>()
+                    .AddRoleStore<ApplicationRole>()
                     .AddDefaultTokenProviders();
 
         }
