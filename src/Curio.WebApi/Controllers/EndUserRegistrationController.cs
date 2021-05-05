@@ -12,6 +12,32 @@ namespace Curio.WebApi.Controllers
         {
         }
 
+        /// <summary>
+        /// Registers an end user account used for authentication.
+        /// </summary>
+        /// <param name="endUserRegistrationRequest">The request body</param>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST /RegisterEndUser
+        ///     {
+        ///        "email": "example@example.com",
+        ///        "password": "password",
+        ///        "mobilePhone": 1112223333,
+        ///        "firstName": "Anthony",
+        ///        "lastName": "Doe",
+        ///        "displayName": "iReapism",
+        ///        "twoFactorEnabled": true,
+        ///        "hasAgreedToEula": true,
+        ///        "hasAgreedToPrivacyPolicy": true,
+        ///        "hasMobilePhone": true,
+        ///        "verifyWithMobilePhone": true,
+        ///        "verifyWithEmail": true,
+        ///        "hasAgreedToPrivacyPolicy": true,
+        ///     }
+        ///
+        /// </remarks>
+        /// <returns>A standard</returns>
         [HttpPost]
         public async Task<IActionResult> RegisterEndUser([FromForm] EndUserRegistrationRequest endUserRegistrationRequest, CancellationToken cancellationToken = default)
         {
