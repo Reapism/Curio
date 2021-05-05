@@ -3,7 +3,9 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Description>The application core project for Curio. This project is the center of all domain concepts. Contains domain entities, exceptions, some extensions, event handlers, and domain services.</Description>
+    <Description>The application core project for Curio. This project is the center of all domain concepts. Contains domain entities, exceptions, some extensions, event handlers, and domain services.
+
+This project is our domain, and should have no external dependencies.</Description>
   </PropertyGroup>
 
   <ItemGroup>
