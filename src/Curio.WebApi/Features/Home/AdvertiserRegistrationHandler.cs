@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Curio.SharedKernel;
 using Curio.WebApi.Exchanges.Home;
@@ -9,9 +8,16 @@ namespace Curio.WebApi.Features.Home
 {
     public class AdvertiserRegistrationHandler : IRequestHandler<AdvertiserRegistrationRequest, ApiResponse<RegistrationResponse>>
     {
-        public Task<ApiResponse<RegistrationResponse>> Handle(AdvertiserRegistrationRequest request, CancellationToken cancellationToken)
+        private readonly IUserRegistrationService<AdvertiserRegistrationRequest> userRegistrationService;
+
+        public AdvertiserRegistrationHandler(IUserRegistrationService<AdvertiserRegistrationRequest> userRegistrationService)
         {
-            throw new NotImplementedException();
+            this.userRegistrationService = userRegistrationService;
+        }
+
+        public async Task<ApiResponse<RegistrationResponse>> Handle(AdvertiserRegistrationRequest request, CancellationToken cancellationToken)
+        {
+            return await userRegistrationService.RegisterUserAsync(request);
         }
     }
 }

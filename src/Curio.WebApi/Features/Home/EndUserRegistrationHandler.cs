@@ -8,9 +8,9 @@ namespace Curio.WebApi.Features.Home
 {
     public class EndUserRegistrationHandler : IRequestHandler<EndUserRegistrationRequest, ApiResponse<RegistrationResponse>>
     {
-        private readonly IUserRegistrationService userRegistrationService;
+        private readonly IUserRegistrationService<EndUserRegistrationRequest> userRegistrationService;
 
-        public EndUserRegistrationHandler(IUserRegistrationService userRegistrationService)
+        public EndUserRegistrationHandler(IUserRegistrationService<EndUserRegistrationRequest> userRegistrationService)
         {
             this.userRegistrationService = userRegistrationService;
         }

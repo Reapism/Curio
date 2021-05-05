@@ -2,13 +2,20 @@
 
 namespace Curio.SharedKernel.Bases
 {
-    public class Guard : IGuardClause, IGuardValidationClause
+    public class Guard : IGuardClause
     {
         // Entry points to guarding against a particular thing.
         public static IGuardClause Against { get; } = new Guard();
-        public static IGuardValidationClause This { get; } = new Guard();
 
         private Guard()
+        { }
+    }
+
+    public class ValidationGuard : IGuardValidationClause
+    {
+        public static IGuardValidationClause Against { get; } = new ValidationGuard();
+
+        private ValidationGuard()
         { }
     }
 }

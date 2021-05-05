@@ -89,8 +89,8 @@ namespace Curio.Infrastructure.Services
         {
             // Guards before building.
             Guard.Against.NullOrWhiteSpace(mimeMessage.Subject, nameof(mimeMessage.Subject));
-            Guard.Against.Null(mimeMessage.From, nameof(mimeMessage.From));
-            Guard.Against.Null(mimeMessage.To, nameof(mimeMessage.To));
+            Guard.Against.NullOrEmpty(mimeMessage.From, nameof(mimeMessage.From));
+            Guard.Against.NullOrEmpty(mimeMessage.To, nameof(mimeMessage.To));
             Guard.Against.Null(mimeMessage.Body, nameof(mimeMessage.Body));
             Guard.Against.Null(mimeMessage.Priority, nameof(mimeMessage.Priority));
 

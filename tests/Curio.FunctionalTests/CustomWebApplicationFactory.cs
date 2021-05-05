@@ -6,6 +6,8 @@ using Curio.SharedKernel.Interfaces;
 using Curio.UnitTests;
 using Curio.Web;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
@@ -80,12 +82,18 @@ namespace Curio.FunctionalTests
             {
                 services.Remove(curioIdentityDescriptor);
             }
-
-            // Add CurioIdentityDbContext using an in-memory database for testing.
             services.AddDbContext<CurioIdentityDbContext>(options =>
             {
                 options.UseInMemoryDatabase("curio-identity-in-memory");
             });
+
+            // Add CurioIdentityDbContext using an in-memory database for testing.
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+                    .AddEntityFrameworkStores<CurioIdentityDbContext>()
+                    .AddUserStore<ApplicationUserStore>()
+                    .AddRoleStore<ApplicationRole>()
+                    .AddDefaultTokenProviders();
+
         }
 
         private void ReplaceCurioClientDbContext(IServiceCollection services)

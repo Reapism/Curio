@@ -19,7 +19,8 @@ namespace Curio.WebApi.Extensions
                     return new OkObjectResult(apiResponse);
                 case StatusCodes.Status201Created:
                     return new CreatedResult("", apiResponse);
-                case StatusCodes.
+                default:
+                    return new OkObjectResult(apiResponse);
             }
         }
     }

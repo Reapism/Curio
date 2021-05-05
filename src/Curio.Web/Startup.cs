@@ -77,10 +77,10 @@ namespace Curio.Web
         private void AddIdentity(IServiceCollection services)
         {
             services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddEntityFrameworkStores<CurioIdentityDbContext>()
-                .AddUserStore<UserStore<ApplicationUser, ApplicationRole, CurioIdentityDbContext, Guid>>()
-                .AddRoleStore<RoleStore<ApplicationRole, CurioIdentityDbContext, Guid>>()
-                .AddDefaultTokenProviders();
+                    .AddEntityFrameworkStores<CurioIdentityDbContext>()
+                    .AddUserStore<ApplicationUserStore>()
+                    .AddRoleStore<ApplicationRole>()
+                    .AddDefaultTokenProviders();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)

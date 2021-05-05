@@ -7,7 +7,9 @@ using Curio.Infrastructure.Data;
 using Curio.Infrastructure.DomainEvents;
 using Curio.Infrastructure.Logging;
 using Curio.Infrastructure.Services;
+using Curio.Infrastructure.Services.Identity;
 using Curio.SharedKernel.Interfaces;
+using Curio.WebApi.Exchanges.Home;
 using Module = Autofac.Module;
 
 namespace Curio.Infrastructure
@@ -15,7 +17,7 @@ namespace Curio.Infrastructure
     public class DefaultInfrastructureModule : Module
     {
         private bool isDevelopment = false;
-        private List<Assembly> assemblies = new();
+        private Queue<Assembly> assemblies = new();
 
         /// <summary>
         /// Registers all core and infrastructure components.
@@ -25,13 +27,11 @@ namespace Curio.Infrastructure
         public DefaultInfrastructureModule(bool isDevelopment, Assembly callingAssembly = null)
         {
             this.isDevelopment = isDevelopment;
-            var coreAssembly = Assembly.GetAssembly(typeof(CurioException));
-            var infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository));
-            assemblies.Add(coreAssembly);
-            assemblies.Add(infrastructureAssembly);
+            AddAssemblies();
+
             if (callingAssembly != null)
             {
-                assemblies.Add(callingAssembly);
+                assemblies.Enqueue(callingAssembly);
             }
         }
 
@@ -48,28 +48,78 @@ namespace Curio.Infrastructure
             RegisterCommonDependencies(builder);
         }
 
+        private void AddAssemblies()
+        {
+            var coreAssembly = Assembly.GetAssembly(typeof(CurioException));
+            var infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository));
+            var exchangesAssembly = Assembly.GetAssembly(typeof(RegistrationResponse));
+
+            assemblies.Enqueue(coreAssembly);
+            assemblies.Enqueue(infrastructureAssembly);
+            assemblies.Enqueue(exchangesAssembly);
+        }
+
         private void RegisterCommonDependencies(ContainerBuilder builder)
         {
-            builder.RegisterGeneric(typeof(LoggerAdapter<>)).As(typeof(IAppLogger<>))
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<DomainEventDispatcher>().As<IDomainEventDispatcher>()
-                .InstancePerLifetimeScope();
-
-            builder.RegisterType<EfRepository>().As<IRepository>()
-                .InstancePerLifetimeScope();
-
+            // Register assembly types for IHandle
             builder.RegisterAssemblyTypes(assemblies.ToArray())
-                .AsClosedTypesOf(typeof(IHandle<>));
+                   .AsClosedTypesOf(typeof(IHandle<>));
 
-            builder.RegisterType<EmailSender>().As<IEmailSender>()
-                .InstancePerLifetimeScope();
+            RegisterSharedKernel(builder);
+            RegisterExchanges(builder);
+            RegisterCore(builder);
+            RegisterInfrastructure(builder);
+        }
 
-            builder.RegisterType<EmailBuilder>().As<IEmailBuilder>()
-                .InstancePerLifetimeScope();
+        private void RegisterInfrastructure(ContainerBuilder builder)
+        {
+            builder.RegisterGeneric(typeof(EfRepository<>))
+                   .As(typeof(IRepository<>))
+                   .InstancePerLifetimeScope();
 
-            builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>))
-                .InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(LoggerAdapter<>))
+                   .As(typeof(IAppLogger<>))
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<DomainEventDispatcher>()
+                   .As<IDomainEventDispatcher>()
+                   .InstancePerLifetimeScope();
+
+            RegisterEmailServices(builder);
+            RegisterIdentityServices(builder);
+        }
+
+        private static void RegisterEmailServices(ContainerBuilder builder)
+        {
+            builder.RegisterType<EmailSender>()
+                   .As<IEmailSender>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<EmailBuilder>()
+                   .As<IEmailBuilder>()
+                   .InstancePerLifetimeScope();
+        }
+
+        private void RegisterIdentityServices(ContainerBuilder builder)
+        {
+            builder.RegisterGeneric(typeof(UserRegistrationService<>))
+                   .As(typeof(IUserRegistrationService<>))
+                   .InstancePerLifetimeScope();
+        }
+
+        private void RegisterSharedKernel(ContainerBuilder builder)
+        {
+
+        }
+
+        private void RegisterCore(ContainerBuilder builder)
+        {
+
+        }
+
+        private void RegisterExchanges(ContainerBuilder builder)
+        {
+
         }
 
         private void RegisterDevelopmentOnlyDependencies(ContainerBuilder builder)
