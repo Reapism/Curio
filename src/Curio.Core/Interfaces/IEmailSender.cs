@@ -5,6 +5,6 @@ namespace Curio.Core.Interfaces
 {
     public interface IEmailSender
     {
-        Task SendEmailAsync(IEmailBuilder emailBuilder, CancellationToken cancellationToken = default);
+        Task SendEmailAsync(IMimeMessageBuilder emailBuilder, CancellationToken cancellationToken = default);
     }
 }

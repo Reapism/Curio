@@ -95,8 +95,8 @@ namespace Curio.Infrastructure
                    .As<IEmailSender>()
                    .InstancePerLifetimeScope();
 
-            builder.RegisterType<EmailBuilder>()
-                   .As<IEmailBuilder>()
+            builder.RegisterType<MimeMessageBuilder>()
+                   .As<IMimeMessageBuilder>()
                    .InstancePerLifetimeScope();
         }
 

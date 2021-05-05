@@ -7,18 +7,18 @@ using MimeKit;
 
 namespace Curio.Infrastructure.Services
 {
-    public class EmailBuilder : IEmailBuilder
+    public class MimeMessageBuilder : IMimeMessageBuilder
     {
         private MimeMessage mimeMessage;
         private BodyBuilder bodyBuilder;
 
-        public EmailBuilder()
+        public MimeMessageBuilder()
         {
             mimeMessage = new MimeMessage();
             bodyBuilder = new BodyBuilder();
         }
 
-        public IEmailBuilder AddAttachment()
+        public IMimeMessageBuilder AddAttachment()
         {
             var attachment = new MimePart()
             {
@@ -29,7 +29,7 @@ namespace Curio.Infrastructure.Services
             return this;
         }
 
-        public IEmailBuilder AddBccAddress(params string[] bccAddresses)
+        public IMimeMessageBuilder AddBccAddress(params string[] bccAddresses)
         {
             var internetAddresses = new Queue<InternetAddress>();
             foreach (var bccAddress in bccAddresses)
@@ -41,7 +41,7 @@ namespace Curio.Infrastructure.Services
             return this;
         }
 
-        public IEmailBuilder AddCcAddress(params string[] ccAddresses)
+        public IMimeMessageBuilder AddCcAddress(params string[] ccAddresses)
         {
             var internetAddresses = new Queue<InternetAddress>();
             foreach (var ccAddress in ccAddresses)
@@ -53,7 +53,7 @@ namespace Curio.Infrastructure.Services
             return this;
         }
 
-        public IEmailBuilder AddFromAddress(params string[] fromAddresses)
+        public IMimeMessageBuilder AddFromAddress(params string[] fromAddresses)
         {
             var internetAddresses = new Queue<InternetAddress>();
             foreach (var fromAddress in fromAddresses)
@@ -65,7 +65,7 @@ namespace Curio.Infrastructure.Services
             return this;
         }
 
-        public IEmailBuilder AddToAddress(params string[] toAddresses)
+        public IMimeMessageBuilder AddToAddress(params string[] toAddresses)
         {
             var internetAddresses = new Queue<InternetAddress>();
             foreach (var toAddress in toAddresses)
@@ -103,7 +103,7 @@ namespace Curio.Infrastructure.Services
             return mimeMessage;
         }
 
-        public IEmailBuilder SetTextBody(string textContent)
+        public IMimeMessageBuilder SetTextBody(string textContent)
         {
             Guard.Against.NullOrWhiteSpace(textContent, nameof(textContent));
 
@@ -114,7 +114,7 @@ namespace Curio.Infrastructure.Services
             return this;
         }
 
-        public IEmailBuilder SetHtmlBody(string htmlContent)
+        public IMimeMessageBuilder SetHtmlBody(string htmlContent)
         {
             Guard.Against.NullOrWhiteSpace(htmlContent, nameof(htmlContent));
 
@@ -124,14 +124,14 @@ namespace Curio.Infrastructure.Services
             return this;
         }
 
-        public IEmailBuilder SetPriorityUrgent()
+        public IMimeMessageBuilder SetPriorityUrgent()
         {
             mimeMessage.Priority = MessagePriority.Urgent;
 
             return this;
         }
 
-        public IEmailBuilder SetSubject(string subject)
+        public IMimeMessageBuilder SetSubject(string subject)
         {
             Guard.Against.NullOrWhiteSpace(subject, nameof(subject));
 

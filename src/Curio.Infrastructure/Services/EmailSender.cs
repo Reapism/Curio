@@ -20,7 +20,7 @@ namespace Curio.Infrastructure
             this.logger = logger;
         }
 
-        public async Task SendEmailAsync(IEmailBuilder emailBuilder, CancellationToken cancellationToken = default)
+        public async Task SendEmailAsync(IMimeMessageBuilder emailBuilder, CancellationToken cancellationToken = default)
         {
             var message = emailBuilder.Build();
 

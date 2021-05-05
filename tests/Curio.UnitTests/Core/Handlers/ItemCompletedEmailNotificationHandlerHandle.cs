@@ -13,11 +13,11 @@ namespace Curio.UnitTests.Core.Entities
     {
         private ItemCompletedEmailNotificationHandler _handler;
         private Mock<IEmailSender> _emailSenderMock;
-        private Mock<IEmailBuilder> _emailBuilderMock;
+        private Mock<IMimeMessageBuilder> _emailBuilderMock;
         public ItemCompletedEmailNotificationHandlerHandle()
         {
             _emailSenderMock = new Mock<IEmailSender>();
-            _emailBuilderMock = new Mock<IEmailBuilder>();
+            _emailBuilderMock = new Mock<IMimeMessageBuilder>();
             _handler = new ItemCompletedEmailNotificationHandler(_emailSenderMock.Object, _emailBuilderMock.Object);
         }
 

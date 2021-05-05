@@ -9,9 +9,9 @@ namespace Curio.Core.Services
     public class ItemCompletedEmailNotificationHandler : IHandle<ToDoItemCompletedEvent>
     {
         private readonly IEmailSender _emailSender;
-        private readonly IEmailBuilder emailBuilder;
+        private readonly IMimeMessageBuilder emailBuilder;
 
-        public ItemCompletedEmailNotificationHandler(IEmailSender emailSender, IEmailBuilder emailBuilder)
+        public ItemCompletedEmailNotificationHandler(IEmailSender emailSender, IMimeMessageBuilder emailBuilder)
         {
             _emailSender = emailSender;
             this.emailBuilder = emailBuilder;
