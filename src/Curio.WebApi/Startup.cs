@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Curio.Infrastructure.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -29,18 +31,52 @@ namespace Curio.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IConfiguration>(Configuration);
             AddIdentity(services);
 
             services.AddMemoryCache();
 
             AddAuthentication(services);
 
-            services.AddControllers();
-            services.AddMediatR(typeof(Startup));
+            services.AddControllers()
+                    .AddJsonOptions(options => GetJsonSerializerOptions());
 
+            services.AddMediatR(typeof(Startup));
+            AddSwaggerGen(services);
+        }
+
+        private JsonSerializerOptions GetJsonSerializerOptions()
+        {
+            var jsonSerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
+
+            return jsonSerializerOptions;
+        }
+
+        private void AddSwaggerGen(IServiceCollection services)
+        {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Curio.WebApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Curio.WebApi",
+                    Version = "v1",
+                    Description = "The Curio API.",
+                    TermsOfService = new Uri("https://github.com/Reapism/Curio/blob/master/README.md"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Anthony J",
+                        Email = "reapsprgm@gmail.com",
+                        Url = new Uri("https://twitter.com/iReapism"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Private License",
+                        Url = new Uri("https://github.com/Reapism/Curio/blob/master/LICENSE.txt"),
+                    }
+                }); ;
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 

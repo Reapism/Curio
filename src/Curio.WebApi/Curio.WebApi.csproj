@@ -5,6 +5,7 @@
     <UserSecretsId>33db6aa0-f4d7-436c-aeb0-fc2e30e39c4c</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Endpoints\Registration\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
