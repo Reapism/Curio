@@ -173,13 +173,14 @@ namespace Curio.WebApi
             {
                 options.Password = GetPasswordOptions();
                 options.User = GetUserOptions();
+                options.User.RequireUniqueEmail = true;
                 options.Lockout = GetLockoutOptions();
                 options.ClaimsIdentity = GetClaimsIdentityOptions();
             })
-                .AddEntityFrameworkStores<CurioIdentityDbContext>()
-                .AddUserStore<UserStore<ApplicationUser, ApplicationRole, CurioIdentityDbContext, Guid>>()
-                .AddRoleStore<RoleStore<ApplicationRole, CurioIdentityDbContext, Guid>>()
-                .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<CurioIdentityDbContext>()
+            .AddUserStore<ApplicationUserStore>()
+            .AddRoleStore<ApplicationRole>()
+            .AddDefaultTokenProviders();
         }
 
         private ClaimsIdentityOptions GetClaimsIdentityOptions()
