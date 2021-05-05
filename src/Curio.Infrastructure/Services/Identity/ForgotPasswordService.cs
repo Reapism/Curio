@@ -50,7 +50,8 @@ namespace Curio.Infrastructure.Services.Identity
         private async Task<ApiResponse<ForgotPasswordResponse>> ResetPasswordInternal(ForgotPasswordRequest forgotPasswordRequest, ApplicationUser user)
         {
             var passwordResetToken = await userManager.GeneratePasswordResetTokenAsync(user);
-            emailBuilder.
+
+            return new ForgotPasswordResponse().AsFailedApiResponse();
         }
 
         private ApiResponse<ForgotPasswordResponse> GetForgotPasswordResponse()
