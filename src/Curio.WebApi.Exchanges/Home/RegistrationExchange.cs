@@ -1,4 +1,5 @@
-﻿using Curio.SharedKernel;
+﻿using System.Text.Json.Serialization;
+using Curio.SharedKernel;
 using Curio.SharedKernel.Authorization;
 using Curio.SharedKernel.Bases;
 using MediatR;
@@ -50,6 +51,8 @@ namespace Curio.WebApi.Exchanges.Home
         public bool HasMobilePhone { get; set; }
         public bool VerifyWithMobilePhone { get; set; }
         public bool VerifyWithEmail { get; set; }
+
+        [JsonIgnore]
         public virtual string UserType { get; protected set; } = UserTypeConstants.EndUser;
     }
 
