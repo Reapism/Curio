@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.WebApi.Exchanges", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{749FAAA9-DC02-4001-966B-D5F119408D35}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curio.ApplicationCore", "src\Curio.ApplicationCore\Curio.ApplicationCore.csproj", "{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{DAE74E39-9F79-40BF-B578-5E8D72B648AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAE74E39-9F79-40BF-B578-5E8D72B648AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAE74E39-9F79-40BF-B578-5E8D72B648AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +89,7 @@ Global
 		{740F7BE3-5A62-4CC3-A937-7B647269DFB5} = {12D93471-B2D9-4B62-A499-62B3307BC9CF}
 		{EAB66FA0-3739-47A1-9525-18B5DF977FBB} = {10DC7156-62E8-436A-9606-C1519A534E70}
 		{DAE74E39-9F79-40BF-B578-5E8D72B648AD} = {10DC7156-62E8-436A-9606-C1519A534E70}
+		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7} = {10DC7156-62E8-436A-9606-C1519A534E70}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A42EB472-C9DD-49B3-AC45-00821EF41AE4}
