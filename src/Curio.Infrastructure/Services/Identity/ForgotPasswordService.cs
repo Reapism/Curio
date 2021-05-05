@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Curio.SharedKernel.Extensions;
 using Curio.Core.Extensions;
 using System.Threading;
+using Curio.Core.Interfaces;
 
 namespace Curio.Infrastructure.Services.Identity
 {
@@ -15,12 +16,21 @@ namespace Curio.Infrastructure.Services.Identity
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ApplicationUserStore applicationUserStore;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IEmailSender emailSender;
+        private readonly IMimeMessageBuilder emailBuilder;
 
-        public ForgotPasswordService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ApplicationUserStore applicationUserStore)
+        public ForgotPasswordService(
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            ApplicationUserStore applicationUserStore,
+            IEmailSender emailSender,
+            IMimeMessageBuilder emailBuilder)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.applicationUserStore = applicationUserStore;
+            this.emailSender = emailSender;
+            this.emailBuilder = emailBuilder;
         }
 
         public async Task<ApiResponse<ForgotPasswordResponse>> ForgotPasswordAsync(ForgotPasswordRequest forgotPasswordRequest, CancellationToken cancellationToken = default)
@@ -29,7 +39,7 @@ namespace Curio.Infrastructure.Services.Identity
             var doesUserExist = DoesUserExist(user);
 
             if (doesUserExist)
-                return ResetPasswordInternal(forgotPasswordRequest);
+                return await ResetPasswordInternal(forgotPasswordRequest, user);
 
             // If the user does not exist.
             var response = GetForgotPasswordResponse();
@@ -37,9 +47,10 @@ namespace Curio.Infrastructure.Services.Identity
             return response;
         }
 
-        private ApiResponse<ForgotPasswordResponse> ResetPasswordInternal(ForgotPasswordRequest forgotPasswordRequest)
+        private async Task<ApiResponse<ForgotPasswordResponse>> ResetPasswordInternal(ForgotPasswordRequest forgotPasswordRequest, ApplicationUser user)
         {
-            throw new NotImplementedException();
+            var passwordResetToken = await userManager.GeneratePasswordResetTokenAsync(user);
+            emailBuilder.
         }
 
         private ApiResponse<ForgotPasswordResponse> GetForgotPasswordResponse()
