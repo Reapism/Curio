@@ -5,6 +5,7 @@ using Curio.Core.Exceptions;
 using Curio.Core.Interfaces;
 using Curio.Infrastructure.Data;
 using Curio.Infrastructure.DomainEvents;
+using Curio.Infrastructure.Identity;
 using Curio.Infrastructure.Logging;
 using Curio.Infrastructure.Services;
 using Curio.Infrastructure.Services.Identity;
@@ -83,6 +84,18 @@ namespace Curio.Infrastructure
 
             builder.RegisterType<DomainEventDispatcher>()
                    .As<IDomainEventDispatcher>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<ApplicationUser>()
+                   .AsSelf()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<ApplicationUserStore>()
+                   .AsSelf()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<ApplicationRole>()
+                   .AsSelf()
                    .InstancePerLifetimeScope();
 
             RegisterEmailServices(builder);
