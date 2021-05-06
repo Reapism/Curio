@@ -28,5 +28,5 @@
 
 # Curio
 
-A web-based social media app.
+A web-based social media app built with the clean architecture (onion architecture) paradigm in mind.
 
