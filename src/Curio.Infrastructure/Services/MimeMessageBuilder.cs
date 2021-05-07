@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Curio.Core.Interfaces;
+using Curio.ApplicationCore.Interfaces;
 using Curio.SharedKernel.Bases;
 using MimeKit;
 

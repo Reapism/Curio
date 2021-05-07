@@ -1,5 +1,5 @@
 ﻿using System;
-using Curio.Core.Interfaces;
+using Curio.ApplicationCore.Interfaces;
 
 namespace Curio.Infrastructure.Services
 {

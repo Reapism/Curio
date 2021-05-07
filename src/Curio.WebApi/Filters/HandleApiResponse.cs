@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Curio.Core.Interfaces;
+using Curio.ApplicationCore.Interfaces;
 using Curio.SharedKernel;
 using Curio.SharedKernel.Constants;
 using Microsoft.AspNetCore.Hosting;

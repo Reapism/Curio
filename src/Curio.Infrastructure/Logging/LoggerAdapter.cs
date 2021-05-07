@@ -1,4 +1,4 @@
-﻿using Curio.Core.Interfaces;
+﻿using Curio.ApplicationCore.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Curio.Infrastructure.Logging
@@ -14,8 +14,8 @@ namespace Curio.Infrastructure.Logging
 
         public void LogWarning(string message, params object[] args)
         {
+            logger.Log(LogLevel.Warning, message, args);
             logger.LogWarning(message, args);
-
         }
 
         public void LogInformation(string message, params object[] args)

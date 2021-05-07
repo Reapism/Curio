@@ -19,7 +19,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Curio.Core\Curio.Core.csproj" />
+    <ProjectReference Include="..\Curio.ApplicationCore\Curio.ApplicationCore.csproj" />
     <ProjectReference Include="..\Curio.SharedKernel\Curio.SharedKernel.csproj" />
   </ItemGroup>
 </Project>

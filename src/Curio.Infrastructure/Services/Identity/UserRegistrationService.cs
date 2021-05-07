@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Curio.ApplicationCore.Interfaces;
 using Curio.Core.Extensions;
-using Curio.Core.Interfaces;
 using Curio.Infrastructure.Identity;
 using Curio.SharedKernel;
 using Curio.WebApi.Exchanges.Home;

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
+using Curio.ApplicationCore.Interfaces;
 using Curio.Core.Exceptions;
-using Curio.Core.Interfaces;
 using Curio.Infrastructure.Data;
 using Curio.Infrastructure.DomainEvents;
 using Curio.Infrastructure.Identity;
