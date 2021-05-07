@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Curio.Core\Curio.Core.csproj" />
+    <ProjectReference Include="..\Curio.Domain\Curio.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MimeKit" Version="2.11.0" />
+  </ItemGroup>
 </Project>
