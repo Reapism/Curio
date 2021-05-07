@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.Core", "src\Curio.Core\Curio.Core.csproj", "{0BB0EF1E-3732-468B-8BBC-DC76540D5A2B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.Infrastructure", "src\Curio.Infrastructure\Curio.Infrastructure.csproj", "{9D52054F-A67D-430F-963B-9410ED279AE9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.SharedKernel", "src\Curio.SharedKernel\Curio.SharedKernel.csproj", "{4A21F665-941E-4FAD-AC1D-6E48C820F4AD}"
@@ -27,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.WebApi.Exchanges", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{749FAAA9-DC02-4001-966B-D5F119408D35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curio.ApplicationCore", "src\Curio.ApplicationCore\Curio.ApplicationCore.csproj", "{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.ApplicationCore", "src\Curio.ApplicationCore\Curio.ApplicationCore.csproj", "{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.Domain", "src\Curio.Domain\Curio.Domain.csproj", "{4C861182-6AF9-437A-8C87-992909D8D2EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0BB0EF1E-3732-468B-8BBC-DC76540D5A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BB0EF1E-3732-468B-8BBC-DC76540D5A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BB0EF1E-3732-468B-8BBC-DC76540D5A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BB0EF1E-3732-468B-8BBC-DC76540D5A2B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9D52054F-A67D-430F-963B-9410ED279AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9D52054F-A67D-430F-963B-9410ED279AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D52054F-A67D-430F-963B-9410ED279AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,12 +71,15 @@ Global
 		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C861182-6AF9-437A-8C87-992909D8D2EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C861182-6AF9-437A-8C87-992909D8D2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C861182-6AF9-437A-8C87-992909D8D2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C861182-6AF9-437A-8C87-992909D8D2EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0BB0EF1E-3732-468B-8BBC-DC76540D5A2B} = {10DC7156-62E8-436A-9606-C1519A534E70}
 		{9D52054F-A67D-430F-963B-9410ED279AE9} = {10DC7156-62E8-436A-9606-C1519A534E70}
 		{4A21F665-941E-4FAD-AC1D-6E48C820F4AD} = {10DC7156-62E8-436A-9606-C1519A534E70}
 		{F5446BE3-9A12-4BF7-8297-C0D1384B4BD6} = {10DC7156-62E8-436A-9606-C1519A534E70}
@@ -90,6 +89,7 @@ Global
 		{EAB66FA0-3739-47A1-9525-18B5DF977FBB} = {10DC7156-62E8-436A-9606-C1519A534E70}
 		{DAE74E39-9F79-40BF-B578-5E8D72B648AD} = {10DC7156-62E8-436A-9606-C1519A534E70}
 		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7} = {10DC7156-62E8-436A-9606-C1519A534E70}
+		{4C861182-6AF9-437A-8C87-992909D8D2EF} = {10DC7156-62E8-436A-9606-C1519A534E70}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A42EB472-C9DD-49B3-AC45-00821EF41AE4}
