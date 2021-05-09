@@ -1,5 +1,6 @@
 ﻿using System;
 using Autofac.Extensions.DependencyInjection;
+using Curio.ApplicationCore.Interfaces;
 using Curio.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +33,7 @@ namespace Curio.Web
                 }
                 catch (Exception ex)
                 {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    var logger = services.GetRequiredService<IAppLogger<Program>>();
                     logger.LogError(ex, "An error occurred seeding the DB.");
                 }
             }
