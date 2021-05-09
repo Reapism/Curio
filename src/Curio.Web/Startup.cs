@@ -83,7 +83,7 @@ namespace Curio.Web
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                     .AddEntityFrameworkStores<CurioIdentityDbContext>()
                     .AddUserStore<ApplicationUserStore>()
-                    .AddRoleStore<ApplicationRole>()
+                    .AddRoles<ApplicationRole>()
                     .AddDefaultTokenProviders();
         }
 
