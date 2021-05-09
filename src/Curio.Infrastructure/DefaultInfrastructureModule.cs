@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using Curio.ApplicationCore.Interfaces;
@@ -11,6 +12,7 @@ using Curio.Infrastructure.Services;
 using Curio.Infrastructure.Services.Identity;
 using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Home;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Module = Autofac.Module;
 
 namespace Curio.Infrastructure
@@ -84,18 +86,6 @@ namespace Curio.Infrastructure
 
             builder.RegisterType<DomainEventDispatcher>()
                    .As<IDomainEventDispatcher>()
-                   .InstancePerLifetimeScope();
-
-            builder.RegisterType<ApplicationUser>()
-                   .AsSelf()
-                   .InstancePerLifetimeScope();
-
-            builder.RegisterType<ApplicationUserStore>()
-                   .AsSelf()
-                   .InstancePerLifetimeScope();
-
-            builder.RegisterType<ApplicationRole>()
-                   .AsSelf()
                    .InstancePerLifetimeScope();
 
             RegisterEmailServices(builder);
