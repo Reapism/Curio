@@ -1,4 +1,5 @@
-﻿using Curio.ApplicationCore.Interfaces;
+﻿using System;
+using Curio.ApplicationCore.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Curio.Infrastructure.Logging
@@ -21,6 +22,11 @@ namespace Curio.Infrastructure.Logging
         public void LogInformation(string message, params object[] args)
         {
             logger.LogInformation(message, args);
+        }
+
+        public void LogError(Exception exception, string message, params object[] args)
+        {
+            logger.LogError(exception, message, args);
         }
     }
 }
