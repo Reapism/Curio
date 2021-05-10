@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using Curio.Core.Entities;
 using Curio.Core.Events;
-using Curio.Core.Interfaces;
-using Curio.Core.Services;
 using Moq;
 using Xunit;
 

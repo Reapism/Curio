@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using Curio.ApplicationCore.Interfaces;
 using Curio.Core.Exceptions;
 using Curio.Infrastructure.Data;
 using Curio.Infrastructure.DomainEvents;
-using Curio.Infrastructure.Identity;
 using Curio.Infrastructure.Logging;
 using Curio.Infrastructure.Services;
 using Curio.Infrastructure.Services.Identity;
 using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Home;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Module = Autofac.Module;
 
 namespace Curio.Infrastructure
