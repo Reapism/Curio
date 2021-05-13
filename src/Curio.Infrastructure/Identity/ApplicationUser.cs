@@ -10,6 +10,7 @@ namespace Curio.Infrastructure.Identity
     {
         public bool HasAgreedToEula { get; set; }
         public bool HasAgreedToPrivacyPolicy { get; set; }
+        public bool HasLoggedInAfterRegistration { get; set; }
     }
 }
 
