@@ -3,6 +3,7 @@
   
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Description>The project contains the implementation of the infrastructure necessary to service the application. In this project, there is implementations for the Repository, and for our ORM (database provider), domain event implementations, and identity services. This project may have many dependencies that are necessary for servicing the application.</Description>
   </PropertyGroup>
 
   <ItemGroup>
