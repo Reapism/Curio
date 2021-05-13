@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <Description>Operations involving the domain project. Includes contract for infrastructure services like email sending. Contains implementations for domain services that involve operations with multiple aggregates/entities without including identity related services..</Description>
   </PropertyGroup>
 
   <ItemGroup>
