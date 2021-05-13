@@ -29,28 +29,30 @@ namespace Curio.WebApi.Exchanges.Home
     public abstract class RegistrationRequest
     {
         // Login details
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string MobilePhone { get; set; }
+        public string Email { get; init; }
+        public string Password { get; init; }
+        public string MobilePhone { get; init; }
 
         // Your information
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FirstName { get; init; }
+        public string LastName { get; init; }
 
         // Profile 
-        public string DisplayName { get; set; }
-        public byte[] ImageBase64 { get; set; }
+        public string DisplayName { get; init; }
+        public byte[] ImageBase64 { get; init; }
 
-        public bool TwoFactorEnabled { get; set; }
+        public bool TwoFactorEnabled { get; init; }
 
         // Agreements
-        public bool HasAgreedToEula { get; set; }
-        public bool HasAgreedToPrivacyPolicy { get; set; }
+        public bool HasAgreedToEula { get; init; }
+        public bool HasAgreedToPrivacyPolicy { get; init; }
 
         // Computed values from client side
-        public bool HasMobilePhone { get; set; }
-        public bool VerifyWithMobilePhone { get; set; }
-        public bool VerifyWithEmail { get; set; }
+        public bool HasMobilePhone { get; init; }
+        public bool VerifyWithMobilePhone { get; init; }
+        public bool VerifyWithEmail { get; init; }
+
+        public bool IsFirstTimeLogin { get; init; } = true;
 
         [JsonIgnore]
         public virtual string UserType { get; protected set; } = UserTypeConstants.EndUser;
