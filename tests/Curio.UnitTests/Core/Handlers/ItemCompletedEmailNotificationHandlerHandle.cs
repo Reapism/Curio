@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Curio.ApplicationCore.Interfaces;
+using Curio.ApplicationCore.Services;
 using Curio.Core.Entities;
 using Curio.Core.Events;
 using Moq;
