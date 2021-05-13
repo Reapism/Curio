@@ -12,4 +12,8 @@
     <ProjectReference Include="..\Curio.SharedKernel\Curio.SharedKernel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Home\" />
+  </ItemGroup>
+
 </Project>

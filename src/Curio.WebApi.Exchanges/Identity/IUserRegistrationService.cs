@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Curio.SharedKernel;
 
-namespace Curio.WebApi.Exchanges.Home
+namespace Curio.WebApi.Exchanges.Identity
 {
     public interface IUserRegistrationService<in T>
         where T : RegistrationRequest

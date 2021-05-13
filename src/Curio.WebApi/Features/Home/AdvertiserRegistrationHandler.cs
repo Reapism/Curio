@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Curio.SharedKernel;
-using Curio.WebApi.Exchanges.Home;
+using Curio.WebApi.Exchanges.Identity;
 using MediatR;
 
 namespace Curio.WebApi.Features.Home

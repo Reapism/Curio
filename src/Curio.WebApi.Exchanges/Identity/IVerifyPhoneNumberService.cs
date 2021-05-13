@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Curio.SharedKernel;
 using Curio.WebApi.Exchanges.Identity;
 
-namespace Curio.WebApi.Exchanges.Home
+namespace Curio.WebApi.Exchanges.Identity
 {
     public interface IVerifyPhoneNumberService
     {

@@ -1,7 +1,7 @@
 ﻿using Curio.SharedKernel.Bases;
 using MediatR;
 
-namespace Curio.WebApi.Exchanges.Home
+namespace Curio.WebApi.Exchanges.Identity
 {
     public class LoginRequest : IRequest<LoginResponse>
     {

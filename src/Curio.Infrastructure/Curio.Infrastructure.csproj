@@ -22,5 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Curio.ApplicationCore\Curio.ApplicationCore.csproj" />
     <ProjectReference Include="..\Curio.SharedKernel\Curio.SharedKernel.csproj" />
+    <ProjectReference Include="..\Curio.WebApi.Exchanges\Curio.WebApi.Exchanges.csproj" />
   </ItemGroup>
 </Project>

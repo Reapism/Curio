@@ -4,7 +4,7 @@ using Curio.ApplicationCore.Interfaces;
 using Curio.Core.Extensions;
 using Curio.Infrastructure.Identity;
 using Curio.SharedKernel;
-using Curio.WebApi.Exchanges.Home;
+using Curio.WebApi.Exchanges.Identity;
 using Microsoft.AspNetCore.Identity;
 
 namespace Curio.Infrastructure.Services.Identity

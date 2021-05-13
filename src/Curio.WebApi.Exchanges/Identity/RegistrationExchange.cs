@@ -4,7 +4,7 @@ using Curio.SharedKernel.Authorization;
 using Curio.SharedKernel.Bases;
 using MediatR;
 
-namespace Curio.WebApi.Exchanges.Home
+namespace Curio.WebApi.Exchanges.Identity
 {
     public sealed class AdministratorRegistrationRequest : RegistrationRequest, IRequest<ApiResponse<RegistrationResponse>>
     {

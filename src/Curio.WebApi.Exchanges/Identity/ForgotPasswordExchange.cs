@@ -3,7 +3,7 @@ using Curio.SharedKernel;
 using Curio.SharedKernel.Bases;
 using MediatR;
 
-namespace Curio.WebApi.Exchanges.Home
+namespace Curio.WebApi.Exchanges.Identity
 {
     public class ForgotPasswordRequest : IRequest<ApiResponse<ForgotPasswordResponse>>
     {

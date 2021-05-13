@@ -9,7 +9,7 @@ using Curio.Infrastructure.Logging;
 using Curio.Infrastructure.Services;
 using Curio.Infrastructure.Services.Identity;
 using Curio.SharedKernel.Interfaces;
-using Curio.WebApi.Exchanges.Home;
+using Curio.WebApi.Exchanges.Identity;
 using Module = Autofac.Module;
 
 namespace Curio.Infrastructure
