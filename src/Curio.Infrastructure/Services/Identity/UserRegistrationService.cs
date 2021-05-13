@@ -112,6 +112,8 @@ namespace Curio.Infrastructure.Services.Identity
         private ApplicationUser ToApplicationUser(T registrationRequest)
         {
             TrySanitize(registrationRequest);
+            var emailNormalized = registrationRequest.Email.Normalize().ToUpperInvariant();
+            var displayNameNormalized = registrationRequest.DisplayName.Normalize().ToUpperInvariant();
 
             var user = new ApplicationUser()
             {
@@ -119,18 +121,18 @@ namespace Curio.Infrastructure.Services.Identity
                 HasAgreedToEula = registrationRequest.HasAgreedToEula,
                 HasAgreedToPrivacyPolicy = registrationRequest.HasAgreedToPrivacyPolicy,
                 ConcurrencyStamp = null, // TODO
-                Email = registrationRequest.Email,
+                Email = emailNormalized,
                 EmailConfirmed = false,
                 Id = Guid.NewGuid(),
                 LockoutEnabled = false,
                 LockoutEnd = null,
-                NormalizedEmail = registrationRequest.Email,
-                NormalizedUserName = registrationRequest.DisplayName,
-                PhoneNumber = registrationRequest.HasMobilePhone ? registrationRequest.MobilePhone : "",
+                NormalizedEmail = emailNormalized,
+                NormalizedUserName = displayNameNormalized,
+                PhoneNumber = registrationRequest.HasMobilePhone ? registrationRequest.MobilePhone : null,
                 PhoneNumberConfirmed = false, // TODO
                 SecurityStamp = null, // TODO
                 TwoFactorEnabled = registrationRequest.TwoFactorEnabled,
-                UserName = registrationRequest.DisplayName
+                UserName = registrationRequest.DisplayName // Case sensitive, display name.
             };
 
             if (registrationRequest.VerifyWithMobilePhone)
