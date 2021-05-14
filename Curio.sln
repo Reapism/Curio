@@ -23,8 +23,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.WebApi", "src\Curio.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.WebApi.Exchanges", "src\Curio.WebApi.Exchanges\Curio.WebApi.Exchanges.csproj", "{DAE74E39-9F79-40BF-B578-5E8D72B648AD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{749FAAA9-DC02-4001-966B-D5F119408D35}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.ApplicationCore", "src\Curio.ApplicationCore\Curio.ApplicationCore.csproj", "{908EEA32-38E7-49B9-9A03-B70AE6AE70C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.Domain", "src\Curio.Domain\Curio.Domain.csproj", "{4C861182-6AF9-437A-8C87-992909D8D2EF}"
