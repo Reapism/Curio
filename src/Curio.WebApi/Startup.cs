@@ -9,6 +9,7 @@ using Autofac;
 using Curio.Infrastructure;
 using Curio.Infrastructure.Identity;
 using Curio.SharedKernel.Constants;
+using Curio.WebApi.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -149,6 +150,8 @@ namespace Curio.WebApi
                         new List<string>()
                     }
                 });
+
+                c.SchemaFilter<SwaggerIgnoreFilter>();
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
