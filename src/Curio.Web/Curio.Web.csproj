@@ -23,6 +23,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Curio.Infrastructure\Curio.Infrastructure.csproj" />
+    <ProjectReference Include="..\Curio.WebApi\Curio.WebApi.csproj" />
   </ItemGroup>
   
   <ItemGroup>
