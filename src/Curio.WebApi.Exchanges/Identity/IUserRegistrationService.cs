@@ -9,5 +9,4 @@ namespace Curio.WebApi.Exchanges.Identity
     {
         Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(T registrationRequest, CancellationToken cancellationToken = default);
     }
-
 }
