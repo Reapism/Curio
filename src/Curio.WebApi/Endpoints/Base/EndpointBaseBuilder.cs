@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Curio.Api.Endpoints.Base
+namespace Curio.WebApi.Endpoints.Base
 {
     /// <summary>
     /// A class exposing actionable endpoints that can be used

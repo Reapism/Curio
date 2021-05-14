@@ -5,7 +5,7 @@ using Curio.SharedKernel.Constants;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Curio.Api.Filters
+namespace Curio.WebApi.Filters
 {
     //TODO Ensure ActionResult<TApiResponse<T>> returns properly via httpcode.
     public class HandleApiResponse : IAsyncPageFilter

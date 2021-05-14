@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Curio.Api.Endpoints.Base
+namespace Curio.WebApi.Endpoints.Base
 {
     [ApiController]
     public abstract class CrudEndpoint<TRequest, TResponse> : ControllerBase
