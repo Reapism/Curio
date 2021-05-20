@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Curio.Web.Pages
+namespace Curio.Web.Pages.Identity
 {
-    public class RegisterModel : PageModel
+    public class LogoutModel : PageModel
     {
         public void OnGet()
         {
