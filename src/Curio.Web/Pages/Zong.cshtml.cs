@@ -8,18 +8,18 @@ namespace Curio.Web.Pages.ToDoRazorPage
 {
     public class ZongModel : PageModel
     {
-        private readonly IRepository repository;
+        private readonly IRepository<ToDoItem> repository;
 
         public IEnumerable<ToDoItem> Items { get; set; }
 
-        public ZongModel(IRepository repository)
+        public ZongModel(IRepository<ToDoItem> repository)
         {
             this.repository = repository;
         }
 
         public async Task OnGetAsync()
         {
-            Items = await repository.ListAsync<ToDoItem>();
+            Items = await repository.ListAsync();
         }
     }
 }
