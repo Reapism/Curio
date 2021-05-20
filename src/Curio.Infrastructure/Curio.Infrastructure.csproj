@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Curio.SharedKernel\Curio.SharedKernel.csproj" />
     <ProjectReference Include="..\Curio.WebApi.Exchanges\Curio.WebApi.Exchanges.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Identity\Config\" />
+  </ItemGroup>
 </Project>
