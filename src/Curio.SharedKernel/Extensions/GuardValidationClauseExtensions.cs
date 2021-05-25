@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 
-namespace Curio.SharedKernel.Extensions
+namespace Curio.SharedKernel.Bases
 {
     public static class GuardValidationClauseExtensions
     {
@@ -26,16 +26,10 @@ namespace Curio.SharedKernel.Extensions
             return null;
         }
 
-        public static IValidationResponse Phone(this IGuardValidationClause guard, string value, string parameterName)
+        public static IValidationResponse Phone(this IGuardValidationClause guard, string value, string countryCode, string parameterName)
         {
             Guard.Against.NullOrWhiteSpace(value, parameterName);
-
-            return null;
-        }
-
-        public static IValidationResponse InternationalPhone(this IGuardValidationClause guard, string value, string parameterName)
-        {
-            Guard.Against.NullOrWhiteSpace(value, parameterName);
+            Guard.Against.NullOrWhiteSpace(countryCode, nameof(countryCode));
 
             return null;
         }
