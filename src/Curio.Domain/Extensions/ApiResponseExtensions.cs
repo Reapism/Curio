@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Curio.SharedKernel;
+using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Extensions
@@ -33,22 +35,22 @@ namespace Curio.Core.Extensions
             {
                 Message = message,
                 Response = hasResponse ? response : null,
-                IsSuccessful = true,
+                IsSuccessful = false,
             };
 
             return apiResponse;
         }
 
-        public static ApiResponse<T> AsFailedApiValidationResponse<T>(this T validationResponse, Exception ex = null, string message = "")
+        public static ApiResponse<T> AsApiResponse<T>(this T validationResponse, Exception ex = null, string message = "")
             where T : class, IValidationResponse
         {
-            bool hasResponse = (bool)(validationResponse?.Equals(default(T)));
-
+            // If validation response is not default.
+            bool hasResponse = !(bool)(validationResponse?.Equals(default(T)));
             var apiResponse = new ApiResponse<T>(ex, 400)
             {
                 Message = message,
                 Response = hasResponse ? validationResponse : null,
-                IsSuccessful = true,
+                IsSuccessful = false,
             };
 
             return apiResponse;
@@ -63,18 +65,20 @@ namespace Curio.Core.Extensions
         /// <param name="validationResponse">The <see cref="IValidationResponse"/> instance.</param>
         /// <param name="validationToTipsMapping">Key: Validation Message, Value: A tip if any, for why or how to fix the validation.</param>
         /// <returns></returns>
-        public static ApiResponse<T> AsFailedApiValidationResponse<T>(IDictionary<string, string> validationToTipsMapping, string optionalMessage = "")
+        public static ApiResponse<T> AsApiResponse<T>(IDictionary<string, string> validationToTipsMapping, string optionalMessage = "")
             where T : class, IValidationResponse, new()
         {
             var validationResponse = default(T);
 
-            validationResponse.IsFailure = true;
+            var hasValidations = validationToTipsMapping?.Any() ?? false;
+
+            validationResponse.IsFailure = hasValidations;
             validationResponse.ValidationToTipMapping = validationToTipsMapping;
 
             var apiResponse = new ApiResponse<T>(httpStatusCode: 400)
             {
                 Response = validationResponse,
-                IsSuccessful = true,
+                IsSuccessful = !validationResponse.IsFailure,
                 Message = optionalMessage,
             };
 

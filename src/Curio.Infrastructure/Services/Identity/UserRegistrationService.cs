@@ -61,7 +61,7 @@ namespace Curio.Infrastructure.Services.Identity
                 return registrationResponse.AsSuccessfulApiResponse("The user has been successfully created.");
 
             var validationToTipsMapping = identityResult.Errors.ToDictionary(k => k.Description, v => v.Description);
-            var failedRegistrationResponse = ApiResponseExtensions.AsFailedApiValidationResponse<RegistrationResponse>(validationToTipsMapping, "An error has occured when registering the user");
+            var failedRegistrationResponse = ApiResponseExtensions.AsApiResponse<RegistrationResponse>(validationToTipsMapping, "An error has occured when registering the user");
 
             return failedRegistrationResponse;
         }

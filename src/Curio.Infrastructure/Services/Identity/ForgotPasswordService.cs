@@ -55,7 +55,7 @@ namespace Curio.Infrastructure.Services.Identity
         private ApiResponse<ForgotPasswordResponse> GetForgotPasswordResponse()
         {
             var response = new ForgotPasswordResponse();
-            var apiResponse = response.AsFailedApiValidationResponse(message: "The email or mobile phone is not associated with an account. Please make sure you entered the right email or phone number.");
+            var apiResponse = response.AsFailedApiResponse(message: "The email or mobile phone is not associated with an account. Please make sure you entered the right email or phone number.");
 
             return apiResponse;
         }
