@@ -57,6 +57,34 @@ namespace Curio.Core.Extensions
         }
 
         /// <summary>
+        /// Wraps a <typeparamref name="T"/> into a specific <see cref="ApiResponse"/>&lt;<typeparamref name="V"/>&gt;.
+        /// </summary>
+        /// <remarks>Generates a <see langword="default"/> instance of <typeparamref name="V"/> to wrap with.</remarks>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <param name="validationResponse"></param>
+        /// <param name="ex"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static ApiResponse<V> AsApiResponse<T, V>(this T validationResponse, Exception ex = null, string message = "")
+            where T : class, IValidationResponse
+            where V : class, IValidationResponse
+        {
+            // If validation response is not default.
+            bool hasResponse = !(bool)(validationResponse?.Equals(default(T)));
+            var value = default(V);
+
+            var apiResponse = new ApiResponse<V>(ex, 400)
+            {
+                Message = message,
+                Response = value,
+                IsSuccessful = false,
+            };
+
+            return apiResponse;
+        }
+
+        /// <summary>
         /// Return a failed <see cref="ApiResponse{T}"/> wrapped in a <see cref="IValidationResponse"/>.
         /// <para>This modifies the <paramref name="validationResponse"/> and populates it based
         /// on the <paramref name="validationToTipsMapping"/>.</para>
