@@ -6,16 +6,16 @@
     <div class="col-md-6">
         <h2>Curio</h2>
         @*<ul>
-            <li><a asp-area="" asp-controller="ToDo" asp-action="Populate">Load Sample To Do Items</a> (API call returning just a number)</li>
-            <li><a asp-area="" asp-controller="ToDo" asp-action="Index">List To Do Items</a></li>
-            <li><a href="/swagger">API Documentation (Swagger)</a></li>
-        </ul>
-        <h2>To Do Items (Razor Pages)</h2>
-        <ul>
-            <li><a asp-page="/ToDoRazorPage/Populate">Load Sample To Do Items</a></li>
-            <li><a asp-page="/ToDoRazorPage/Index">List To Do Items</a></li>
-            <li><a asp-page="/Login">Login</a></li>
-        </ul>*@
+                <li><a asp-area="" asp-controller="ToDo" asp-action="Populate">Load Sample To Do Items</a> (API call returning just a number)</li>
+                <li><a asp-area="" asp-controller="ToDo" asp-action="Index">List To Do Items</a></li>
+                <li><a href="/swagger">API Documentation (Swagger)</a></li>
+            </ul>
+            <h2>To Do Items (Razor Pages)</h2>
+            <ul>
+                <li><a asp-page="/ToDoRazorPage/Populate">Load Sample To Do Items</a></li>
+                <li><a asp-page="/ToDoRazorPage/Index">List To Do Items</a></li>
+                <li><a asp-page="/Login">Login</a></li>
+            </ul>*@
         <p>
             A simple social media platform powered by the Curio API.
         </p>
@@ -27,5 +27,9 @@
             <li><a href="https://twitter.com/iReapism">Twitter - @@iReapism</a></li>
             <li><a href="https://github.com/Reapism">GitHub</a></li>
         </ul>
+    </div>
+    <div class="col-md-6">
+        <h2>Authentication</h2>
+        <form asp-page="/Login"></form>
     </div>
 </div>
