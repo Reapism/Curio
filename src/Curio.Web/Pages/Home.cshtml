@@ -1,0 +1,18 @@
+﻿@page
+@model Curio.Web.Pages.HomeViewModel
+@{
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Welcome</title>
+</head>
+<body>
+    <a asp-page="Welcome" asp-page-handler="Logout">Logout</a>
+    <h1>Welcome @Model.SessionUser.Handle</h1>
+</body>
+</html>
