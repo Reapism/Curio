@@ -5,6 +5,7 @@ using Curio.ApplicationCore.Interfaces;
 using Curio.Core.Exceptions;
 using Curio.Infrastructure.Data;
 using Curio.Infrastructure.DomainEvents;
+using Curio.Infrastructure.Identity;
 using Curio.Infrastructure.Logging;
 using Curio.Infrastructure.Services;
 using Curio.Infrastructure.Services.Identity;
@@ -85,6 +86,10 @@ namespace Curio.Infrastructure
                    .As<IDomainEventDispatcher>()
                    .InstancePerLifetimeScope();
 
+            builder.RegisterType<SessionUser>()
+                   .As<ISessionUser>()
+                   .InstancePerLifetimeScope();
+
             RegisterEmailServices(builder);
             RegisterIdentityServices(builder);
         }
@@ -105,6 +110,8 @@ namespace Curio.Infrastructure
             builder.RegisterGeneric(typeof(UserRegistrationService<>))
                    .As(typeof(IUserRegistrationService<>))
                    .InstancePerLifetimeScope();
+
+            builder.RegisterType<LoginService>
         }
 
         private void RegisterSharedKernel(ContainerBuilder builder)
