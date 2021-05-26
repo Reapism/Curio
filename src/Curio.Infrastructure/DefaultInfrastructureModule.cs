@@ -111,7 +111,9 @@ namespace Curio.Infrastructure
                    .As(typeof(IUserRegistrationService<>))
                    .InstancePerLifetimeScope();
 
-            builder.RegisterType<LoginService>
+            builder.RegisterType<LoginService>()
+                   .As<ILoginService>()
+                   .InstancePerLifetimeScope();
         }
 
         private void RegisterSharedKernel(ContainerBuilder builder)
