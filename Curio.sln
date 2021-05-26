@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.ApplicationCore", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.Domain", "src\Curio.Domain\Curio.Domain.csproj", "{4C861182-6AF9-437A-8C87-992909D8D2EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curio.Benchmarks", "tests\Curio.Benchmarks\Curio.Benchmarks.csproj", "{5D5E34C5-6008-45F0-828E-C8AC66B8E6DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{4C861182-6AF9-437A-8C87-992909D8D2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C861182-6AF9-437A-8C87-992909D8D2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C861182-6AF9-437A-8C87-992909D8D2EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D5E34C5-6008-45F0-828E-C8AC66B8E6DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D5E34C5-6008-45F0-828E-C8AC66B8E6DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D5E34C5-6008-45F0-828E-C8AC66B8E6DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D5E34C5-6008-45F0-828E-C8AC66B8E6DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{DAE74E39-9F79-40BF-B578-5E8D72B648AD} = {10DC7156-62E8-436A-9606-C1519A534E70}
 		{908EEA32-38E7-49B9-9A03-B70AE6AE70C7} = {10DC7156-62E8-436A-9606-C1519A534E70}
 		{4C861182-6AF9-437A-8C87-992909D8D2EF} = {10DC7156-62E8-436A-9606-C1519A534E70}
+		{5D5E34C5-6008-45F0-828E-C8AC66B8E6DF} = {12D93471-B2D9-4B62-A499-62B3307BC9CF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A42EB472-C9DD-49B3-AC45-00821EF41AE4}
