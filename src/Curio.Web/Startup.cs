@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Reflection;
 using Ardalis.ListStartupServices;
 using Autofac;
@@ -59,6 +60,8 @@ namespace Curio.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            AddHttpClient(services);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Curio API", Version = "v1" });
@@ -75,6 +78,17 @@ namespace Curio.Web
 
                 // optional - default path to view services is /listallservices - recommended to choose your own path
                 config.Path = "/listallservices";
+            });
+        }
+
+        private static void AddHttpClient(IServiceCollection services)
+        {
+            services.AddHttpClient("WebApi", (httpClient) =>
+            {
+                var uriBuilder = new UriBuilder("https", "localhost", 44322);
+                httpClient.BaseAddress = uriBuilder.Uri;
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"))
             });
         }
 
