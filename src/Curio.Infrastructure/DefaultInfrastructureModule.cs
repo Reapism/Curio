@@ -90,8 +90,16 @@ namespace Curio.Infrastructure
                    .As<ISessionUser>()
                    .InstancePerLifetimeScope();
 
+            RegisterJsonServices(builder);
             RegisterEmailServices(builder);
             RegisterIdentityServices(builder);
+        }
+
+        private static void RegisterJsonServices(ContainerBuilder builder)
+        {
+            builder.RegisterType<JsonSerializerService>()
+                   .As<IJsonSerializer>()
+                   .SingleInstance();
         }
 
         private static void RegisterEmailServices(ContainerBuilder builder)
