@@ -88,7 +88,7 @@ namespace Curio.Web
                 var uriBuilder = new UriBuilder("https", "localhost", 44322);
                 httpClient.BaseAddress = uriBuilder.Uri;
                 httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"))
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             });
         }
 
