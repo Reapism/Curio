@@ -1,4 +1,4 @@
-﻿using Curio.SharedKernel.Interfaces;
+﻿using System.Net.Http;
 using Curio.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,11 +7,11 @@ namespace Curio.Web.Controllers.Base
     [ValidateModel]
     public class WebControllerBase : Controller
     {
-        public WebControllerBase(IRepository repository)
+        public WebControllerBase(IHttpClientFactory httpClientFactory)
         {
-            Repository = repository;
+            HttpClient = httpClientFactory.CreateClient("WebApi");
         }
 
-        protected IRepository Repository { get; }
+        protected HttpClient HttpClient { get; }
     }
 }
