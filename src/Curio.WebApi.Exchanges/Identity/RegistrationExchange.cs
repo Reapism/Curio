@@ -59,6 +59,8 @@ namespace Curio.WebApi.Exchanges.Identity
 
         [Required]
         public string DisplayName { get; set; }
+        [Required]
+        public string UniqueHandle { get; set; }
         public byte[] ImageBase64 { get; set; }
 
         public bool TwoFactorEnabled { get; set; }
