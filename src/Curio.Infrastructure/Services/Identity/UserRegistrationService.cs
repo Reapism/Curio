@@ -15,6 +15,7 @@ namespace Curio.Infrastructure.Services.Identity
 {
     public class UserRegistrationService<T> : IUserRegistrationService<T>
         where T : RegistrationRequest
+        where T : RegistrationRequest
     {
         private readonly IAppLogger<UserRegistrationService<T>> logger;
         private readonly UserManager<ApplicationUser> userManager;
@@ -57,9 +58,12 @@ namespace Curio.Infrastructure.Services.Identity
             // Sanitize request parameters
             TrySanitize(registrationRequest);
             var user = SetupApplicationUserFromRequest(registrationRequest);
+            var userProfile = CreateUserProfile(registrationRequest, user);
 
             var identityResult = await userManager.CreateAsync(user, registrationRequest.Password);
             var registrationResponse = GetRegistrationResponse(identityResult);
+
+            _ = await userProfileRepository.AddAsync(userProfile);
 
             return registrationResponse;
         }
@@ -132,6 +136,7 @@ namespace Curio.Infrastructure.Services.Identity
                 registrationRequest.FirstName = registrationRequest.FirstName.Normalize().Trim();
                 registrationRequest.LastName = registrationRequest.LastName.Normalize().Trim();
                 registrationRequest.MobilePhone = registrationRequest.MobilePhone.Normalize().Trim();
+                registrationRequest.UniqueHandle = registrationRequest.UniqueHandle.Normalize().Trim();
             });
         }
 
@@ -147,6 +152,40 @@ namespace Curio.Infrastructure.Services.Identity
 
             applicationUser.PasswordHash = GetHashedPassword(registrationRequest, applicationUser);
             return applicationUser;
+        }
+
+        private UserProfile CreateUserProfile(T registrationRequest, ApplicationUser applicationUser)
+        {
+            var userProfileId = Guid.NewGuid();
+            var userProfile = new UserProfile()
+            {
+                UserAddress = CreateUserAddress(registrationRequest, applicationUser, userProfileId),
+                ReferenceId = applicationUser.Id,
+                ReferenceName = "Users",
+                DisplayName = registrationRequest.DisplayName,
+                UniqueHandle = registrationRequest.UniqueHandle,
+            }.NewAuditableEntity();
+
+            return userProfile;
+        }
+
+        private UserAddress CreateUserAddress(T registrationRequest, ApplicationUser applicationUser, Guid userProfileId)
+        {
+            var userAddress = new UserAddress()
+            {
+                Address = null,
+                City = null,
+                Country = null,
+                FirstName = registrationRequest.FirstName,
+                LastName = registrationRequest.LastName,
+                PostalCode = null,
+                State = null,
+                ZipCode = null,
+                UserProfileId = userProfileId
+            }
+            .NewAuditableEntity();
+
+            return userAddress;
         }
 
         private ApplicationUser CreateApplicationUserFromRequest(T registrationRequest)
