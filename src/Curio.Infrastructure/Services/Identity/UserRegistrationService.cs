@@ -3,9 +3,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Curio.ApplicationCore.Interfaces;
+using Curio.Core.Entities;
 using Curio.Core.Extensions;
 using Curio.Infrastructure.Identity;
 using Curio.SharedKernel;
+using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Identity;
 using Microsoft.AspNetCore.Identity;
 
@@ -17,12 +19,21 @@ namespace Curio.Infrastructure.Services.Identity
         private readonly IAppLogger<UserRegistrationService<T>> logger;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly PasswordHasher<ApplicationUser> passwordHasher;
+        private readonly IHashingService hashingService;
+        private readonly IRepository<UserProfile> userProfileRepository;
 
-        public UserRegistrationService(IAppLogger<UserRegistrationService<T>> logger, UserManager<ApplicationUser> userManager, PasswordHasher<ApplicationUser> passwordHasher)
+        public UserRegistrationService(
+            IAppLogger<UserRegistrationService<T>> logger,
+            UserManager<ApplicationUser> userManager,
+            PasswordHasher<ApplicationUser> passwordHasher,
+            IHashingService hashingService,
+            IRepository<UserProfile> userProfileRepository)
         {
             this.logger = logger;
             this.userManager = userManager;
             this.passwordHasher = passwordHasher;
+            this.hashingService = hashingService;
+            this.userProfileRepository = userProfileRepository;
         }
 
         public async Task<ApiResponse<RegistrationResponse>> RegisterUserAsync(T registrationRequest, CancellationToken cancellationToken = default)
@@ -45,7 +56,7 @@ namespace Curio.Infrastructure.Services.Identity
         {
             // Sanitize request parameters
             TrySanitize(registrationRequest);
-            var user = ToApplicationUser(registrationRequest);
+            var user = SetupApplicationUserFromRequest(registrationRequest);
 
             var identityResult = await userManager.CreateAsync(user, registrationRequest.Password);
             var registrationResponse = GetRegistrationResponse(identityResult);
@@ -105,13 +116,41 @@ namespace Curio.Infrastructure.Services.Identity
 
         private void TrySanitize(T registrationRequest)
         {
-            // TODO: Remember this is an API and anything can be sent for these variables,
-            // Make sure to completely sanitize each parameter.
+            var requestSanitizer = GetRequestSanitizer(registrationRequest);
+
+            requestSanitizer.Invoke();
         }
 
-        private ApplicationUser ToApplicationUser(T registrationRequest)
+        private Action GetRequestSanitizer(T registrationRequest)
+        {
+            // TODO: Remember this is an API and anything can be sent for these variables,
+            // Make sure to completely sanitize each parameter.
+            return new Action(() =>
+            {
+                registrationRequest.DisplayName = registrationRequest.DisplayName.Normalize().Trim();
+                registrationRequest.Email = registrationRequest.Email.Normalize().Trim().ToUpperInvariant();
+                registrationRequest.FirstName = registrationRequest.FirstName.Normalize().Trim();
+                registrationRequest.LastName = registrationRequest.LastName.Normalize().Trim();
+                registrationRequest.MobilePhone = registrationRequest.MobilePhone.Normalize().Trim();
+            });
+        }
+
+        private ApplicationUser SetupApplicationUserFromRequest(T registrationRequest)
         {
             TrySanitize(registrationRequest);
+            var applicationUser = CreateApplicationUserFromRequest(registrationRequest);
+
+            if (registrationRequest.VerifyWithMobilePhone)
+            {
+                var c = VerifyPhone();
+            }
+
+            applicationUser.PasswordHash = GetHashedPassword(registrationRequest, applicationUser);
+            return applicationUser;
+        }
+
+        private ApplicationUser CreateApplicationUserFromRequest(T registrationRequest)
+        {
             var emailNormalized = registrationRequest.Email.Normalize().ToUpperInvariant();
             var displayNameNormalized = registrationRequest.DisplayName.Normalize().ToUpperInvariant();
 
@@ -135,16 +174,15 @@ namespace Curio.Infrastructure.Services.Identity
                 UserName = registrationRequest.DisplayName // Case sensitive, display name.
             };
 
-            if (registrationRequest.VerifyWithMobilePhone)
-            {
-                var c = VerifyPhone();
-            }
+            return user;
+        }
 
+        private string GetHashedPassword(T registrationRequest, ApplicationUser user)
+        {
             var hashedPassword = passwordHasher.HashPassword(user, registrationRequest.Password);
             var passwordVerificationResult = passwordHasher.VerifyHashedPassword(user, hashedPassword, registrationRequest.Password);
             VerifyHashedPassword(passwordVerificationResult);
-            user.PasswordHash = hashedPassword;
-            return user;
+            return hashedPassword;
         }
 
         private bool VerifyPhone()
@@ -158,12 +196,13 @@ namespace Curio.Infrastructure.Services.Identity
             {
                 case PasswordVerificationResult.Success:
                     return;
-                case PasswordVerificationResult.Failed:
-                    throw new Exception("Password could not be hashed.");
                 case PasswordVerificationResult.SuccessRehashNeeded:
                 {
-                    throw new Exception("Password should be rehashed.");
+                    logger.LogWarning("A password was just hashed successfully, but using a deprecated algorithm. Recommendation is to rehash and update.");
+                    return;
                 }
+                case PasswordVerificationResult.Failed:
+                    throw new Exception("Password could not be hashed.");
             }
         }
     }
