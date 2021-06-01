@@ -29,10 +29,10 @@ namespace Curio.Core.Entities
     {
         public string DisplayName { get; set; }
         public string UniqueHandle { get; set; }
-
+        // Comment for now, this is now a polymorphic relationship via IReferencable
         // UserProfile -> User 1:1 (Parent)
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        //public Guid UserId { get; set; }
+        //public User User { get; set; }
 
         // UserProfile -> UserAddress 1:1 (FK)
         public UserAddress UserAddress { get; set; }
@@ -42,6 +42,10 @@ namespace Curio.Core.Entities
         public ICollection<UserPost> UserPosts { get; set; }
         public ICollection<UserFollowing> UserFollowings { get; set; }
         public ICollection<UserFollower> UserFollowers { get; set; }
+
+        // Users
+        public Guid ReferenceId { get; set; }
+        public string ReferenceName { get; set; }
     }
 
     public class UserProfileBiography : AuditableEntity
