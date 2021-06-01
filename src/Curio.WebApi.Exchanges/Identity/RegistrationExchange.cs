@@ -41,42 +41,42 @@ namespace Curio.WebApi.Exchanges.Identity
         // these attributes might be inheritted to the sealed classes above.
         [DisplayName("Email Address")]
         [Description("The email address associated with the user used for authentication")]
-        public string Email { get; init; }
+        public string Email { get; set; }
         
         [Required]
-        public string Password { get; init; }
+        public string Password { get; set; }
         [Phone]
         [DisplayName("Mobile Phone")]
-        public string MobilePhone { get; init; }
+        public string MobilePhone { get; set; }
 
         // Your information
         [Required]
-        public string FirstName { get; init; }
+        public string FirstName { get; set; }
         [Required]
-        public string LastName { get; init; }
+        public string LastName { get; set; }
 
         // Profile 
 
         [Required]
-        public string DisplayName { get; init; }
-        public byte[] ImageBase64 { get; init; }
+        public string DisplayName { get; set; }
+        public byte[] ImageBase64 { get; set; }
 
-        public bool TwoFactorEnabled { get; init; }
+        public bool TwoFactorEnabled { get; set; }
 
         // Agreements
         [DefaultValue(false)]
         [DisplayName("Agree To EULA")]
-        public bool HasAgreedToEula { get; init; }
+        public bool HasAgreedToEula { get; set; }
         [DefaultValue(false)]
         [DisplayName("Agree To Privacy Policy")]
-        public bool HasAgreedToPrivacyPolicy { get; init; }
+        public bool HasAgreedToPrivacyPolicy { get; set; }
 
         // Computed values from client side
-        public bool HasMobilePhone { get; init; }
-        public bool VerifyWithMobilePhone { get; init; }
-        public bool VerifyWithEmail { get; init; }
+        public bool HasMobilePhone { get; set; }
+        public bool VerifyWithMobilePhone { get; set; }
+        public bool VerifyWithEmail { get; set; }
 
-        public bool IsFirstTimeLogin { get; init; } = true;
+        public bool IsFirstTimeLogin { get; set; } = true;
 
         [JsonIgnore]
         public virtual string UserType { get; protected set; } = UserTypeConstants.EndUser;
