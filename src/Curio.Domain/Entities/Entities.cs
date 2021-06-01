@@ -25,7 +25,7 @@ namespace Curio.Core.Entities
         public UserProfile UserProfile { get; set; }
     }
 
-    public class UserProfile : AuditableEntity
+    public class UserProfile : AuditableEntity, IReferenceable
     {
         public string DisplayName { get; set; }
         public string UniqueHandle { get; set; }
