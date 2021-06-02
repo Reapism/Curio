@@ -1,10 +1,13 @@
-﻿using Curio.SharedKernel.Bases;
+﻿using Curio.SharedKernel;
+using Curio.SharedKernel.Bases;
+using MediatR;
 
 namespace Curio.WebApi.Exchanges.Identity
 {
-    public class VerifyPhoneNumberRequest
+    public class VerifyPhoneNumberRequest : IRequest<ApiResponse<VerifyPhoneNumberResponse>>
     {
         string PhoneNumber { get; set; }
+        string CodeToSend { get; set; }
         bool VerifyViaMobile { get; set; }
     }
 

@@ -1,9 +1,10 @@
-﻿using Curio.SharedKernel.Bases;
+﻿using Curio.SharedKernel;
+using Curio.SharedKernel.Bases;
 using MediatR;
 
 namespace Curio.WebApi.Exchanges.Identity
 {
-    public class LoginRequest : IRequest<LoginResponse>
+    public class LoginRequest : IRequest<ApiResponse<LoginResponse>>
     {
         public string LoginName { get; set; }
         public string Password { get; set; }
