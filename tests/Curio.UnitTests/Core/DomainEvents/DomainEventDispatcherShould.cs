@@ -11,7 +11,7 @@ namespace Curio.UnitTests.Core.DomainEvents
 {
     public class DomainEventDispatcherShould
     {
-        [Fact]
+        //[Fact]
         public void NotReturnAnEmptyListOfAvailableHandlers()
         {
             var builder = new ContainerBuilder();
