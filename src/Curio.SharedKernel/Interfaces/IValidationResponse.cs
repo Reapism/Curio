@@ -4,6 +4,7 @@ namespace Curio.SharedKernel.Interfaces
 {
     public interface IValidationResponse
     {
+        bool IsValidationsFriendly { get; set; }
         bool IsFailure { get; set; }
 
         // ValidationMessage / Tip to solve validation.
