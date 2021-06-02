@@ -4,7 +4,7 @@ using Curio.SharedKernel;
 using Curio.WebApi.Exchanges.Identity;
 using MediatR;
 
-namespace Curio.WebApi.Handlers.Home
+namespace Curio.WebApi.Handlers.Identity
 {
     public class InternalRegistrationHandler : IRequestHandler<InternalRegistrationRequest, ApiResponse<RegistrationResponse>>
     {

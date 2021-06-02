@@ -4,7 +4,7 @@ using Curio.SharedKernel;
 using Curio.WebApi.Exchanges.Identity;
 using MediatR;
 
-namespace Curio.WebApi.Handlers.Home
+namespace Curio.WebApi.Handlers.Identity
 {
     public class ForgotPasswordHandler : IRequestHandler<ForgotPasswordRequest, ApiResponse<ForgotPasswordResponse>>
     {
