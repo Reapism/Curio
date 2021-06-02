@@ -1,0 +1,15 @@
+﻿# Lines begining with # are ignored.
+# Exchanges List - Curio
+# Template pipe delimited (|)
+# Summary:  The purpose of this is to quickly write the names of exchanges and code 
+#			generate the necessary exchange (Request & Response), and services in 
+#			the appropiate places to ease in creating the boilerplate of creating
+#			an REST API exchange.
+#			
+# TEMPLATE USAGE
+# <UniqueExchangeName>|<ServiceMethodName1{optional:RequestName}, ServiceMethodName2, ...>|<>|<>|<>
+# Example
+# Login|Login{OtherLoginRequest}
+# 
+# TODO Use .NET Source Generators or Text Templates to generate the code using this file
+
