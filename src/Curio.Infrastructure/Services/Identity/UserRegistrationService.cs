@@ -15,7 +15,6 @@ namespace Curio.Infrastructure.Services.Identity
 {
     public class UserRegistrationService<T> : IUserRegistrationService<T>
         where T : RegistrationRequest
-        where T : RegistrationRequest
     {
         private readonly IAppLogger<UserRegistrationService<T>> logger;
         private readonly UserManager<ApplicationUser> userManager;
