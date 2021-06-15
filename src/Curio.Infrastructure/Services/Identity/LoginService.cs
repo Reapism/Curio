@@ -31,11 +31,15 @@ namespace Curio.Infrastructure.Services.Identity
         private async Task<ApiResponse<LoginResponse>> LoginAsyncInternal(LoginRequest loginRequest, CancellationToken cancellationToken)
         {
             var applicationUserFunction = await GetApplicationUser(loginRequest, cancellationToken);
-            var applicationUser = await applicationUserFunction.Invoke();
-            var userExists = DoesUserExist(applicationUser);
+            var applicationUserResponse = await applicationUserFunction.Invoke();
+
+            if (!applicationUserResponse.IsSuccessful)
+                return GetFailedApplicationResponse(applicationUserResponse);
+
+            var userExists = DoesUserExist(applicationUserResponse.Response);
 
             if (userExists)
-                return await LoginAsyncInternal(applicationUser, cancellationToken);
+                return await LoginAsyncInternal(applicationUserResponse.Response, cancellationToken);
 
             return GetLoginResponse();
         }
@@ -43,27 +47,44 @@ namespace Curio.Infrastructure.Services.Identity
         private async Task<ApiResponse<LoginResponse>> LoginAsyncInternal(ApplicationUser applicationUser, CancellationToken cancellationToken)
         {
             await signInManager.SignInAsync(applicationUser, true);
-            return new ApiResponse<LoginResponse>(null, (int)HttpStatusCode.OK);
+            return new LoginResponse().AsSuccessfulApiResponse();
         }
 
-        private async Task<Func<Task<ApplicationUser>>> GetApplicationUser(LoginRequest loginRequest, CancellationToken cancellationToken)
+        private ApiResponse<LoginResponse> GetFailedApplicationResponse<T>(ApiResponse<T> apiResponse)
+        {
+            var loginResponse = new LoginResponse()
+            {
+                IsFailure = true,
+                IsValidationsFriendly = true,
+                FriendlyValidationMapping = ("An error occured while retrieving the user.", "The following user was not found.").ToValidationResponse()
+            }.AsApiResponse();
+
+            return loginResponse;
+
+        }
+
+        private async Task<Func<Task<ApiResponse<ApplicationUser>>>> GetApplicationUser(LoginRequest loginRequest, CancellationToken cancellationToken)
         {
             return async () =>
             {
-                var user = null as ApplicationUser;
+                var response = null as ApiResponse<ApplicationUser>;
                 if (loginRequest.IsEmailLogin)
                 {
                     ValidateEmailLogin(loginRequest.LoginName);
-                    user = await GetApplicationUserFromEmail(loginRequest.LoginName, cancellationToken);
+                    var user = await GetApplicationUserFromEmail(loginRequest.LoginName, cancellationToken);
+                    if (user is not null)
+                        return user.AsSuccessfulApiResponse();
+
+                    return user.AsFailedApiResponse(message: $"Unable to find the user with the specified email address \'{loginRequest.LoginName}\'");
                 }
 
                 if (loginRequest.IsMobileLogin)
                 {
                     ValidationMobilePhoneLogin(loginRequest.LoginName, loginRequest.CountryCode);
-                    user = await GetApplicationUserFromMobilePhone(loginRequest.LoginName, cancellationToken);
+                    response = await GetApplicationUserFromMobilePhone(loginRequest.LoginName, cancellationToken);
                 }
 
-                return user;
+                return response;
             };
         }
 
@@ -72,14 +93,15 @@ namespace Curio.Infrastructure.Services.Identity
             return applicationUser is not null;
         }
 
-        private async Task<ApplicationUser> GetApplicationUserFromMobilePhone(string loginName, CancellationToken cancellationToken)
+        private async Task<ApiResponse<ApplicationUser>> GetApplicationUserFromMobilePhone(string loginName, CancellationToken cancellationToken)
         {
-            return await applicationUserStore.FindByPhoneNumberAsync(loginName, cancellationToken);
+            var response = await applicationUserStore.FindByPhoneNumberAsync(loginName, cancellationToken);
+            return response;
         }
 
-        private async Task<ApplicationUser> GetApplicationUserFromEmail(string loginName, CancellationToken cancellationToken)
+        private async Task<ApplicationUser> GetApplicationUserFromEmail(string normailizedEmail, CancellationToken cancellationToken)
         {
-            return await applicationUserStore.FindByEmailAsync(loginName, cancellationToken);
+            return await applicationUserStore.FindByEmailAsync(normailizedEmail, cancellationToken);
         }
 
         private ApiResponse<LoginResponse> ValidateEmailLogin(string email)
@@ -87,7 +109,7 @@ namespace Curio.Infrastructure.Services.Identity
             var validationResponse = ValidationGuard
                 .Against
                 .Email(email, nameof(email))
-                .AsApiResponse<IValidationResponse, LoginResponse>(null, "The email is invalid.");
+                .AsApiResponse<IValidationResponse, LoginResponse>(null, "The email provided is in an invalid format.");
 
             return validationResponse;
         }
@@ -105,7 +127,7 @@ namespace Curio.Infrastructure.Services.Identity
 
         private ApiResponse<LoginResponse> GetLoginResponse()
         {
-            return new ApiResponse<LoginResponse>(null, (int)HttpStatusCode.Accepted);
+            return new ApiResponse<LoginResponse>(httpStatusCode: (int)HttpStatusCode.Accepted);
         }
     }
 }

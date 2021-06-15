@@ -8,6 +8,6 @@ namespace Curio.SharedKernel.Interfaces
         bool IsFailure { get; set; }
 
         // ValidationMessage / Tip to solve validation.
-        IDictionary<string, string> ValidationToTipMapping { get; set; } // "Password must contain a symbol", "For example: the @ in [sAmple@123]"
+        IDictionary<string, string> FriendlyValidationMapping { get; set; } // "Password must contain a symbol", "For example: the @ in [sAmple@123]"
     }
 }

@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace Curio.WebApi.Filters
 {
     //TODO Ensure ActionResult<TApiResponse<T>> returns properly via httpcode.
-    public class HandleApiResponse : IAsyncPageFilter
+    public class HandleApiResponseFilter : IAsyncPageFilter
     {
-        private readonly IAppLogger<HandleApiResponse> logger;
+        private readonly IAppLogger<HandleApiResponseFilter> logger;
         private readonly IWebHostEnvironment environment;
 
-        public HandleApiResponse(IAppLogger<HandleApiResponse> logger, IWebHostEnvironment environment)
+        public HandleApiResponseFilter(IAppLogger<HandleApiResponseFilter> logger, IWebHostEnvironment environment)
         {
             this.logger = logger;
             this.environment = environment;
@@ -27,7 +27,7 @@ namespace Curio.WebApi.Filters
                 if (isApiResponse)
                 {
                     apiResponse = (ApiResponse)context.Result;
-                    apiResponse.Exception = null;
+                    apiResponse.ClearException();
                 }
             }
 
