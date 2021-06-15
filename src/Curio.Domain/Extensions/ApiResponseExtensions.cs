@@ -74,20 +74,20 @@ namespace Curio.Core.Extensions
         /// <typeparam name="V"></typeparam>
         /// <param name="validationResponse"></param>
         /// <param name="ex"></param>
-        /// <param name="message"></param>
+        /// <param name="optionalMessage"></param>
         /// <returns></returns>
-        public static ApiResponse<V> AsApiResponse<T, V>(this T validationResponse, Exception ex = null, string message = "")
+        public static ApiResponse<V> AsApiResponse<T, V>(this T validationResponse, Exception ex = null, string optionalMessage = "")
             where T : class, IValidationResponse
             where V : class, IValidationResponse
         {
             // If validation response is not default.
             bool hasResponse = !(bool)(validationResponse?.Equals(default(T)));
             var value = default(V);
-
-            var apiResponse = new ApiResponse<V>(message, ex, 400)
+            var apiResponse = new ApiResponse<V>(optionalMessage, ex, 400)
             {
                 Response = value,
-                IsSuccessful = false
+                IsSuccessful = false,
+                
             };
 
             return apiResponse;
