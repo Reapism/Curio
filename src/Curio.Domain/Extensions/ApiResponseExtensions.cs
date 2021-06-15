@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Curio.SharedKernel;
-using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Extensions
@@ -16,9 +15,8 @@ namespace Curio.Core.Extensions
         {
             bool hasResponse = response.Equals(default(T));
 
-            var apiResponse = new ApiResponse<T>(httpStatusCode: 200)
+            var apiResponse = new ApiResponse<T>(message, httpStatusCode: 200)
             {
-                Message = message,
                 Response = hasResponse ? response : null,
                 IsSuccessful = true,
             };
@@ -26,14 +24,13 @@ namespace Curio.Core.Extensions
             return apiResponse;
         }
 
-        public static ApiResponse<T> AsFailedApiResponse<T>(this T response, Exception ex = null, string message = "")
+        public static ApiResponse<T> AsFailedApiResponse<T>(this T response, string message = "", Exception ex = null)
             where T : class
         {
             bool hasResponse = response.Equals(default(T));
 
-            var apiResponse = new ApiResponse<T>(ex, 400)
+            var apiResponse = new ApiResponse<T>(message, ex, 400)
             {
-                Message = message,
                 Response = hasResponse ? response : null,
                 IsSuccessful = false,
             };
@@ -41,16 +38,29 @@ namespace Curio.Core.Extensions
             return apiResponse;
         }
 
-        public static ApiResponse<T> AsApiResponse<T>(this T validationResponse, Exception ex = null, string message = "")
+        public static ApiResponse<T> AsApiResponse<T>(this T validationResponse, string message = "", Exception ex = null)
             where T : class, IValidationResponse
         {
             // If validation response is not default.
             bool hasResponse = !(bool)(validationResponse?.Equals(default(T)));
-            var apiResponse = new ApiResponse<T>(ex, 400)
+            var apiResponse = new ApiResponse<T>(message, ex, 400)
             {
-                Message = message,
                 Response = hasResponse ? validationResponse : null,
-                IsSuccessful = false,
+                IsSuccessful = false
+            };
+
+            return apiResponse;
+        }
+
+        public static ApiResponse<T> AsApiResponse<T>(this T validationResponse, ApiResponse fromApiResponse)
+            where T : class, IValidationResponse
+        {
+            // If validation response is not default.
+            bool hasResponse = !(bool)(validationResponse?.Equals(default(T)));
+            var apiResponse = new ApiResponse<T>(fromApiResponse.Message, null, 400)
+            {
+                Response = hasResponse ? validationResponse : null,
+                IsSuccessful = fromApiResponse.IsSuccessful
             };
 
             return apiResponse;
@@ -64,21 +74,20 @@ namespace Curio.Core.Extensions
         /// <typeparam name="V"></typeparam>
         /// <param name="validationResponse"></param>
         /// <param name="ex"></param>
-        /// <param name="message"></param>
+        /// <param name="optionalMessage"></param>
         /// <returns></returns>
-        public static ApiResponse<V> AsApiResponse<T, V>(this T validationResponse, Exception ex = null, string message = "")
+        public static ApiResponse<V> AsApiResponse<T, V>(this T validationResponse, Exception ex = null, string optionalMessage = "")
             where T : class, IValidationResponse
             where V : class, IValidationResponse
         {
             // If validation response is not default.
             bool hasResponse = !(bool)(validationResponse?.Equals(default(T)));
             var value = default(V);
-
-            var apiResponse = new ApiResponse<V>(ex, 400)
+            var apiResponse = new ApiResponse<V>(optionalMessage, ex, 400)
             {
-                Message = message,
                 Response = value,
                 IsSuccessful = false,
+                
             };
 
             return apiResponse;
@@ -101,13 +110,12 @@ namespace Curio.Core.Extensions
             var hasValidations = validationToTipsMapping?.Any() ?? false;
 
             validationResponse.IsFailure = hasValidations;
-            validationResponse.ValidationToTipMapping = validationToTipsMapping;
+            validationResponse.FriendlyValidationMapping = validationToTipsMapping;
 
-            var apiResponse = new ApiResponse<T>(httpStatusCode: 400)
+            var apiResponse = new ApiResponse<T>(optionalMessage, httpStatusCode: 400)
             {
                 Response = validationResponse,
-                IsSuccessful = !validationResponse.IsFailure,
-                Message = optionalMessage,
+                IsSuccessful = !validationResponse.IsFailure
             };
 
             return apiResponse;

@@ -63,12 +63,19 @@ namespace Curio.Infrastructure.Services.Identity
         private async Task<ApplicationUser> GetUser(ForgotPasswordRequest forgotPasswordRequest)
         {
             ApplicationUser user = null;
+            var response = null as ApiResponse<ApplicationUser>;
 
             if (forgotPasswordRequest.IsEmailLogin)
                 user = await userManager.FindByEmailAsync(forgotPasswordRequest.LoginName);
 
             if (forgotPasswordRequest.IsMobileLogin)
-                user = await applicationUserStore.FindByPhoneNumberAsync(forgotPasswordRequest.LoginName);
+            {
+                response = await applicationUserStore.FindByPhoneNumberAsync(forgotPasswordRequest.LoginName);
+                if (response.IsSuccessful)
+                    return response.Response;
+                else
+                    return null;
+            }
 
             return user;
         }

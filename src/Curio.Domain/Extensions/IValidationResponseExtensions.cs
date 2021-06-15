@@ -9,9 +9,9 @@ namespace Curio.Core.Extensions
     {
         public static Tuple<string, string> First(this IValidationResponse validationResponse)
         {
-            if (validationResponse.ValidationToTipMapping.Count > 0)
+            if (validationResponse.FriendlyValidationMapping.Count > 0)
             {
-                return validationResponse.ValidationToTipMapping.First().AsTuple();
+                return validationResponse.FriendlyValidationMapping.First().AsTuple();
             }
 
             return Tuple.Create<string, string>(null, null);
