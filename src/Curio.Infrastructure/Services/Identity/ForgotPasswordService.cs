@@ -64,7 +64,7 @@ namespace Curio.Infrastructure.Services.Identity
         {
             ApplicationUser user = null;
             var response = null as ApiResponse<ApplicationUser>;
-            
+
             if (forgotPasswordRequest.IsEmailLogin)
                 user = await userManager.FindByEmailAsync(forgotPasswordRequest.LoginName);
 

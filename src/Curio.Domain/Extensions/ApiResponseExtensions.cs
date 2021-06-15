@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Curio.SharedKernel;
-using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Extensions

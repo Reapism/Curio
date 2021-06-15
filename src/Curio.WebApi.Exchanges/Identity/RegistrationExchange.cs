@@ -42,7 +42,7 @@ namespace Curio.WebApi.Exchanges.Identity
         [DisplayName("Email Address")]
         [Description("The email address associated with the user used for authentication")]
         public string Email { get; set; }
-        
+
         [Required]
         public string Password { get; set; }
         [Phone]

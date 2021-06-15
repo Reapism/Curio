@@ -8,5 +8,4 @@ namespace Curio.WebApi.Exchanges.Identity
     {
         Task<ApiResponse<LoginResponse>> LoginAsync(LoginRequest loginRequest, CancellationToken cancellationToken = default);
     }
-
 }

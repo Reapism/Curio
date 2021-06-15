@@ -14,7 +14,7 @@ namespace Curio.WebApi.Exchanges.Identity
         public bool IsMobileLogin { get; set; }
         // IF using mobile, the country the number is for to help validate the phone number.
         public string CountryCode { get; set; }
-        
+
     }
 
     public class LoginResponse : ValidationResponse

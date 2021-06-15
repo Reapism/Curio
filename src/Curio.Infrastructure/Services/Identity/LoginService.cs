@@ -8,7 +8,6 @@ using Curio.SharedKernel;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Identity;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
 namespace Curio.Infrastructure.Services.Identity

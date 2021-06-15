@@ -27,7 +27,7 @@ namespace Curio.Infrastructure.Identity
             ThrowIfDisposed();
             try
             {
-                var applicationUser =  await Users.SingleOrDefaultAsync(u => u.PhoneNumber == phoneNumber, cancellationToken);
+                var applicationUser = await Users.SingleOrDefaultAsync(u => u.PhoneNumber == phoneNumber, cancellationToken);
                 if (applicationUser is null)
                     return default(ApplicationUser).AsFailedApiResponse($"No user was found with the given phonenumber \'{phoneNumber}\'");
 
