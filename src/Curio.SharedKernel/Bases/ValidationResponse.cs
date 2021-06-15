@@ -7,6 +7,6 @@ namespace Curio.SharedKernel.Bases
     {
         public bool IsValidationsFriendly { get; set; }
         public bool IsFailure { get; set; }
-        public IDictionary<string, string> ValidationToTipMapping { get; set; } = new Dictionary<string, string>();
+        public IDictionary<string, string> FriendlyValidationMapping { get; set; } = new Dictionary<string, string>();
     }
 }
