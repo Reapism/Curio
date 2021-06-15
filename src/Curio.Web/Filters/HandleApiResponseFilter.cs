@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Curio.Web.Filters
 {
-    public class HandleApiResponse : ActionFilterAttribute
+    public class HandleApiResponseFilter : ActionFilterAttribute
     {
         private readonly IWebHostEnvironment environment;
 
-        public HandleApiResponse(IWebHostEnvironment environment)
+        public HandleApiResponseFilter(IWebHostEnvironment environment)
         {
             this.environment = environment;
         }
@@ -21,7 +21,7 @@ namespace Curio.Web.Filters
                 if (isApiResponse)
                 {
                     apiResponse = (ApiResponse)context.Result;
-                    apiResponse.Exception = null;
+                    apiResponse.ClearException();
                 }
             }
         }
