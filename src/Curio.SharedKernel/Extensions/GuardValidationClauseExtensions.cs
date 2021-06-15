@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 
 namespace Curio.SharedKernel.Bases
