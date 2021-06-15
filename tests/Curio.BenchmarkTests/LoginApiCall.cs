@@ -3,7 +3,12 @@
 namespace Curio.Benchmarks
 {
     [BenchmarkCategory("WebAPI")]
-    public class Class1
+    public class LoginApiCall
     {
+        [Benchmark]
+        public void Login()
+        {
+
+        }
     }
 }
