@@ -1,12 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Curio.SharedKernel.Interfaces;
 
 namespace Curio.Core.Extensions
 {
     public static class IValidationResponseExtensions
     {
+        /// <summary>
+        /// Returns a single string containing all the friendly validations.
+        /// </summary>
+        /// <param name="validationResponse"></param>
+        /// <returns></returns>
+        /// <remarks>Error authenticating user; The password is invalid.</remarks>
+        public static string Flatten(this IValidationResponse validationResponse)
+        {
+            var flattenStringBuilder = new StringBuilder(string.Empty);
+
+            foreach (var kvp in validationResponse.FriendlyValidationMapping)
+            {
+                flattenStringBuilder
+                    .Append(kvp.Key)
+                    .Append("; ")
+                    .Append(kvp.Value)
+                    .AppendLine();
+            }
+
+            return flattenStringBuilder.ToString();
+        }
         public static Tuple<string, string> First(this IValidationResponse validationResponse)
         {
             if (validationResponse.FriendlyValidationMapping.Count > 0)
