@@ -29,13 +29,13 @@ namespace Curio.Infrastructure.Identity
             {
                 var applicationUser = await Users.SingleOrDefaultAsync(u => u.PhoneNumber == phoneNumber, cancellationToken);
                 if (applicationUser is null)
-                    return default(ApplicationUser).AsFailedApiResponse($"No user was found with the given phonenumber \'{phoneNumber}\'");
+                    return default(ApplicationUser).AsNotFoundApiResponse($"No user was found with the given phonenumber \'{phoneNumber}\'");
 
-                return applicationUser.AsSuccessfulApiResponse();
+                return applicationUser.AsOkApiResponse();
             }
             catch (InvalidOperationException ioe)
             {
-                return default(ApplicationUser).AsFailedApiResponse("More than one user was found with this phonenumber", ioe);
+                return default(ApplicationUser).AsBadRequestApiResponse("More than one user was found with this phonenumber", ioe);
             }
         }
     }

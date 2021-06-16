@@ -47,15 +47,13 @@ namespace Curio.Infrastructure.Services.Identity
         private async Task<ApiResponse<LoginResponse>> LoginAsyncInternal(ApplicationUser applicationUser, CancellationToken cancellationToken)
         {
             await signInManager.SignInAsync(applicationUser, true);
-            return new LoginResponse().AsSuccessfulApiResponse();
+            return new LoginResponse().AsOkApiResponse();
         }
 
         private ApiResponse<LoginResponse> GetFailedApplicationResponse<T>(ApiResponse<T> apiResponse)
         {
             var loginResponse = new LoginResponse()
             {
-                IsFailure = true,
-                IsValidationsFriendly = true,
                 ReasonByErrorMapping = ("An error occured while retrieving the user.", "The following user was not found.").ToValidationResponse()
             }.AsApiResponse();
 
@@ -73,9 +71,9 @@ namespace Curio.Infrastructure.Services.Identity
                     ValidateEmailLogin(loginRequest.LoginName);
                     var user = await GetApplicationUserFromEmail(loginRequest.LoginName, cancellationToken);
                     if (user is not null)
-                        return user.AsSuccessfulApiResponse();
+                        return user.AsOkApiResponse();
 
-                    return user.AsFailedApiResponse(message: $"Unable to find the user with the specified email address \'{loginRequest.LoginName}\'");
+                    return user.AsNotFoundApiResponse(overallMessage: $"Unable to find the user with the specified email address \'{loginRequest.LoginName}\'");
                 }
 
                 if (loginRequest.IsMobileLogin)

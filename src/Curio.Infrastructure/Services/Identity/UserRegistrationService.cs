@@ -72,7 +72,7 @@ namespace Curio.Infrastructure.Services.Identity
             var registrationResponse = new RegistrationResponse();
 
             if (identityResult.Succeeded)
-                return registrationResponse.AsSuccessfulApiResponse("The user has been successfully created.");
+                return registrationResponse.AsOkApiResponse("The user has been successfully created.");
 
             var validationToTipsMapping = identityResult.Errors.ToDictionary(k => k.Description, v => v.Description);
             var failedRegistrationResponse = ApiResponseExtensions.AsApiResponse<RegistrationResponse>(validationToTipsMapping, "An error has occured when registering the user");
@@ -83,18 +83,20 @@ namespace Curio.Infrastructure.Services.Identity
         private ApiResponse<RegistrationResponse> GetRegistrationResponse(bool userExists, bool hasCompletedRegistration)
         {
             var registrationResponse = new RegistrationResponse();
-
+            
             if (userExists || userExists && hasCompletedRegistration)
             {
-                return registrationResponse.AsFailedApiResponse(message: "A user already exists with this email. Maybe try resetting your password.");
+                registrationResponse.ReasonByErrorMapping.Add("User already exists", "A user already exists with this email. Maybe try resetting your password.");
+                return registrationResponse.AsBadRequestApiResponse();
             }
 
             if (userExists && !hasCompletedRegistration)
             {
-                return registrationResponse.AsFailedApiResponse(message: "A user already exists with this email but has not completed registration. Please check your email to complete registration");
+                registrationResponse.ReasonByErrorMapping.Add("User already exists", "A user already exists with this email but has not completed registration. Please check your email to complete registration.");
+                return registrationResponse.AsBadRequestApiResponse();
             }
 
-            return registrationResponse.AsSuccessfulApiResponse();
+            return registrationResponse.AsOkApiResponse();
         }
 
         private async Task<ApplicationUser> GetUser(string email)

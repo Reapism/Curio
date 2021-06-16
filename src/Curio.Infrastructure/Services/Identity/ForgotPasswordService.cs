@@ -49,13 +49,15 @@ namespace Curio.Infrastructure.Services.Identity
         {
             var passwordResetToken = await userManager.GeneratePasswordResetTokenAsync(user);
 
-            return new ForgotPasswordResponse().AsFailedApiResponse();
+            // TODO update to not always return a bad api response.
+            return new ForgotPasswordResponse().AsBadRequestApiResponse();
         }
 
         private ApiResponse<ForgotPasswordResponse> GetForgotPasswordResponse()
         {
             var response = new ForgotPasswordResponse();
-            var apiResponse = response.AsFailedApiResponse(message: "The email or mobile phone is not associated with an account. Please make sure you entered the right email or phone number.");
+            response.ReasonByErrorMapping.Add("Email/Phone not found with a user account.", "Please make sure you entered the right email or phone number.");
+            var apiResponse = response.AsNotFoundApiResponse();
 
             return apiResponse;
         }
