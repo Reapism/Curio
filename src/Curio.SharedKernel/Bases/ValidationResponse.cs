@@ -6,8 +6,8 @@ namespace Curio.SharedKernel.Bases
 {
     public abstract class ValidationResponse : IValidationResponse
     {
-        public bool IsValidationsFriendly { get; set; }
         public bool IsFailure { get => ReasonByErrorMapping?.Any() ?? false; }
-        public IDictionary<string, string> ReasonByErrorMapping { get; set; } = new Dictionary<string, string>();
+        /// <inheritdoc/>
+        public IDictionary<string, string> ReasonByErrorMapping { get; set; } = new Dictionary<string, string>(2);
     }
 }
