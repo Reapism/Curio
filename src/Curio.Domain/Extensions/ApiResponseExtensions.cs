@@ -8,42 +8,56 @@ namespace Curio.Core.Extensions
 {
     public static class ApiResponseExtensions
     {
-        public static ApiResponse<T> AsOkApiResponse<T>(this T response, string message = "")
+        /// <summary>
+        /// 200
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="response"></param>
+        /// <param name="overallMessage"></param>
+        /// <returns></returns>
+        public static ApiResponse<T> AsOkApiResponse<T>(this T response, string overallMessage = "")
             where T : class
         {
-            return AsApiResponse(response, message, httpStatusCode: 200);
+            return AsApiResponse(response, overallMessage, httpStatusCode: 200);
         }
 
-        public static ApiResponse<T> AsBadRequestApiResponse<T>(this T response, string message = "")
+        /// <summary>
+        /// 400
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="response"></param>
+        /// <param name="overallMessage"></param>
+        /// <returns></returns>
+        public static ApiResponse<T> AsBadRequestApiResponse<T>(this T response, string overallMessage = "", Exception exception = null)
             where T : class
         {
-            return AsApiResponse(response, message, httpStatusCode: 400);
+            return AsApiResponse(response, overallMessage, httpStatusCode: 400);
         }
 
-        public static ApiResponse<T> AsUnauthorizedApiResponse<T>(this T response, string message = "", Exception exception = null)
+        public static ApiResponse<T> AsUnauthorizedApiResponse<T>(this T response, string overallMessage = "", Exception exception = null)
             where T : class
         {
-            return AsApiResponse(response, message, httpStatusCode: 401);
+            return AsApiResponse(response, overallMessage, httpStatusCode: 401);
         }
 
-        public static ApiResponse<T> AsForbidApiResponse<T>(this T response, string message = "")
+        public static ApiResponse<T> AsForbidApiResponse<T>(this T response, string overallMessage = "")
             where T : class
         {
-            return AsApiResponse(response, message, httpStatusCode: 403);
+            return AsApiResponse(response, overallMessage, httpStatusCode: 403);
         }
 
-        public static ApiResponse<T> AsNotFoundApiResponse<T>(this T response, string message = "")
+        public static ApiResponse<T> AsNotFoundApiResponse<T>(this T response, string overallMessage = "")
             where T : class
         {
-            return AsApiResponse(response, message, httpStatusCode: 404);
+            return AsApiResponse(response, overallMessage, httpStatusCode: 404);
         }
 
-        public static ApiResponse<T> AsApiResponse<T>(this T validationResponse, string message = "", Exception ex = null)
+        public static ApiResponse<T> AsApiResponse<T>(this T validationResponse, string overallMessage = "", Exception ex = null)
             where T : class, IValidationResponse
         {
             // If validation response is not default (empty).
             bool hasValidationResponse = HasValidationResponse(validationResponse);
-            var apiResponse = new ApiResponse<T>(message, ex, 400)
+            var apiResponse = new ApiResponse<T>(overallMessage, ex, 400)
             {
                 Response = hasValidationResponse ? validationResponse : null,
                 IsSuccessful = IsSuccessfulForValidationResponse(hasValidationResponse)
@@ -109,7 +123,7 @@ namespace Curio.Core.Extensions
             var validationResponse = default(T);
             validationResponse.ReasonByErrorMapping = reasonsByErrorMapping;
 
-            return AsApiResponse(validationResponse: validationResponse, message: optionalMessage);
+            return AsApiResponse(validationResponse: validationResponse, overallMessage: optionalMessage);
         }
 
         private static ApiResponse<T> AsApiResponse<T>(this T response, string message = "", Exception exception = null, int httpStatusCode = 200)
