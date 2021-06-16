@@ -18,7 +18,7 @@ namespace Curio.Core.Extensions
         {
             var flattenStringBuilder = new StringBuilder(string.Empty);
 
-            foreach (var kvp in validationResponse.FriendlyValidationMapping)
+            foreach (var kvp in validationResponse.ReasonByErrorMapping)
             {
                 flattenStringBuilder
                     .Append(kvp.Key)
@@ -31,9 +31,9 @@ namespace Curio.Core.Extensions
         }
         public static Tuple<string, string> First(this IValidationResponse validationResponse)
         {
-            if (validationResponse.FriendlyValidationMapping.Count > 0)
+            if (validationResponse.ReasonByErrorMapping.Count > 0)
             {
-                return validationResponse.FriendlyValidationMapping.First().AsTuple();
+                return validationResponse.ReasonByErrorMapping.First().AsTuple();
             }
 
             return Tuple.Create<string, string>(null, null);

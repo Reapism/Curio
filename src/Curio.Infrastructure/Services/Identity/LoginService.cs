@@ -56,7 +56,7 @@ namespace Curio.Infrastructure.Services.Identity
             {
                 IsFailure = true,
                 IsValidationsFriendly = true,
-                FriendlyValidationMapping = ("An error occured while retrieving the user.", "The following user was not found.").ToValidationResponse()
+                ReasonByErrorMapping = ("An error occured while retrieving the user.", "The following user was not found.").ToValidationResponse()
             }.AsApiResponse();
 
             return loginResponse;
