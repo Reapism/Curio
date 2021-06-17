@@ -10,8 +10,6 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
-    <PackageReference Include="NUnit" Version="3.13.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -21,11 +19,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Moq" Version="4.16.1" />
-    <PackageReference Include="ReportGenerator" Version="4.8.9" />
+    <PackageReference Include="ReportGenerator" Version="4.8.10" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Curio.WebApi.Exchanges\Curio.WebApi.Exchanges.csproj" />
     <ProjectReference Include="..\..\src\Curio.Web\Curio.Web.csproj" />
   </ItemGroup>
 
