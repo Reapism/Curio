@@ -64,7 +64,7 @@ namespace Curio.Infrastructure.Services.Identity
 
         private async Task<ApplicationUser> GetUser(ForgotPasswordRequest forgotPasswordRequest)
         {
-            ApplicationUser user = null;
+            var user = null as ApplicationUser;
             var response = null as ApiResponse<ApplicationUser>;
 
             if (forgotPasswordRequest.IsEmailLogin)
