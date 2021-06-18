@@ -9,7 +9,7 @@ namespace Curio.Infrastructure
             where T : DbContext
         {
             services.AddDbContext<T>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseNpgsql(connectionString));
         }
     }
 }
