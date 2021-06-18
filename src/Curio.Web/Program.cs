@@ -2,6 +2,7 @@
 using Autofac.Extensions.DependencyInjection;
 using Curio.ApplicationCore.Interfaces;
 using Curio.Infrastructure.Data;
+using Curio.Infrastructure.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,13 +29,17 @@ namespace Curio.Web
 
                 try
                 {
-                    var context = services.GetRequiredService<CurioClientDbContext>();
-                    var doesDatabaseExist = context.Database.EnsureCreated();
+                    var curioClientContext = services.GetRequiredService<CurioClientDbContext>();
+                    var doesCurioClientDbExist = curioClientContext.Database.EnsureCreated();
+
+                    var curioIdentityContext = services.GetRequiredService<CurioIdentityDbContext>();
+                    var doesCurioIdentityDbExist = curioIdentityContext.Database.EnsureCreated();
+
                 }
                 catch (Exception ex)
                 {
                     var logger = services.GetRequiredService<IAppLogger<Program>>();
-                    logger.LogError(ex, "An error occurred seeding the DB.");
+                    logger.LogError(ex, "The database(s) is not initialized.");
                 }
             }
         }
