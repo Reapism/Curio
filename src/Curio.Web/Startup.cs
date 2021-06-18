@@ -48,10 +48,11 @@ namespace Curio.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            string curioClientConnectionString = Configuration.GetConnectionString("CurioClient");
-            string curioIdentityConnectionString = Configuration.GetConnectionString("CurioIdentity");
+            string curioClientConnectionString = Configuration.GetConnectionString("CurioClientPostgre");
+            string curioIdentityConnectionString = Configuration.GetConnectionString("CurioIdentityPostgre");
 
             StartupSetup.AddDbContext<CurioClientDbContext>(services, curioClientConnectionString);
+            StartupSetup.AddDbContext<CurioIdentityDbContext>(services, curioIdentityConnectionString);
 
             AddIdentity(services);
             // not sure if this is needed.
