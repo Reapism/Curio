@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using Autofac;
 using Curio.Infrastructure;
-using Curio.Infrastructure.Identity;
+using Curio.Persistence.Identity;
 using Curio.SharedKernel.Constants;
 using Curio.WebApi.Filters;
 using MediatR;

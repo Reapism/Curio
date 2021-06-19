@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Curio.Persistence.Client;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -122,6 +123,7 @@ namespace Curio.Infrastructure.Data
     {
         private readonly CurioClientDbContext dbContext;
         private readonly DbSet<T> dbSet;
+
         public EfRepository(CurioClientDbContext dbContext)
         {
             this.dbContext = dbContext;

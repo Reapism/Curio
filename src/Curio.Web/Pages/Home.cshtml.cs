@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Curio.Infrastructure.Identity;
+using Curio.Persistence.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Curio.Web.Pages

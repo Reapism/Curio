@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Curio.ApplicationCore.Interfaces;
 using Curio.Core.Extensions;
-using Curio.Infrastructure.Identity;
+using Curio.Persistence.Identity;
 using Curio.SharedKernel;
 using Curio.WebApi.Exchanges.Identity;
 using Microsoft.AspNetCore.Identity;

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Curio.ApplicationCore.Interfaces;
 using Curio.Core.Entities;
 using Curio.Core.Extensions;
-using Curio.Infrastructure.Identity;
+using Curio.Persistence.Identity;
 using Curio.SharedKernel;
 using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Identity;
@@ -83,7 +83,7 @@ namespace Curio.Infrastructure.Services.Identity
         private ApiResponse<RegistrationResponse> GetRegistrationResponse(bool userExists, bool hasCompletedRegistration)
         {
             var registrationResponse = new RegistrationResponse();
-            
+
             if (userExists || userExists && hasCompletedRegistration)
             {
                 registrationResponse.ReasonByErrorMapping.Add("User already exists", "A user already exists with this email. Maybe try resetting your password.");
