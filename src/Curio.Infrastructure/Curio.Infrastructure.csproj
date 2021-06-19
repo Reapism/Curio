@@ -21,11 +21,12 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Curio.ApplicationCore\Curio.ApplicationCore.csproj" />
+    <ProjectReference Include="..\Curio.Persistence\Curio.Persistence.csproj" />
     <ProjectReference Include="..\Curio.SharedKernel\Curio.SharedKernel.csproj" />
     <ProjectReference Include="..\Curio.WebApi.Exchanges\Curio.WebApi.Exchanges.csproj" />
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Identity\Config\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 </Project>
