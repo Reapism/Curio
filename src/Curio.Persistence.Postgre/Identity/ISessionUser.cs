@@ -1,4 +1,4 @@
-﻿namespace Curio.Infrastructure.Identity
+﻿namespace Curio.Persistence.Postgre.Identity
 {
     /// <summary>
     /// A basic end user stripped of sensitive account information.
@@ -11,6 +11,9 @@
 
     public class SessionUser : ISessionUser
     {
+        /// <summary>
+        /// Instantiates a session user with a handle of "Unknown".
+        /// </summary>
         public SessionUser()
             : this("Unknown", null) { }
         public SessionUser(string handle, byte[] profilePicture)

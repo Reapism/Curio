@@ -2,7 +2,7 @@
 using Curio.SharedKernel.Authorization;
 using Microsoft.AspNetCore.Identity;
 
-namespace Curio.Infrastructure.Identity
+namespace Curio.Persistence.Postgre.Identity
 {
     public class CurioIdentityDbContextSeed
     {

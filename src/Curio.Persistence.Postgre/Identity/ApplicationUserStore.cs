@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Curio.Infrastructure.Identity
+namespace Curio.Persistence.Postgre.Identity
 {
     public class ApplicationUserStore : UserStore<ApplicationUser, ApplicationRole, CurioIdentityDbContext, Guid>
     {

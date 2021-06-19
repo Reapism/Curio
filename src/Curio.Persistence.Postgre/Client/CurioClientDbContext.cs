@@ -6,7 +6,7 @@ using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Curio.Infrastructure.Data
+namespace Curio.Persistence.Postgre.Client
 {
     public class CurioClientDbContext : DbContext
     {

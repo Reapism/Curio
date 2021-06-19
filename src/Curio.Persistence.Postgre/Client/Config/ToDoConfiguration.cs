@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Curio.Infrastructure.Data.Config
+namespace Curio.Persistence.Postgre.Client.Config
 {
     public class ToDoConfiguration : IEntityTypeConfiguration<ToDoItem>
     {

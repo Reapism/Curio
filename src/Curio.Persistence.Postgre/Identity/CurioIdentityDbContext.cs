@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Curio.Infrastructure.Identity
+namespace Curio.Persistence.Postgre.Identity
 {
     public class CurioIdentityDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
@@ -17,7 +17,7 @@ namespace Curio.Infrastructure.Identity
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
             base.OnModelCreating(builder);
-            builder.ApplyConfigurationsFromAssembly(typeof(CurioIdentityDbContext).Assembly);
+            //builder.ApplyConfigurationsFromAssembly(typeof(CurioIdentityDbContext).Assembly);
         }
     }
 }
