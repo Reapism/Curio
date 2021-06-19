@@ -54,10 +54,12 @@ namespace Curio.Infrastructure
             var coreAssembly = Assembly.GetAssembly(typeof(CurioException));
             var infrastructureAssembly = Assembly.GetAssembly(typeof(EfRepository));
             var exchangesAssembly = Assembly.GetAssembly(typeof(RegistrationResponse));
+            var persistenceAssembly = Assembly.GetAssembly(typeof(CurioIdentityDbContext));
 
             assemblies.Enqueue(coreAssembly);
             assemblies.Enqueue(infrastructureAssembly);
             assemblies.Enqueue(exchangesAssembly);
+            assemblies.Enqueue(persistenceAssembly);
         }
 
         private void RegisterCommonDependencies(ContainerBuilder builder)
