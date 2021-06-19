@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
-using Curio.Infrastructure.Data;
-using Curio.Infrastructure.Identity;
+using Curio.Persistence.Client;
+using Curio.Persistence.Identity;
 using Curio.SharedKernel.Interfaces;
 using Curio.UnitTests;
 using Curio.Web;
