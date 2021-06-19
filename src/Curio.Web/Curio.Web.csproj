@@ -14,16 +14,15 @@
     <PackageReference Include="Humanizer.Core" Version="2.11.10" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" PrivateAssets="all" Version="5.0.7" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" Version="5.0.2" />
     <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.1.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\Curio.Infrastructure\Curio.Infrastructure.csproj" />
+    <ProjectReference Include="..\Curio.Persistence\Curio.Persistence.csproj" />
     <ProjectReference Include="..\Curio.WebApi\Curio.WebApi.csproj" />
   </ItemGroup>
   
