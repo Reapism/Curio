@@ -29,9 +29,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.Domain", "src\Curio.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.BenchmarksTests", "tests\Curio.BenchmarkTests\Curio.BenchmarksTests.csproj", "{C0566E99-D942-4E4B-A50C-D85975BA46B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curio.Persistence", "src\Curio.Persistence\Curio.Persistence.csproj", "{F250B94F-2287-482D-A0B9-8144ED23B7F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.Persistence", "src\Curio.Persistence\Curio.Persistence.csproj", "{F250B94F-2287-482D-A0B9-8144ED23B7F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Curio.Persistence.Tools", "src\Curio.Persistence.Tools\Curio.Persistence.Tools.csproj", "{A9A272C5-5F5F-480B-A655-9829B313EEEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Curio.Persistence.Tools", "src\Curio.Persistence.Tools\Curio.Persistence.Tools.csproj", "{A9A272C5-5F5F-480B-A655-9829B313EEEC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F250B94F-2287-482D-A0B9-8144ED23B7F7} = {F250B94F-2287-482D-A0B9-8144ED23B7F7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
