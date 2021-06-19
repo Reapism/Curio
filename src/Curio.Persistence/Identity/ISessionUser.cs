@@ -1,4 +1,4 @@
-﻿namespace Curio.Persistence.Postgre.Identity
+﻿namespace Curio.Persistence.Identity
 {
     /// <summary>
     /// A basic end user stripped of sensitive account information.

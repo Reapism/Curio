@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Curio.Persistence.Postgre.Identity
+namespace Curio.Persistence.Identity
 {
     public class CurioIdentityDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {

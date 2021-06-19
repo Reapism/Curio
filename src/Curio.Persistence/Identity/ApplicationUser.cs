@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
 
-namespace Curio.Persistence.Postgre.Identity
+namespace Curio.Persistence.Identity
 {
     /// <summary>
     /// A custom <see cref="IdentityUser{TKey}"/>.
