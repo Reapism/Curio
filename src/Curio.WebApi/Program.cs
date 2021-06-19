@@ -1,10 +1,6 @@
-using System;
 using Autofac.Extensions.DependencyInjection;
-using Curio.ApplicationCore.Interfaces;
-using Curio.Infrastructure.Data;
-using Curio.Infrastructure.Identity;
+using Curio.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -44,24 +40,7 @@ namespace Curio.WebApi
 
         private static void InitializeDatabaseState(IHost host)
         {
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                try
-                {
-                    var curioClientContext = services.GetRequiredService<CurioClientDbContext>();
-                    var doesCurioClientDbExist = curioClientContext.Database.EnsureCreated();
-
-                    var curioIdentityContext = services.GetRequiredService<CurioIdentityDbContext>();
-                    var doesCurioIdentityDbExist = curioIdentityContext.Database.EnsureCreated();
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<IAppLogger<Program>>();
-                    logger.LogError(ex, "An error occurred seeding the DB.");
-                }
-            }
+            HostSetup.InitializeAndEnsureDatabasesAreCreated(host);
         }
     }
 }
