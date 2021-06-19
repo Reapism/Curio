@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using Autofac;
 using Curio.Infrastructure;
+using Curio.Persistence.Client;
 using Curio.Persistence.Identity;
 using Curio.SharedKernel.Constants;
 using Curio.WebApi.Filters;
@@ -39,10 +40,10 @@ namespace Curio.WebApi
         {
             services.AddSingleton<IConfiguration>(Configuration);
             AddIdentity(services);
+            AddAuthentication(services);
+            AddDbContexts(services);
 
             services.AddMemoryCache();
-
-            AddAuthentication(services);
 
             services.AddControllers()
                     .AddJsonOptions(options => GetJsonSerializerOptions());
@@ -87,6 +88,15 @@ namespace Curio.WebApi
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule(new DefaultInfrastructureModule(_env.EnvironmentName == EnvironmentConstants.Development));
+        }
+
+        private void AddDbContexts(IServiceCollection services)
+        {
+            string curioClientConnectionString = Configuration.GetConnectionString("CurioClientPostgre");
+            string curioIdentityConnectionString = Configuration.GetConnectionString("CurioIdentityPostgre");
+
+            StartupSetup.AddDbContext<CurioClientDbContext>(services, curioClientConnectionString);
+            StartupSetup.AddDbContext<CurioIdentityDbContext>(services, curioIdentityConnectionString);
         }
 
         private JsonSerializerOptions GetJsonSerializerOptions()

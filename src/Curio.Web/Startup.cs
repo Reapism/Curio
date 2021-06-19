@@ -9,6 +9,7 @@ using Curio.Infrastructure;
 using Curio.Persistence.Client;
 using Curio.Persistence.Identity;
 using Curio.SharedKernel.Constants;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,18 +49,13 @@ namespace Curio.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            string curioClientConnectionString = Configuration.GetConnectionString("CurioClientPostgre");
-            string curioIdentityConnectionString = Configuration.GetConnectionString("CurioIdentityPostgre");
-
-            StartupSetup.AddDbContext<CurioClientDbContext>(services, curioClientConnectionString);
-            StartupSetup.AddDbContext<CurioIdentityDbContext>(services, curioIdentityConnectionString);
-
             AddIdentity(services);
-            // not sure if this is needed.
-            //StartupSetup.AddDbContext<CurioIdentityDbContext>(services, curioIdentityConnectionString);
+            AddDbContexts(services);
+
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMediatR(typeof(Startup));
 
             AddHttpClient(services);
 
@@ -80,6 +76,15 @@ namespace Curio.Web
                 // optional - default path to view services is /listallservices - recommended to choose your own path
                 config.Path = "/listallservices";
             });
+        }
+
+        private void AddDbContexts(IServiceCollection services)
+        {
+            string curioClientConnectionString = Configuration.GetConnectionString("CurioClientPostgre");
+            string curioIdentityConnectionString = Configuration.GetConnectionString("CurioIdentityPostgre");
+
+            StartupSetup.AddDbContext<CurioClientDbContext>(services, curioClientConnectionString);
+            StartupSetup.AddDbContext<CurioIdentityDbContext>(services, curioIdentityConnectionString);
         }
 
         private static void AddHttpClient(IServiceCollection services)
