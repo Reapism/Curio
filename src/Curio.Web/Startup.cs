@@ -49,8 +49,8 @@ namespace Curio.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            AddIdentity(services);
             AddDbContexts(services);
+            AddIdentity(services);
 
 
             services.AddControllersWithViews();
