@@ -38,7 +38,7 @@ if ($isProjectPathInvalid) {
 }
 
 Write-Host "Project Path: " -ForegroundColor Blue -NoNewline
-Write-Host ${projectPath} -ForegroundColor Green -NoNewline
+Write-Host ${projectPath} -ForegroundColor Green
 
 $startupProjectPath = Resolve-Path $startupProjectPath
 $startupProjectPathExists = Test-Path $startupProjectPath
@@ -48,7 +48,7 @@ if ($isStartupProjectPathInvalid) {
 }
 
 Write-Host "Startup Project Path: " -ForegroundColor Blue -NoNewline
-Write-Host ${startupProjectPath} -ForegroundColor Green -NoNewline
+Write-Host ${startupProjectPath} -ForegroundColor Green
 
 $isContextNameInvalid = ($null -eq $contextName)
 if ($isContextNameInvalid) {
