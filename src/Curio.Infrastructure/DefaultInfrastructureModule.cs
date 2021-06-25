@@ -80,6 +80,10 @@ namespace Curio.Infrastructure
                    .As(typeof(IRepository<>))
                    .InstancePerLifetimeScope();
 
+            builder.RegisterType<EfRepository>()
+                   .As<IRepository>()
+                   .InstancePerLifetimeScope();
+
             builder.RegisterGeneric(typeof(LoggerAdapter<>))
                    .As(typeof(IAppLogger<>))
                    .InstancePerLifetimeScope();
