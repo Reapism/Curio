@@ -4,8 +4,8 @@ namespace Curio.SharedKernel.Interfaces
 {
     public interface IValidationResponse
     {
-        bool IsFailure { get; }
-        // ValidationMessage / Tip to solve validation.
+        bool IsSuccess { get; }
+
         /// <summary>
         /// A key/value pair storing errors as keys, and the reason for the error as values.
         /// </summary>

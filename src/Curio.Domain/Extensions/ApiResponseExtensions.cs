@@ -160,7 +160,7 @@ namespace Curio.Domain.Extensions
             if (validationResponse is null)
                 return false;
 
-            if (validationResponse.IsFailure)
+            if (!validationResponse.IsSuccess)
                 return true;
 
             if (validationResponse.ReasonByErrorMapping.Any())

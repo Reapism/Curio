@@ -14,7 +14,7 @@ namespace Curio.Domain.Extensions
         /// <param name="validationResponse"></param>
         /// <returns></returns>
         /// <remarks>Error authenticating user; The password is invalid.</remarks>
-        public static string Flatten(this IValidationResponse validationResponse)
+        public static string Flatten(this IValidationResponse validationResponse, string kvpDelimiter = "; ")
         {
             var flattenStringBuilder = new StringBuilder(string.Empty);
 
@@ -22,28 +22,19 @@ namespace Curio.Domain.Extensions
             {
                 flattenStringBuilder
                     .Append(kvp.Key)
-                    .Append("; ")
+                    .Append(kvpDelimiter)
                     .Append(kvp.Value)
                     .AppendLine();
             }
 
             return flattenStringBuilder.ToString();
         }
-        public static Tuple<string, string> First(this IValidationResponse validationResponse)
-        {
-            if (validationResponse.ReasonByErrorMapping.Count > 0)
-            {
-                return validationResponse.ReasonByErrorMapping.First().AsTuple();
-            }
 
-            return Tuple.Create<string, string>(null, null);
-        }
-
-        public static IDictionary<string, string> ToValidationResponse(this (string, string) validationTipTuple)
+        public static IDictionary<string, string> ToValidationResponse(this (string, string) reasonByErrorTuple)
         {
             return new Dictionary<string, string>()
             {
-                { validationTipTuple.Item1, validationTipTuple.Item2 }
+                { reasonByErrorTuple.Item1, reasonByErrorTuple.Item2 }
             };
         }
     }
