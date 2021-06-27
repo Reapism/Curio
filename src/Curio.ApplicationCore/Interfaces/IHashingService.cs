@@ -1,5 +1,5 @@
 ﻿using System.Security.Cryptography;
-using Curio.Core.Extensions;
+using Curio.Domain.Extensions;
 
 namespace Curio.ApplicationCore.Interfaces
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Curio.Core.Entities;
+using Curio.Domain.Entities;
 using Curio.SharedKernel.Interfaces;
 using Curio.Web.ApiModels;
 using Microsoft.AspNetCore.Mvc;

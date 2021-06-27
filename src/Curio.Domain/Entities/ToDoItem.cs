@@ -1,7 +1,7 @@
-﻿using Curio.Core.Events;
+﻿using Curio.Domain.Events;
 using Curio.SharedKernel.Bases;
 
-namespace Curio.Core.Entities
+namespace Curio.Domain.Entities
 {
     public class ToDoItem : Entity
     {

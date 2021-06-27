@@ -1,4 +1,4 @@
-﻿using Curio.Core.Entities;
+﻿using Curio.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

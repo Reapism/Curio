@@ -2,7 +2,7 @@
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Curio.Core.Extensions;
+using Curio.Domain.Extensions;
 using Curio.Persistence.Identity;
 using Curio.SharedKernel;
 using Curio.SharedKernel.Bases;

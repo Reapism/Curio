@@ -1,7 +1,7 @@
 ﻿using System;
 using Curio.SharedKernel.Bases;
 
-namespace Curio.Core.Extensions
+namespace Curio.Domain.Extensions
 {
     public static class AuditableEntityExtensions
     {

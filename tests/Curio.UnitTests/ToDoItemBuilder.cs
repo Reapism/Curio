@@ -1,4 +1,4 @@
-﻿using Curio.Core.Entities;
+﻿using Curio.Domain.Entities;
 
 namespace Curio.UnitTests
 {
@@ -6,7 +6,7 @@ namespace Curio.UnitTests
     // https://ardalis.com/improve-tests-with-the-builder-pattern-for-test-data
     public class ToDoItemBuilder
     {
-        private ToDoItem _todo = new ToDoItem();
+        private ToDoItem _todo = new();
 
         public ToDoItemBuilder Title(string title)
         {

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Curio.Core.Events;
+using Curio.Domain.Events;
 using Xunit;
 
 namespace Curio.UnitTests.Core.Entities

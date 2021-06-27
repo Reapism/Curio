@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Curio.Core.Entities;
-using Curio.Core.Enums;
+using Curio.Domain.Entities;
+using Curio.Domain.Enums;
 
 namespace Curio.Web.ViewModels
 {

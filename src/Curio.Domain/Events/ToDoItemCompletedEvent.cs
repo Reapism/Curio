@@ -1,7 +1,7 @@
-﻿using Curio.Core.Entities;
+﻿using Curio.Domain.Entities;
 using Curio.SharedKernel.Bases;
 
-namespace Curio.Core.Events
+namespace Curio.Domain.Events
 {
     public class ToDoItemCompletedEvent : BaseDomainEvent
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Curio.Core.Exceptions
+namespace Curio.Domain.Exceptions
 {
     /// <summary>
     /// The base class for all Curio

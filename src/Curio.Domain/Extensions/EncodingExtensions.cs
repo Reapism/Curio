@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Curio.Core.Extensions
+namespace Curio.Domain.Extensions
 {
     public static class EncodingExtensions
     {

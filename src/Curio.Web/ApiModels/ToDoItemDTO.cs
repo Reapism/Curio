@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Curio.Core.Entities;
+using Curio.Domain.Entities;
 
 namespace Curio.Web.ApiModels
 {

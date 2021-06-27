@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Curio.Core.Enums
+namespace Curio.Domain.Enums
 {
     /// <summary>
     /// The source originating in the creation of a specific post.

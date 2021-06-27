@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using Curio.Core.Entities;
-using Curio.Core.Events;
+using Curio.Domain.Entities;
+using Curio.Domain.Events;
 using Curio.Infrastructure;
 using Curio.Infrastructure.DomainEvents;
 using Microsoft.Extensions.Logging;

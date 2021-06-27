@@ -2,7 +2,7 @@
 using System.Reflection;
 using Autofac;
 using Curio.ApplicationCore.Interfaces;
-using Curio.Core.Exceptions;
+using Curio.Domain.Exceptions;
 using Curio.Infrastructure.DomainEvents;
 using Curio.Infrastructure.Logging;
 using Curio.Infrastructure.Repository;

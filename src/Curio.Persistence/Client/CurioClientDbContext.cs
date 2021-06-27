@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Curio.Core.Entities;
+using Curio.Domain.Entities;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;

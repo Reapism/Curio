@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Curio.ApplicationCore.Interfaces;
-using Curio.Core.Events;
+using Curio.Domain.Events;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 

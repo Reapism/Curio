@@ -1,4 +1,4 @@
-using Curio.Core.Entities;
+using Curio.Domain.Entities;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Curio.Core.Extensions
+namespace Curio.Domain.Extensions
 {
     public static class TupleExtensions
     {

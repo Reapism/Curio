@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Curio.SharedKernel.Interfaces;
 
-namespace Curio.Core.Extensions
+namespace Curio.Domain.Extensions
 {
     public static class IValidationResponseExtensions
     {

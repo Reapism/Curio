@@ -1,4 +1,4 @@
-﻿using Curio.Infrastructure.Data;
+﻿using Curio.Infrastructure.Repository;
 using Curio.Persistence.Client;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.EntityFrameworkCore;

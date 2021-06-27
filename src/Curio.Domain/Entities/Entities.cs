@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Curio.SharedKernel.Bases;
 using Curio.SharedKernel.Interfaces;
 
-namespace Curio.Core.Entities
+namespace Curio.Domain.Entities
 {
     /// <summary>
     /// This will not be the official Users Table.

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Curio.Core.Entities;
+using Curio.Domain.Entities;
 using Curio.Web;
 using Newtonsoft.Json;
 using Xunit;

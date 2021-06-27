@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Curio.Core.Entities;
+using Curio.Domain.Entities;
 using Curio.SharedKernel.Interfaces;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

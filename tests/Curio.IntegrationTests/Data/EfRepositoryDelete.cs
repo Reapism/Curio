@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Curio.Core.Entities;
+using Curio.Domain.Entities;
 using Curio.UnitTests;
 using Xunit;
 

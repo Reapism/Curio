@@ -4,7 +4,7 @@ using System.Linq;
 using Curio.SharedKernel;
 using Curio.SharedKernel.Interfaces;
 
-namespace Curio.Core.Extensions
+namespace Curio.Domain.Extensions
 {
     public static class ApiResponseExtensions
     {

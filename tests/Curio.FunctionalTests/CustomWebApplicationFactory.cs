@@ -39,34 +39,32 @@ namespace Curio.FunctionalTests
 
         private void EnsureDatabasesAreCreated(ServiceProvider serviceProvider)
         {
-            using (var scope = serviceProvider.CreateScope())
+            using var scope = serviceProvider.CreateScope();
+            var scopedServices = scope.ServiceProvider;
+            var curioClientDb = scopedServices.GetRequiredService<CurioClientDbContext>();
+            var curioIdentityDb = scopedServices.GetRequiredService<CurioIdentityDbContext>();
+
+            var logger = scopedServices
+                .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
+
+            // Ensure the database is created.
+            var clientDbExists = curioClientDb.Database.EnsureCreated();
+            var identityDbExists = curioIdentityDb.Database.EnsureCreated();
+
+            logger.LogInformation($"Curio Client database exists: {clientDbExists}");
+            logger.LogInformation($"Curio Identity database exists: {clientDbExists}");
+
+            logger.LogInformation("If databases dont exist, they have been created.");
+
+            try
             {
-                var scopedServices = scope.ServiceProvider;
-                var curioClientDb = scopedServices.GetRequiredService<CurioClientDbContext>();
-                var curioIdentityDb = scopedServices.GetRequiredService<CurioIdentityDbContext>();
-
-                var logger = scopedServices
-                    .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
-
-                // Ensure the database is created.
-                var clientDbExists = curioClientDb.Database.EnsureCreated();
-                var identityDbExists = curioIdentityDb.Database.EnsureCreated();
-
-                logger.LogInformation($"Curio Client database exists: {clientDbExists}");
-                logger.LogInformation($"Curio Identity database exists: {clientDbExists}");
-
-                logger.LogInformation("If databases dont exist, they have been created.");
-
-                try
-                {
-                    // Seed the database with test data.
-                    //SeedData.PopulateTestData(db);
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(ex, "An error occurred seeding the " +
-                        $"database with test messages. Error: {ex.Message}");
-                }
+                // Seed the database with test data.
+                //SeedData.PopulateTestData(db);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred seeding the " +
+                    $"database with test messages. Error: {ex.Message}");
             }
         }
 
