@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Curio.WebApi.Controllers
 {
-    public class EndUserRegistrationController : CurioControllerBase
+    public class EndUserRegistrationController : ApiControllerBase
     {
         public EndUserRegistrationController(IMediator mediator) : base(mediator)
         {
