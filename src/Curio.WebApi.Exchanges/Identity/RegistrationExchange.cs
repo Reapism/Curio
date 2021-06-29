@@ -93,7 +93,7 @@ namespace Curio.WebApi.Exchanges.Identity
         [Required]
         public bool IsFirstTimeLogin { get; set; } = true;
 
-        [IgnoreProperty]
+        [JsonIgnore]
         internal virtual string UserType { get; set; } = UserTypeConstants.EndUser;
     }
 
