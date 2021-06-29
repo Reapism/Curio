@@ -4,7 +4,7 @@ using Curio.SharedKernel.Interfaces;
 
 namespace Curio.SharedKernel.Bases
 {
-    public abstract class ValidationResponse : IValidationResponse
+    public class ValidationResponse : IValidationResponse
     {
         public bool IsSuccess { get => !ReasonByErrorMapping?.Any() ?? false; }
         /// <inheritdoc/>
