@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using Autofac;
 using Curio.ApplicationCore.Interfaces;
@@ -11,6 +12,7 @@ using Curio.Infrastructure.Services.Identity;
 using Curio.Persistence.Identity;
 using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Identity;
+using MediatR;
 using Module = Autofac.Module;
 
 namespace Curio.Infrastructure
@@ -70,8 +72,31 @@ namespace Curio.Infrastructure
 
             RegisterSharedKernel(builder);
             RegisterExchanges(builder);
-            RegisterCore(builder);
+            RegisterApplicationCore(builder);
             RegisterInfrastructure(builder);
+            RegisterWebApi(builder);
+        }
+
+        private void RegisterWebApi(ContainerBuilder builder)
+        {
+            RegisterRequestsAndRequestHandlers(builder);
+        }
+
+        private void RegisterRequestsAndRequestHandlers(ContainerBuilder builder)
+        {
+            //TODO this does not register the request and handlers properly
+            // typeof(IRequest<>).Assembly is MediatR and not web exchanges and web api proj
+            // Because this infra project doesn't know about it.
+            // Need to create a new autofac module for web api request/response registrations.
+            builder
+                .RegisterAssemblyTypes(typeof(IRequest<>).Assembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IRequest<>)))
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterAssemblyTypes(typeof(IRequestHandler<>).Assembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IRequestHandler<>)))
+                .AsImplementedInterfaces();
         }
 
         private void RegisterInfrastructure(ContainerBuilder builder)
@@ -135,9 +160,17 @@ namespace Curio.Infrastructure
 
         }
 
-        private void RegisterCore(ContainerBuilder builder)
+        private void RegisterDomain(ContainerBuilder builder)
         {
 
+        }
+
+        private void RegisterApplicationCore(ContainerBuilder builder)
+        {
+            // Replace later with Sha512 if needed.
+            builder.RegisterType<Sha256HashingService>()
+                   .As<IHashingService>()
+                   .InstancePerLifetimeScope();
         }
 
         private void RegisterExchanges(ContainerBuilder builder)
