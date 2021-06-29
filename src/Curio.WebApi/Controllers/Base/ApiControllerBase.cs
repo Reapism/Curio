@@ -5,9 +5,9 @@ namespace Curio.WebApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CurioControllerBase : ControllerBase
+    public class ApiControllerBase : ControllerBase
     {
-        public CurioControllerBase(IMediator mediator)
+        public ApiControllerBase(IMediator mediator)
         {
             Mediator = mediator;
         }
