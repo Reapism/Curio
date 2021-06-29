@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Curio.SharedKernel;
+using Curio.SharedKernel.Attributes;
 using Curio.SharedKernel.Authorization;
 using Curio.SharedKernel.Bases;
 using MediatR;
@@ -11,25 +12,25 @@ namespace Curio.WebApi.Exchanges.Identity
     public sealed class AdministratorRegistrationRequest : RegistrationRequest, IRequest<ApiResponse<RegistrationResponse>>
     {
         [JsonIgnore]
-        public override string UserType { get; protected set; } = UserTypeConstants.Administrator;
+        internal override string UserType { get; set; } = UserTypeConstants.Administrator;
     }
 
     public sealed class AdvertiserRegistrationRequest : RegistrationRequest, IRequest<ApiResponse<RegistrationResponse>>
     {
         [JsonIgnore]
-        public override string UserType { get; protected set; } = UserTypeConstants.Advertiser;
+        internal override string UserType { get; set; } = UserTypeConstants.Advertiser;
     }
 
     public sealed class EndUserRegistrationRequest : RegistrationRequest, IRequest<ApiResponse<RegistrationResponse>>
     {
         [JsonIgnore]
-        public override string UserType { get; protected set; } = UserTypeConstants.EndUser;
+        internal override string UserType { get; set; } = UserTypeConstants.EndUser;
     }
 
     public sealed class InternalRegistrationRequest : RegistrationRequest, IRequest<ApiResponse<RegistrationResponse>>
     {
         [JsonIgnore]
-        public override string UserType { get; protected set; } = UserTypeConstants.Internal;
+        internal override string UserType { get; set; } = UserTypeConstants.Internal;
     }
 
     public abstract class RegistrationRequest
@@ -51,37 +52,49 @@ namespace Curio.WebApi.Exchanges.Identity
 
         // Your information
         [Required]
+        [DisplayName("First Name")]
         public string FirstName { get; set; }
         [Required]
+        [DisplayName("Last Name")]
         public string LastName { get; set; }
 
         // Profile 
 
         [Required]
+        [DisplayName("Display Name")]
         public string DisplayName { get; set; }
         [Required]
+        [DisplayName("Handle")]
         public string UniqueHandle { get; set; }
         public byte[] ImageBase64 { get; set; }
 
+        [Required]
+        [DisplayName("Enable Two Factor Authentication")]
         public bool TwoFactorEnabled { get; set; }
 
         // Agreements
+        [Required]
         [DefaultValue(false)]
         [DisplayName("Agree To EULA")]
         public bool HasAgreedToEula { get; set; }
+
+        [Required]
         [DefaultValue(false)]
         [DisplayName("Agree To Privacy Policy")]
         public bool HasAgreedToPrivacyPolicy { get; set; }
 
         // Computed values from client side
+        [Required]
         public bool HasMobilePhone { get; set; }
+        [Required]
         public bool VerifyWithMobilePhone { get; set; }
+        [Required]
         public bool VerifyWithEmail { get; set; }
-
+        [Required]
         public bool IsFirstTimeLogin { get; set; } = true;
 
-        [JsonIgnore]
-        public virtual string UserType { get; protected set; } = UserTypeConstants.EndUser;
+        [IgnoreProperty]
+        internal virtual string UserType { get; set; } = UserTypeConstants.EndUser;
     }
 
 
