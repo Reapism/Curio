@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Curio.SharedKernel;
-using Curio.SharedKernel.Attributes;
 using Curio.SharedKernel.Authorization;
 using Curio.SharedKernel.Bases;
 using MediatR;
