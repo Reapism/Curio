@@ -10,6 +10,7 @@ using Curio.Infrastructure;
 using Curio.Persistence.Client;
 using Curio.Persistence.Identity;
 using Curio.SharedKernel.Constants;
+using Curio.WebApi.Exchanges.Identity;
 using Curio.WebApi.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -26,19 +27,20 @@ namespace Curio.WebApi
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment _env;
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
-            _env = env;
+            Environment = env;
         }
 
         public IConfiguration Configuration { get; }
 
+        public IWebHostEnvironment Environment { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton(Configuration);
             AddIdentity(services);
             AddAuthentication(services);
             AddDbContexts(services);
@@ -48,7 +50,7 @@ namespace Curio.WebApi
             services.AddControllers()
                     .AddJsonOptions(options => GetJsonSerializerOptions());
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(Startup).Assembly, typeof(LoginRequest).Assembly);
             AddSwaggerGen(services);
         }
 
@@ -70,13 +72,13 @@ namespace Curio.WebApi
 
             if (env.IsProduction() || env.IsStaging())
             {
-
+                app.UseExceptionHandler("Api/Error");
+                app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
+            app.UseHttpsRedirection();
+            app.UseCookiePolicy();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -87,7 +89,7 @@ namespace Curio.WebApi
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new DefaultInfrastructureModule(_env.EnvironmentName == EnvironmentConstants.Development));
+            builder.RegisterModule(new DefaultInfrastructureModule(Environment.EnvironmentName == EnvironmentConstants.Development));
         }
 
         private void AddDbContexts(IServiceCollection services)
@@ -161,12 +163,16 @@ namespace Curio.WebApi
                     }
                 });
 
-                c.SchemaFilter<SwaggerIgnoreFilter>();
-
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(GetXmlPath());
             });
+        }
+
+        private string GetXmlPath()
+        {
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+            return xmlPath;
         }
 
         private void AddAuthentication(IServiceCollection services)
@@ -183,7 +189,7 @@ namespace Curio.WebApi
             })
             .AddJwtBearer(config =>
             {
-                //config.RequireHttpsMetadata = false; // make sure only disable in development
+                config.RequireHttpsMetadata = !Environment.IsDevelopment(); // make sure only disable in development
                 config.SaveToken = true;
                 config.TokenValidationParameters = new TokenValidationParameters
                 {
