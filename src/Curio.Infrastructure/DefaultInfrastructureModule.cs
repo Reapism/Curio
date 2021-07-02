@@ -13,6 +13,7 @@ using Curio.Persistence.Identity;
 using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Identity;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Module = Autofac.Module;
 
 namespace Curio.Infrastructure
@@ -88,15 +89,6 @@ namespace Curio.Infrastructure
             // typeof(IRequest<>).Assembly is MediatR and not web exchanges and web api proj
             // Because this infra project doesn't know about it.
             // Need to create a new autofac module for web api request/response registrations.
-            builder
-                .RegisterAssemblyTypes(typeof(IRequest<>).Assembly)
-                .Where(t => t.IsClosedTypeOf(typeof(IRequest<>)))
-                .AsImplementedInterfaces();
-
-            builder
-                .RegisterAssemblyTypes(typeof(IRequestHandler<>).Assembly)
-                .Where(t => t.IsClosedTypeOf(typeof(IRequestHandler<>)))
-                .AsImplementedInterfaces();
         }
 
         private void RegisterInfrastructure(ContainerBuilder builder)
@@ -107,6 +99,10 @@ namespace Curio.Infrastructure
 
             builder.RegisterType<EfRepository>()
                    .As<IRepository>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType(typeof(LoggerFactory))
+                   .As(typeof(ILoggerFactory))
                    .InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(LoggerAdapter<>))
