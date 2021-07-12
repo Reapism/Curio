@@ -19,12 +19,28 @@ namespace Curio.Infrastructure.Repository
             this.dbContext = dbContext;
         }
 
-        public T Add<T>(T entity) where T : Entity
+        public void Add<T>(T entity) where T : Entity
         {
             dbContext.Set<T>().Add(entity);
             dbContext.SaveChanges();
+        }
 
-            return entity;
+        public void AddRange<T>(IEnumerable<T> entities) where T : Entity
+        {
+            dbContext.Set<T>().AddRange(entities);
+            dbContext.SaveChanges();
+        }
+
+        public async Task AddAsync<T>(T entity) where T : Entity
+        {
+            await dbContext.Set<T>().AddAsync(entity);
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task AddRangeAsync<T>(IEnumerable<T> entities) where T : Entity
+        {
+            await dbContext.Set<T>().AddRangeAsync(entities);
+            await dbContext.SaveChangesAsync();
         }
 
         public void Update<T>(T entity) where T : Entity
@@ -69,30 +85,6 @@ namespace Curio.Infrastructure.Repository
             return dbContext.Set<T>().Where(predicate).ToListAsync();
         }
 
-        public IEnumerable<T> Add<T>(IEnumerable<T> entities) where T : Entity
-        {
-            dbContext.Set<T>().AddRange(entities);
-            dbContext.SaveChanges();
-
-            return entities;
-        }
-
-        public async Task<T> AddAsync<T>(T entity) where T : Entity
-        {
-            await dbContext.Set<T>().AddAsync(entity);
-            await dbContext.SaveChangesAsync();
-
-            return entity;
-        }
-
-        public async Task<IEnumerable<T>> AddAsync<T>(IEnumerable<T> entities) where T : Entity
-        {
-            await dbContext.Set<T>().AddRangeAsync(entities);
-            await dbContext.SaveChangesAsync();
-
-            return entities;
-        }
-
         public async Task UpdateAsync<T>(T entity) where T : Entity
         {
             dbContext.Entry(entity).State = EntityState.Modified;
@@ -103,18 +95,6 @@ namespace Curio.Infrastructure.Repository
         {
             dbContext.Set<T>().Remove(entity);
             await dbContext.SaveChangesAsync();
-        }
-
-        public T Get<T>(Expression<Func<T, bool>> predicate) where T : Entity
-        {
-            var entity = dbContext.Set<T>().First(predicate);
-            return entity;
-        }
-
-        public Task<T> GetAsync<T>(Expression<Func<T, bool>> predicate) where T : Entity
-        {
-            var entity = dbContext.Set<T>().FirstAsync(predicate);
-            return entity;
         }
     }
 
@@ -130,18 +110,28 @@ namespace Curio.Infrastructure.Repository
             dbSet = dbContext.Set<T>();
         }
 
-        public T Add(T entity)
+        public void Add(T entity)
         {
             dbSet.Add(entity);
             dbContext.SaveChanges();
-            return entity;
         }
 
-        public async Task<T> AddAsync(T entity)
+        public void AddRange(IEnumerable<T> entities)
+        {
+            dbSet.AddRange(entities);
+            dbContext.SaveChanges();
+        }
+
+        public async Task AddAsync(T entity)
         {
             await dbSet.AddAsync(entity);
             await dbContext.SaveChangesAsync();
-            return entity;
+        }
+
+        public async Task AddRangeAsync(IEnumerable<T> entities)
+        {
+            await dbSet.AddRangeAsync(entities);
+            await dbContext.SaveChangesAsync();
         }
 
         public void Delete(T entity)
@@ -154,18 +144,6 @@ namespace Curio.Infrastructure.Repository
         {
             dbSet.Remove(entity);
             await dbContext.SaveChangesAsync();
-        }
-
-        public T Get(Expression<Func<T, bool>> predicate)
-        {
-            var entity = dbSet.First(predicate);
-            return entity;
-        }
-
-        public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
-        {
-            var entity = await dbSet.FirstAsync(predicate);
-            return entity;
         }
 
         public T GetById(Guid id)

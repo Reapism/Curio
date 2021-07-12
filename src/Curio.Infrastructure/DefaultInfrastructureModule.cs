@@ -101,6 +101,14 @@ namespace Curio.Infrastructure
                    .As<IRepository>()
                    .InstancePerLifetimeScope();
 
+            builder.RegisterGeneric(typeof(EfReadOnlyRepository<>))
+                   .As(typeof(IReadOnlyRepository<>))
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<EfReadOnlyRepository>()
+                   .As<IReadOnlyRepository>()
+                   .InstancePerLifetimeScope();
+
             builder.RegisterType(typeof(LoggerFactory))
                    .As(typeof(ILoggerFactory))
                    .InstancePerLifetimeScope();
@@ -149,6 +157,7 @@ namespace Curio.Infrastructure
             builder.RegisterType<LoginService>()
                    .As<ILoginService>()
                    .InstancePerLifetimeScope();
+
         }
 
         private void RegisterSharedKernel(ContainerBuilder builder)
