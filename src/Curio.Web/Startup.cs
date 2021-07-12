@@ -204,6 +204,7 @@ namespace Curio.Web
         {
             services.AddHttpClient("WebApi", (httpClient) =>
             {
+                // TODO Later, use configuration in appsettings.json
                 var uriBuilder = new UriBuilder("https", "localhost", 44322);
                 httpClient.BaseAddress = uriBuilder.Uri;
                 httpClient.DefaultRequestHeaders.Accept.Clear();
