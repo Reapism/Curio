@@ -19,6 +19,14 @@ namespace Curio.WebApi.Extensions
                     return new OkObjectResult(apiResponse);
                 case StatusCodes.Status201Created:
                     return new CreatedResult("", apiResponse);
+                case StatusCodes.Status400BadRequest:
+                    return new BadRequestObjectResult(apiResponse);
+                case StatusCodes.Status401Unauthorized:
+                    return new UnauthorizedObjectResult(apiResponse);
+                case StatusCodes.Status403Forbidden:
+                    return new ForbidResult(); // TODO get authentication scheme
+                case StatusCodes.Status404NotFound:
+                    return new BadRequestObjectResult(apiResponse);
                 default:
                     return new OkObjectResult(apiResponse);
             }
