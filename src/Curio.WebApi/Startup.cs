@@ -210,11 +210,37 @@ namespace Curio.WebApi
                 options.User.RequireUniqueEmail = true;
                 options.Lockout = GetLockoutOptions();
                 options.ClaimsIdentity = GetClaimsIdentityOptions();
+                options.SignIn = GetSignInOptions();
+                options.Stores = GetStoresOptions();
             })
             .AddEntityFrameworkStores<CurioIdentityDbContext>()
             .AddUserStore<ApplicationUserStore>()
             .AddRoles<ApplicationRole>()
             .AddDefaultTokenProviders();
+
+            services.AddScoped<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();
+        }
+
+        private StoreOptions GetStoresOptions()
+        {
+            var storesOptions = new StoreOptions()
+            {
+                ProtectPersonalData = true // TODO implement IProtectedUserStore
+            };
+
+            return storesOptions;
+        }
+
+        private SignInOptions GetSignInOptions()
+        {
+            var signInOptions = new SignInOptions()
+            {
+                RequireConfirmedAccount = false,
+                RequireConfirmedEmail = false,
+                RequireConfirmedPhoneNumber = false
+            };
+
+            return signInOptions;
         }
 
         private ClaimsIdentityOptions GetClaimsIdentityOptions()
