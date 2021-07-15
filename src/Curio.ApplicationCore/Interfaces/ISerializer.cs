@@ -6,16 +6,17 @@ namespace Curio.ApplicationCore.Interfaces
 {
     public interface IJsonSerializer
     {
-        Task<T> DeserializeJsonAsync<T>(string filePath, ISerializerOptions options = null);
-        Task<T> DeserializeJsonAsync<T>(Stream stream, ISerializerOptions options = null);
+        Task<T> DeserializeAsync<T>(string filePath);
+        Task<T> DeserializeAsync<T>(Stream stream);
 
-        T DeserializeJson<T>(Stream stream, ISerializerOptions options);
-        T DeserializeJson<T>(ReadOnlySpan<byte> utf8Json, ISerializerOptions options);
-        T DeserializeJson<T>(string inputPath, ISerializerOptions options);
+        T Deserialize<T>(Stream stream);
+        T Deserialize<T>(ReadOnlySpan<byte> utf8Json);
+        T Deserialize<T>(string inputPath);
 
-        Task SerializeJsonAsync<T>(T value, string outputPath, ISerializerOptions options);
+        Task SerializeAsync<T>(T value, string outputPath);
+        Task<string> SerializeAsync<T>(T value);
 
-        void SerializeJson<T>(T value, string outputPath, ISerializerOptions options);
-        ReadOnlySpan<byte> SerializeJson<T>(T value, ISerializerOptions options);
+        void Serialize<T>(T value, string outputPath);
+        ReadOnlySpan<byte> Serialize<T>(T value);
     }
 }

@@ -9,25 +9,31 @@ namespace Curio.Infrastructure.Services
 {
     public class JsonSerializerService : IJsonSerializer
     {
-        public T DeserializeJson<T>(Stream stream, ISerializerOptions options)
+        private readonly IJsonSerializerOptions options;
+
+        public JsonSerializerService(IJsonSerializerOptions options)
+        {
+            this.options = options;
+        }
+        public T Deserialize<T>(Stream stream)
         {
             var memoryStream = new MemoryStream();
             stream.CopyTo(memoryStream);
 
             var jsonBytes = memoryStream.ToArray();
             var readOnlySpan = new ReadOnlySpan<byte>(jsonBytes, 0, jsonBytes.Length);
-            var value = DeserializeJson<T>(readOnlySpan, options);
+            var value = Deserialize<T>(readOnlySpan);
 
             return value;
         }
 
-        public T DeserializeJson<T>(ReadOnlySpan<byte> utf8Json, ISerializerOptions options)
+        public T Deserialize<T>(ReadOnlySpan<byte> utf8Json)
         {
-            var value = JsonSerializer.Deserialize<T>(utf8Json, options.JsonOptions);
+            var value = JsonSerializer.Deserialize<T>(utf8Json, options.Options);
             return value;
         }
 
-        public T DeserializeJson<T>(string filePath, ISerializerOptions options)
+        public T Deserialize<T>(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -36,12 +42,12 @@ namespace Curio.Infrastructure.Services
 
             var fileBytes = File.ReadAllBytes(filePath);
             var readOnlySpan = new ReadOnlySpan<byte>(fileBytes, 0, fileBytes.Length);
-            var value = JsonSerializer.Deserialize<T>(readOnlySpan, options.JsonOptions);
+            var value = JsonSerializer.Deserialize<T>(readOnlySpan, options.Options);
 
             return value;
         }
 
-        public async Task<T> DeserializeJsonAsync<T>(string filePath, ISerializerOptions options = null)
+        public async Task<T> DeserializeAsync<T>(string filePath)
         {
             if (!File.Exists(filePath))
             {
@@ -49,37 +55,48 @@ namespace Curio.Infrastructure.Services
             }
 
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            var value = await DeserializeJsonAsync<T>(fileStream, options);
+            var value = await DeserializeAsync<T>(fileStream);
 
             return value;
         }
 
-        public async Task<T> DeserializeJsonAsync<T>(Stream stream, ISerializerOptions options = null)
+        public async Task<T> DeserializeAsync<T>(Stream stream)
         {
-            var value = await JsonSerializer.DeserializeAsync<T>(stream, options.JsonOptions);
+            var value = await JsonSerializer.DeserializeAsync<T>(stream, options.Options);
 
             return value;
         }
 
-        public void SerializeJson<T>(T value, string outputPath, ISerializerOptions options)
+        public void Serialize<T>(T value, string outputPath)
         {
-            var jsonString = JsonSerializer.Serialize(value, options.JsonOptions);
+            var jsonString = JsonSerializer.Serialize(value, options.Options);
             File.WriteAllText(outputPath, jsonString);
         }
 
-        public ReadOnlySpan<byte> SerializeJson<T>(T value, ISerializerOptions options)
+        public ReadOnlySpan<byte> Serialize<T>(T value)
         {
-            var jsonString = JsonSerializer.Serialize(value, options.JsonOptions);
+            var jsonString = JsonSerializer.Serialize(value, options.Options);
             var bytes = Encoding.UTF8.GetBytes(jsonString);
             var readOnlySpan = new ReadOnlySpan<byte>(bytes, 0, bytes.Length);
 
             return readOnlySpan;
         }
 
-        public async Task SerializeJsonAsync<T>(T value, string outputPath, ISerializerOptions options)
+        public async Task SerializeAsync<T>(T value, string outputPath)
         {
             var fileStream = new FileStream(outputPath, FileMode.OpenOrCreate, FileAccess.Write);
-            await JsonSerializer.SerializeAsync(fileStream, value, options.JsonOptions);
+            await JsonSerializer.SerializeAsync(fileStream, value, options.Options);
+        }
+
+        public async Task<string> SerializeAsync<T>(T value)
+        {
+            var memoryStream = new MemoryStream();
+            await JsonSerializer.SerializeAsync(memoryStream, value, options.Options);
+            
+            var streamReader = new StreamReader(memoryStream);
+            var jsonString = await streamReader.ReadToEndAsync();
+
+            return jsonString;
         }
     }
 }
