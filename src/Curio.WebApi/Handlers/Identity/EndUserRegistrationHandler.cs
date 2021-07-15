@@ -17,7 +17,7 @@ namespace Curio.WebApi.Handlers.Identity
 
         public async Task<ApiResponse<RegistrationResponse>> Handle(EndUserRegistrationRequest request, CancellationToken cancellationToken)
         {
-            return await userRegistrationService.RegisterUserAsync(request);
+            return await userRegistrationService.RegisterUserAsync(request, cancellationToken);
         }
     }
 }

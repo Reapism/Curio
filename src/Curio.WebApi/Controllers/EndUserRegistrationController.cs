@@ -62,7 +62,7 @@ namespace Curio.WebApi.Controllers
         /// </remarks>
         /// <returns>A standard</returns>
         [HttpPost]
-        public async Task<IActionResult> RegisterEndUser([FromForm] EndUserRegistrationRequest endUserRegistrationRequest, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> RegisterEndUser([FromForm] EndUserRegistrationRequest endUserRegistrationRequest, CancellationToken cancellationToken)
         {
             var result = await Mediator.Send(endUserRegistrationRequest, cancellationToken);
             return result.FromApiResponse();
