@@ -15,12 +15,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Curio.FunctionalTests
 {
-    public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Startup>
+    public class CustomWebApiApplicationFactory<TStartup> : WebApplicationFactory<Startup>
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder
-                .UseSolutionRelativeContentRoot("src/Curio.Web")
+                .UseSolutionRelativeContentRoot("src/Curio.WebApi")
                 .ConfigureServices(services =>
                 {
                     // Replace registered db contexts with in-memory ones.
@@ -29,6 +29,7 @@ namespace Curio.FunctionalTests
 
                     // Register a domain event dispatcher that never fails.
                     services.AddScoped<IDomainEventDispatcher, NoOpDomainEventDispatcher>();
+
                     // Build the service provider.
                     var serviceProvider = services.BuildServiceProvider();
 
@@ -87,7 +88,7 @@ namespace Curio.FunctionalTests
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                     .AddEntityFrameworkStores<CurioIdentityDbContext>()
                     .AddUserStore<ApplicationUserStore>()
-                    .AddRoles<ApplicationRole>()
+                    .AddRoleStore<ApplicationRole>()
                     .AddDefaultTokenProviders();
 
         }
