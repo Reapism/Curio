@@ -9,9 +9,9 @@ namespace Curio.Infrastructure.Services
 {
     public class JsonSerializerService : IJsonSerializer
     {
-        private readonly IJsonSerializerOptions options;
+        private readonly IJsonSerializerOptions<JsonSerializerOptions> options;
 
-        public JsonSerializerService(IJsonSerializerOptions options)
+        public JsonSerializerService(IJsonSerializerOptions<JsonSerializerOptions> options)
         {
             this.options = options;
         }
