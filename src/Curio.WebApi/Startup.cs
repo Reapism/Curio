@@ -12,6 +12,7 @@ using Curio.Persistence.Identity;
 using Curio.SharedKernel.Constants;
 using Curio.WebApi.Exchanges.Identity;
 using Curio.WebApi.Filters;
+using Curio.WebApi.Handlers.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -50,7 +51,14 @@ namespace Curio.WebApi
             services.AddControllers()
                     .AddJsonOptions(options => GetJsonSerializerOptions());
 
-            services.AddMediatR(typeof(Startup).Assembly, typeof(LoginRequest).Assembly);
+            services.AddMediatR(e =>
+            {
+                e.AsScoped();
+            },
+            typeof(Startup).Assembly,
+            typeof(EndUserRegistrationRequest).Assembly,
+            typeof(EndUserRegistrationHandler).Assembly);
+
             AddSwaggerGen(services);
         }
 
@@ -186,6 +194,7 @@ namespace Curio.WebApi
             services.AddAuthentication(config =>
             {
                 config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+  
             })
             .AddJwtBearer(config =>
             {
@@ -199,6 +208,7 @@ namespace Curio.WebApi
                     ValidateAudience = false
                 };
             });
+
         }
 
         private void AddIdentity(IServiceCollection services)
@@ -215,7 +225,6 @@ namespace Curio.WebApi
             })
             .AddEntityFrameworkStores<CurioIdentityDbContext>()
             .AddUserStore<ApplicationUserStore>()
-            .AddRoles<ApplicationRole>()
             .AddDefaultTokenProviders();
 
             services.AddScoped<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();

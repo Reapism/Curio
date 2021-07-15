@@ -215,7 +215,7 @@ namespace Curio.Web
 
         private void AddIdentity(IServiceCollection services)
         {
-            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            services.AddIdentityCore<ApplicationUser>(options =>
             {
                 options.Password = GetPasswordOptions();
                 options.User = GetUserOptions();
@@ -223,10 +223,10 @@ namespace Curio.Web
                 options.Lockout = GetLockoutOptions();
                 options.ClaimsIdentity = GetClaimsIdentityOptions();
             })
-                        .AddEntityFrameworkStores<CurioIdentityDbContext>()
-                        .AddUserStore<ApplicationUserStore>()
-                        .AddRoles<ApplicationRole>()
-                        .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<CurioIdentityDbContext>()
+            .AddRoles<ApplicationRole>()
+            .AddUserStore<ApplicationUserStore>()
+            .AddDefaultTokenProviders();
         }
 
         private ClaimsIdentityOptions GetClaimsIdentityOptions()
