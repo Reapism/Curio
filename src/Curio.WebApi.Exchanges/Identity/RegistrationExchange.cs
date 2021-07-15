@@ -68,28 +68,33 @@ namespace Curio.WebApi.Exchanges.Identity
         public byte[] ImageBase64 { get; set; }
 
         [Required]
+        [DefaultValue(true)]
         [DisplayName("Enable Two Factor Authentication")]
         public bool TwoFactorEnabled { get; set; }
 
         // Agreements
         [Required]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         [DisplayName("Agree To EULA")]
         public bool HasAgreedToEula { get; set; }
 
         [Required]
-        [DefaultValue(false)]
+        [DefaultValue(true)]
         [DisplayName("Agree To Privacy Policy")]
         public bool HasAgreedToPrivacyPolicy { get; set; }
 
         // Computed values from client side
         [Required]
+        [DefaultValue(true)]
         public bool HasMobilePhone { get; set; }
         [Required]
+        [DefaultValue(true)]
         public bool VerifyWithMobilePhone { get; set; }
         [Required]
+        [DefaultValue(true)]
         public bool VerifyWithEmail { get; set; }
         [Required]
+        [DefaultValue(true)]
         public bool IsFirstTimeLogin { get; set; } = true;
 
         [JsonIgnore]
