@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Curio.Web;
+using FluentAssertions;
 using Xunit;
 
 namespace Curio.FunctionalTests
@@ -21,7 +22,7 @@ namespace Curio.FunctionalTests
             response.EnsureSuccessStatusCode();
             string stringResponse = await response.Content.ReadAsStringAsync();
 
-            Assert.Contains("Curio", stringResponse);
+            stringResponse.Should().Contain("Curio");
         }
     }
 }

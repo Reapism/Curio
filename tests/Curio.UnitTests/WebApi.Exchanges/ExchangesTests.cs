@@ -17,7 +17,7 @@ namespace Curio.UnitTests.WebApi.Exchanges
         public void ValidationResponseByDefaultIsNull()
         {
             var loginResponse = default(LoginResponse);
-            loginResponse.ReasonByErrorMapping.Should().BeNull();
+            loginResponse?.ReasonByErrorMapping.Should().BeNull();
         }
     }
 }
