@@ -25,7 +25,7 @@ namespace Curio.Domain.Entities
         public UserProfile UserProfile { get; set; }
     }
 
-    public class UserProfile : AuditableEntity, IReferenceable
+    public class UserProfile : AuditableEntity, IReferenceable<Guid>
     {
         public string DisplayName { get; set; }
         public string UniqueHandle { get; set; }
@@ -118,7 +118,7 @@ namespace Curio.Domain.Entities
         public ICollection<UserLike> UserLikes { get; set; }
     }
 
-    public class UserLike : AuditableEntity, IReferenceable
+    public class UserLike : AuditableEntity, IReferenceable<Guid>
     {
         public Guid UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
