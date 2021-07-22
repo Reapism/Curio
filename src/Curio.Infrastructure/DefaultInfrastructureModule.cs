@@ -13,6 +13,8 @@ using Curio.Persistence.Identity;
 using Curio.SharedKernel.Interfaces;
 using Curio.WebApi.Exchanges.Identity;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Module = Autofac.Module;
 
@@ -125,9 +127,10 @@ namespace Curio.Infrastructure
                    .As<ISessionUser>()
                    .InstancePerLifetimeScope();
 
-            RegisterJsonServices(builder);
-            RegisterEmailServices(builder);
+            //RegisterAspNetIdentityServices(builder);
             RegisterIdentityServices(builder);
+            RegisterEmailServices(builder);
+            RegisterJsonServices(builder);
         }
 
         private static void RegisterJsonServices(ContainerBuilder builder)
@@ -146,6 +149,68 @@ namespace Curio.Infrastructure
             builder.RegisterType<MimeMessageBuilder>()
                    .As<IMimeMessageBuilder>()
                    .InstancePerLifetimeScope();
+        }
+
+        private void RegisterAspNetIdentityServices(ContainerBuilder builder)
+        {
+            // Taken from ASP.NET CORE SRC.
+            // https://github.com/dotnet/aspnetcore/blob/v5.0.8/src/Identity/Core/src/IdentityServiceCollectionExtensions.cs
+            builder.RegisterType<UserValidator<ApplicationUser>>()
+                   .As<IUserValidator<ApplicationUser>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<ApplicationUserStore>()
+                   .As<UserStore<ApplicationUser, ApplicationRole, CurioIdentityDbContext, Guid>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<PasswordValidator<ApplicationUser>>()
+                   .As<IPasswordValidator<ApplicationUser>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<PasswordHasher<ApplicationUser>>()
+                   .As<IPasswordHasher<ApplicationUser>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<UpperInvariantLookupNormalizer>()
+                   .As<ILookupNormalizer>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<RoleValidator<ApplicationRole>>()
+                   .As<IRoleValidator<ApplicationRole>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<RoleValidator<ApplicationRole>>()
+                   .As<IRoleValidator<ApplicationRole>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<IdentityErrorDescriber>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<SecurityStampValidator<ApplicationRole>>()
+                   .As<ISecurityStampValidator>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<TwoFactorSecurityStampValidator<ApplicationRole>>()
+                   .As<ITwoFactorSecurityStampValidator>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<UserClaimsPrincipalFactory<ApplicationUser, ApplicationRole>>()
+                   .As<IUserClaimsPrincipalFactory<ApplicationUser>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<DefaultUserConfirmation<ApplicationUser>>()
+                   .As<IUserConfirmation<ApplicationUser>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<UserManager<ApplicationUser>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<SignInManager<ApplicationUser>>()
+                   .InstancePerLifetimeScope();
+
+            builder.RegisterType<RoleManager<ApplicationRole>>()
+                   .InstancePerLifetimeScope();
+
         }
 
         private void RegisterIdentityServices(ContainerBuilder builder)
