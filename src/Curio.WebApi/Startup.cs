@@ -6,13 +6,13 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Curio.Infrastructure;
+using Curio.Infrastructure.Setup;
 using Curio.Persistence.Client;
 using Curio.Persistence.Identity;
 using Curio.SharedKernel.Constants;
 using Curio.WebApi.Exchanges.Identity;
-using Curio.WebApi.Filters;
-using Curio.WebApi.Handlers.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -38,13 +38,15 @@ namespace Curio.WebApi
 
         public IWebHostEnvironment Environment { get; }
 
+        public ILifetimeScope AutofacContainer { get; private set; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(Configuration);
-            AddIdentity(services);
-            AddAuthentication(services);
             AddDbContexts(services);
+            //AddIdentity(services);
+            AddAuthentication(services);
 
             services.AddMemoryCache();
 
@@ -56,19 +58,22 @@ namespace Curio.WebApi
                 e.AsScoped();
             },
             typeof(Startup).Assembly,
-            typeof(EndUserRegistrationRequest).Assembly,
-            typeof(EndUserRegistrationHandler).Assembly);
+            typeof(EndUserRegistrationRequest).Assembly);
 
+            services.AddOptions();
             AddSwaggerGen(services);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime, and after the ConfigureContainer method is called.
+        // Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            AutofacContainer = app.ApplicationServices.GetAutofacRoot();
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: false)
                 .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
@@ -194,7 +199,7 @@ namespace Curio.WebApi
             services.AddAuthentication(config =>
             {
                 config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-  
+
             })
             .AddJwtBearer(config =>
             {
@@ -207,27 +212,30 @@ namespace Curio.WebApi
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };
+            }
+            )
+            .AddCookie(options =>
+            {
+
             });
 
         }
 
         private void AddIdentity(IServiceCollection services)
         {
-            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            services.AddIdentityCore<ApplicationUser>(options =>
             {
                 options.Password = GetPasswordOptions();
                 options.User = GetUserOptions();
-                options.User.RequireUniqueEmail = true;
                 options.Lockout = GetLockoutOptions();
                 options.ClaimsIdentity = GetClaimsIdentityOptions();
                 options.SignIn = GetSignInOptions();
                 options.Stores = GetStoresOptions();
             })
             .AddEntityFrameworkStores<CurioIdentityDbContext>()
-            .AddUserStore<ApplicationUserStore>()
+            //.AddUserStore<ApplicationUserStore>()
+            .AddRoles<ApplicationRole>()
             .AddDefaultTokenProviders();
-
-            services.AddScoped<IPasswordHasher<ApplicationUser>, PasswordHasher<ApplicationUser>>();
         }
 
         private StoreOptions GetStoresOptions()
