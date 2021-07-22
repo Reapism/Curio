@@ -1,5 +1,5 @@
 using Autofac.Extensions.DependencyInjection;
-using Curio.Infrastructure;
+using Curio.Infrastructure.Setup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -27,6 +27,7 @@ namespace Curio.WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder
+                    // Configure more things here.
                     .UseStartup<Startup>()
                     .ConfigureLogging(logging =>
                     {
