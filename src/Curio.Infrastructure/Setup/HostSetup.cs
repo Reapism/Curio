@@ -5,7 +5,7 @@ using Curio.Persistence.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Curio.Infrastructure
+namespace Curio.Infrastructure.Setup
 {
     public class HostSetup
     {

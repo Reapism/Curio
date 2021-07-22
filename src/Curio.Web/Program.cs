@@ -1,11 +1,6 @@
-﻿using System;
-using Autofac.Extensions.DependencyInjection;
-using Curio.ApplicationCore.Interfaces;
-using Curio.Infrastructure;
-using Curio.Persistence.Client;
-using Curio.Persistence.Identity;
+﻿using Autofac.Extensions.DependencyInjection;
+using Curio.Infrastructure.Setup;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 

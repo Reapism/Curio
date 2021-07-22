@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Curio.Infrastructure
+namespace Curio.Infrastructure.Setup
 {
     public static class StartupSetup
     {
