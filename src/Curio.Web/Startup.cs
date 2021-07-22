@@ -7,7 +7,10 @@ using System.Security.Claims;
 using System.Text.Json;
 using Ardalis.ListStartupServices;
 using Autofac;
+using Curio.ApplicationCore.Interfaces;
 using Curio.Infrastructure;
+using Curio.Infrastructure.Services;
+using Curio.Infrastructure.Setup;
 using Curio.Persistence.Client;
 using Curio.Persistence.Identity;
 using Curio.SharedKernel.Constants;
@@ -56,8 +59,11 @@ namespace Curio.Web
             AddDbContexts(services);
             AddIdentity(services);
 
+            services.AddSingleton<IJsonSerializerOptions<JsonSerializerOptions>, JsonSerializerOptionsWrapper>();
+            services.AddSingleton<IJsonSerializer, JsonSerializerService>();
+
             services.AddControllersWithViews()
-                    .AddJsonOptions(options => GetJsonSerializerOptions());
+                    .AddJsonOptions(options => JsonSerializerOptionsWrapper.GetDefaultOptions());
 
             services.AddRazorPages();
             services.AddMediatR(typeof(Startup).Assembly, typeof(LoginRequest).Assembly);
@@ -125,16 +131,6 @@ namespace Curio.Web
 
             StartupSetup.AddDbContext<CurioClientDbContext>(services, curioClientConnectionString);
             StartupSetup.AddDbContext<CurioIdentityDbContext>(services, curioIdentityConnectionString);
-        }
-
-        private JsonSerializerOptions GetJsonSerializerOptions()
-        {
-            var jsonSerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web)
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
-
-            return jsonSerializerOptions;
         }
 
         private void AddSwaggerGen(IServiceCollection services)
