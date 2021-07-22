@@ -13,6 +13,7 @@ namespace Curio.Persistence.Identity
     {
         public ApplicationUserStore(CurioIdentityDbContext context, IdentityErrorDescriber describer = null) : base(context, describer)
         {
+
         }
 
         /// <summary>
@@ -29,13 +30,13 @@ namespace Curio.Persistence.Identity
             {
                 var applicationUser = await Users.SingleOrDefaultAsync(u => u.PhoneNumber == phoneNumber, cancellationToken);
                 if (applicationUser is null)
-                    return default(ApplicationUser).AsNotFoundApiResponse($"No user was found with the given phonenumber \'{phoneNumber}\'");
+                    return new ApplicationUser().AsNotFoundApiResponse($"No user was found with the given phonenumber \'{phoneNumber}\'");
 
                 return applicationUser.AsOkApiResponse();
             }
             catch (InvalidOperationException ioe)
             {
-                return default(ApplicationUser).AsBadRequestApiResponse("More than one user was found with this phonenumber", ioe);
+                return new ApplicationUser().AsBadRequestApiResponse("More than one user was found with this phonenumber", ioe);
             }
         }
     }
